@@ -7,6 +7,18 @@
             android:title="Fragment1" />
     </group>
 
+    <item android:title="Development">
+        <menu>
+        <item
+            android:id="@+id/nav_kernel_updates"
+            android:title="Kernel updates" />
+
+        <item
+            android:id="@+id/nav_recovery"
+            android:title="Change recovery" />
+        </menu>
+    </item>
+
     <item android:title="Communicate">
         <menu>
             <item
