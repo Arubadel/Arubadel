@@ -4,6 +4,8 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,10 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
+
 import Fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // Keep fragments in memory and load once to use less memory
+    public KernelUpdatesFragment mFragmentKernelUpdates;
+    public MainFragment mFragmentMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +42,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-                FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
 
+        this.mFragmentKernelUpdates = new KernelUpdatesFragment();
+        this.mFragmentMain = new MainFragment();
+
+        this.updateFragment(this.mFragmentMain);
     }
 
     @Override
@@ -79,7 +89,11 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_fragment1)
         {
-
+            this.updateFragment(this.mFragmentMain);
+        }
+        else if (id == R.id.nav_kernel_updates)
+        {
+            this.updateFragment(this.mFragmentKernelUpdates);
         }
         else if (id == R.id.nav_share)
         {
@@ -93,5 +107,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    protected void updateFragment(Fragment fragment)
+    {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment).commit();
     }
 }
