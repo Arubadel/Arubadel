@@ -39,6 +39,9 @@ public class MainFragment extends Fragment
                     {
 						Shell.SU.run("echo \"0\" > /sys/devices/system/cpu/cpu1/online\n");
                     }
+					
+					// inverse switch state
+					MainFragment.this.mCPU1.setEnabled(!isChecked);
                 }
             });
 
