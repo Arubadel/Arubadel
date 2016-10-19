@@ -23,8 +23,7 @@ public class MainFragment extends Fragment
 	{
         View rootview = inflater.inflate(R.layout.fragment_main, container, false);
         mCPU1 = (Switch) rootview.findViewById(R.id.cpu1);
-        //set the switch to ON
-        mCPU1.setChecked(true);
+  
         //attach a listener to check for changes in state
         mCPU1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() 
 			{
@@ -32,7 +31,6 @@ public class MainFragment extends Fragment
 				public void onCheckedChanged(CompoundButton buttonView,
 											 boolean isChecked)
                 {
-
 					if (isChecked)
                     {
 						Shell.SU.run("echo \"1\" > /sys/devices/system/cpu/cpu1/online\n");
@@ -41,7 +39,6 @@ public class MainFragment extends Fragment
                     {
 						Shell.SU.run("echo \"0\" > /sys/devices/system/cpu/cpu1/online\n");
                     }
-
                 }
             });
 
@@ -54,6 +51,8 @@ public class MainFragment extends Fragment
 		super.onResume();
 		
 		List<String> resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu1/online\n");
+		
+		Toast.makeText(getActivity(), "ResultIndex = " + resultList.size() + "; row0 = " + ((resultList.size() > 0) ? resultList.get(0) : "List is empty"), Toast.LENGTH_LONG).show();
 		
 		if (resultList.size() > 1)
 		{
