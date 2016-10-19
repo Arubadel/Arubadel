@@ -19,13 +19,13 @@
         <android.support.v7.widget.SwitchCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cpu3"
-            android:text="Cpu 3"/>
+            android:id="@+id/cpu2"
+            android:text="Cpu 2"/>
 
         <android.support.v7.widget.SwitchCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cpu2"
-        android:text="Cpu 2"/>
+        android:id="@+id/cpu3"
+        android:text="Cpu 3"/>
 
 </LinearLayout>
