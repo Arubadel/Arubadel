@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by Veli on 19.10.2016.
+ * Created by: Veli
+ * Date: 19.10.2016 12:42 AM
  */
 
 public class KernelReleasesBetaFragment extends ListFragment
