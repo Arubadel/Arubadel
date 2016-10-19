@@ -39,9 +39,6 @@ public class MainFragment extends Fragment
                     {
 						Shell.SU.run("echo \"0\" > /sys/devices/system/cpu/cpu1/online\n");
                     }
-					
-					// inverse switch state
-					MainFragment.this.mCPU1.setEnabled(!isChecked);
                 }
             });
 
@@ -55,13 +52,16 @@ public class MainFragment extends Fragment
 		
 		List<String> resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu1/online\n");
 		
-		Toast.makeText(getActivity(), "ResultIndex = " + resultList.size() + "; row0 = " + ((resultList.size() > 0) ? resultList.get(0) : "List is empty"), Toast.LENGTH_LONG).show();
-		
-		if (resultList.size() > 1)
+		if (resultList.size() > 0)
 		{
-			boolean currentState = "0".equals(resultList.get(0));
-			
-			this.mCPU1.setChecked(currentState);
+			// catch if bash send wrong type of string
+			try
+			{
+				boolean currentState = 1 == Integer.valueOf(resultList.get(0));
+				this.mCPU1.setChecked(currentState);
+			}
+			catch(Exception e)
+			{}
 		}
 	}
 }
