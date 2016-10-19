@@ -13,7 +13,7 @@ import com.delos.sumit.arubadel.R;
  * Created by Sumit on 19.10.2016.
  */
 
-public class Credits extends Fragment
+public class CreditsFragment extends Fragment
 {
     @Nullable
     @Override

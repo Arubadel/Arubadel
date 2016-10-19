@@ -2,12 +2,9 @@ package com.delos.sumit.arubadel;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,21 +13,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
+import com.delos.sumit.arubadel.fragment.CreditsFragment;
 import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
-import com.delos.sumit.arubadel.fragment.Credits;
-
-import Fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener
+{
 
     // Keep fragments in memory and load once to use less memory
     public KernelUpdatesFragment mFragmentKernelUpdates;
-    public MainFragment mFragmentMain;
-    public Credits mcredits;
+    public CPUToolsFragment mFragmentCPUTools;
+    public CreditsFragment mFragmentCredits;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -46,38 +44,45 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         this.mFragmentKernelUpdates = new KernelUpdatesFragment();
-        this.mFragmentMain = new MainFragment();
-        this.mcredits = new Credits();
+        this.mFragmentCPUTools = new CPUToolsFragment();
+        this.mFragmentCredits = new CreditsFragment();
 
-        this.updateFragment(this.mFragmentMain);
+        this.updateFragment(this.mFragmentCPUTools);
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+        {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else
+        {
             super.onBackPressed();
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
@@ -86,13 +91,14 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         FragmentManager fm = getFragmentManager();
         int id = item.getItemId();
 
         if (id == R.id.nav_fragment1)
         {
-            this.updateFragment(this.mFragmentMain);
+            this.updateFragment(this.mFragmentCPUTools);
         }
         else if (id == R.id.nav_kernel_updates)
         {
@@ -100,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_credits)
         {
-            this.updateFragment(this.mcredits);
+            this.updateFragment(this.mFragmentCredits);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
