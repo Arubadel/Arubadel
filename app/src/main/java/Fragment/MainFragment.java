@@ -16,7 +16,6 @@ import java.util.*;
 
 public class MainFragment extends Fragment
 {
-	private SwitchCompat mCPU0;
 	private SwitchCompat mCPU1;
 	private SwitchCompat mCPU2;
 	private SwitchCompat mCPU3;
@@ -26,13 +25,11 @@ public class MainFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
         View rootview = inflater.inflate(R.layout.fragment_main, container, false);
-		mCPU0 = (SwitchCompat) rootview.findViewById(R.id.cpu0);
 		mCPU1 = (SwitchCompat) rootview.findViewById(R.id.cpu1);
 		mCPU2 = (SwitchCompat) rootview.findViewById(R.id.cpu2);
 		mCPU3 = (SwitchCompat) rootview.findViewById(R.id.cpu3);
 
 		//attach a listener to check for changes in state
-		mCPU0.setOnCheckedChangeListener(createSwitchListener(0));
 		mCPU1.setOnCheckedChangeListener(createSwitchListener(1));
 		mCPU2.setOnCheckedChangeListener(createSwitchListener(2));
 		mCPU3.setOnCheckedChangeListener(createSwitchListener(3));
@@ -45,7 +42,6 @@ public class MainFragment extends Fragment
 	{
 		super.onResume();
 
-		updateCpuState(this.mCPU0, 0);
 		updateCpuState(this.mCPU1, 1);
 		updateCpuState(this.mCPU2, 2);
 		updateCpuState(this.mCPU3, 3);
