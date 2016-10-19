@@ -37,6 +37,23 @@ public class MainFragment extends Fragment
         return rootview;
     }
 
+	private void updateCpuState(SwitchCompat switchView, int cpuId)
+	{
+		List<String> resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
+
+		if (resultList.size() > 0)
+		{
+			// catch if bash send wrong type of string
+			try
+			{
+				boolean currentState = 1 == Integer.valueOf(resultList.get(0));
+				switchView.setChecked(currentState);
+			}
+			catch (Exception e)
+			{}
+		}
+	}
+
 	@Override
 	public void onResume()
 	{
@@ -59,20 +76,4 @@ public class MainFragment extends Fragment
 		};
 	}
 	
-	private void updateCpuState(SwitchCompat switchView, int cpuId)
-	{
-		List<String> resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
-
-		if (resultList.size() > 0)
-		{
-			// catch if bash send wrong type of string
-			try
-			{
-				boolean currentState = 1 == Integer.valueOf(resultList.get(0));
-				switchView.setChecked(currentState);
-			}
-			catch (Exception e)
-			{}
-		}
-	}
 }
