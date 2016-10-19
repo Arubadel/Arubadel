@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
+import com.delos.sumit.arubadel.fragment.Credits;
 
 import Fragment.MainFragment;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     // Keep fragments in memory and load once to use less memory
     public KernelUpdatesFragment mFragmentKernelUpdates;
     public MainFragment mFragmentMain;
+    public Credits mcredits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 
         this.mFragmentKernelUpdates = new KernelUpdatesFragment();
         this.mFragmentMain = new MainFragment();
+        this.mcredits = new Credits();
 
         this.updateFragment(this.mFragmentMain);
     }
@@ -95,13 +98,9 @@ public class MainActivity extends AppCompatActivity
         {
             this.updateFragment(this.mFragmentKernelUpdates);
         }
-        else if (id == R.id.nav_share)
+        else if (id == R.id.nav_credits)
         {
-
-        }
-        else if (id == R.id.nav_send)
-        {
-
+            this.updateFragment(this.mcredits);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
