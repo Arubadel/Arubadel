@@ -32,23 +32,11 @@ public class MainFragment extends Fragment
 		mCPU3 = (SwitchCompat) rootview.findViewById(R.id.cpu3);
 
 		//attach a listener to check for changes in state
-		mCPU0.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-			{
-				@Override
-				public void onCheckedChanged(CompoundButton buttonView,
-											 boolean isChecked)
-                {
-					if (isChecked)
-                    {
-						Shell.SU.run("echo \"1\" > /sys/devices/system/cpu/cpu1/online\n");
-                    }
-					else
-                    {
-						Shell.SU.run("echo \"0\" > /sys/devices/system/cpu/cpu1/online\n");
-                    }
-                }
-            });
-
+		mCPU0.setOnCheckedChangeListener(createSwitchListener(0));
+		mCPU1.setOnCheckedChangeListener(createSwitchListener(1));
+		mCPU2.setOnCheckedChangeListener(createSwitchListener(2));
+		mCPU3.setOnCheckedChangeListener(createSwitchListener(3));
+		
         return rootview;
     }
 
@@ -56,58 +44,39 @@ public class MainFragment extends Fragment
 	public void onResume()
 	{
 		super.onResume();
-		
-		List<String> cpu0_resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu1/online\n");
-		List<String> cpu1_resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu2/online\n");
-		List<String> cpu2_resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu2/online\n");
-		List<String> cpu3_resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu3/online\n");
 
-		if (cpu0_resultList.size() > 0)
+		updateCpuState(this.mCPU0, 0);
+		updateCpuState(this.mCPU1, 1);
+		updateCpuState(this.mCPU2, 2);
+		updateCpuState(this.mCPU3, 3);
+	}
+
+	private CompoundButton.OnCheckedChangeListener createSwitchListener(final int cpuId)
+	{
+		return new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				Shell.SU.run("echo \"" + ((isChecked) ? 1 : 0) + "\" > /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
+			}
+		};
+	}
+	
+	private void updateCpuState(SwitchCompat switchView, int cpuId)
+	{
+		List<String> resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
+
+		if (resultList.size() > 0)
 		{
 			// catch if bash send wrong type of string
 			try
 			{
-				boolean currentState = 1 == Integer.valueOf(cpu0_resultList.get(0));
-				this.mCPU0.setChecked(currentState);
+				boolean currentState = 1 == Integer.valueOf(resultList.get(0));
+				switchView.setChecked(currentState);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{}
 		}
-		if (cpu1_resultList.size() > 0)
-		{
-			// catch if bash send wrong type of string
-			try
-			{
-				boolean currentState = 1 == Integer.valueOf(cpu1_resultList.get(0));
-				this.mCPU2.setChecked(currentState);
-			}
-			catch(Exception e)
-			{}
-		}
-
-		if (cpu2_resultList.size() > 0)
-		{
-			// catch if bash send wrong type of string
-			try
-			{
-				boolean currentState = 1 == Integer.valueOf(cpu2_resultList.get(0));
-				this.mCPU2.setChecked(currentState);
-			}
-			catch(Exception e)
-			{}
-		}
-
-		if (cpu3_resultList.size() > 0)
-		{
-			// catch if bash send wrong type of string
-			try
-			{
-				boolean currentState = 1 == Integer.valueOf(cpu3_resultList.get(0));
-				this.mCPU3.setChecked(currentState);
-			}
-			catch(Exception e)
-			{}
-		}
-
 	}
 }
