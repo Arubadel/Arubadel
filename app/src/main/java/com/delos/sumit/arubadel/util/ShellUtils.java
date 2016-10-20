@@ -55,6 +55,11 @@ public class ShellUtils
         }
     }
 
+    public Shell.Interactive getSession()
+    {
+        return ShellUtils.rootSession;
+    }
+
     protected void reportError(String string, Context context)
     {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).show();

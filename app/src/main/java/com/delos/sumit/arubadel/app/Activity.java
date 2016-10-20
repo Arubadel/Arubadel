@@ -18,7 +18,7 @@ public class Activity extends AppCompatActivity
         this.mShellInstance = new ShellUtils(this);
     }
 
-    protected ShellUtils getShellSession()
+    public ShellUtils getShellSession()
     {
         return this.mShellInstance;
     }

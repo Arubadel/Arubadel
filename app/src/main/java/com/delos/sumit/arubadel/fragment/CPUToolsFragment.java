@@ -15,6 +15,8 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.delos.sumit.arubadel.R;
+import com.delos.sumit.arubadel.app.Activity;
+import com.delos.sumit.arubadel.util.ShellUtils;
 
 import java.util.List;
 
@@ -22,21 +24,29 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class CPUToolsFragment extends Fragment
 {
+    protected enum SHELLIDS {CPU1, CPU2, CPU3, CPU4};
+
+    private SwitchCompat mMPDecision;
     private SwitchCompat mCPU1;
     private SwitchCompat mCPU2;
     private SwitchCompat mCPU3;
-    private TextView cputext;
+    private TextView mCPUText;
+
+    private ShellUtils mShell;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        // get terminal session
+        this.mShell = ((Activity) getActivity()).getShellSession();
+
         View rootView = inflater.inflate(R.layout.fragment_cputools, container, false);
 
         mCPU1 = (SwitchCompat) rootView.findViewById(R.id.cpu1);
         mCPU2 = (SwitchCompat) rootView.findViewById(R.id.cpu2);
         mCPU3 = (SwitchCompat) rootView.findViewById(R.id.cpu3);
-        cputext = (TextView) rootView.findViewById(R.id.cputext);
+        mCPUText = (TextView) rootView.findViewById(R.id.cputext);
 
         //attach a listener to check for changes in state
         mCPU1.setOnCheckedChangeListener(createSwitchListener(1));
@@ -46,21 +56,29 @@ public class CPUToolsFragment extends Fragment
         return rootView;
     }
 
-    private void updateCpuState(SwitchCompat switchView, int cpuId)
+    private void updateCpuState(final SwitchCompat switchView, final int cpuId)
     {
-        List<String> resultList = Shell.SU.run("cat /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
-
-        if (resultList.size() > 0)
+        mShell.getSession().addCommand("cat /sys/devices/system/cpu/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener()
         {
-            // catch if bash send wrong type of string
-            try
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output)
             {
-                boolean currentState = 1 == Integer.valueOf(resultList.get(0));
-                switchView.setChecked(currentState);
-            } catch (Exception e)
-            {
+                if (commandCode == cpuId)
+                {
+                    if (output.size() > 0)
+                    {
+                        // catch if bash send wrong type of string
+                        try
+                        {
+                            boolean currentState = 1 == Integer.valueOf(output.get(0));
+                            switchView.setChecked(currentState);
+                        } catch (Exception e)
+                        {
+                        }
+                    }
+                }
             }
-        }
+        });
     }
 
     @Override
@@ -80,8 +98,8 @@ public class CPUToolsFragment extends Fragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                Shell.SU.run("echo \"" + ((isChecked) ? 1 : 0) + "\" > /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
-                cputext.setText((isChecked) ? "turned on cpu "+cpuId : "turned off cpu "+cpuId);
+                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
+                mCPUText.setText((isChecked) ? "turned on cpu "+ cpuId : "turned off cpu"+ cpuId);
             }
         };
     }
