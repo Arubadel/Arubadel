@@ -60,7 +60,7 @@ public class CPUToolsFragment extends Fragment
                 mShell.getSession().addCommand("killall mpdecision");
 
                 if (isChecked)
-                    mShell.getSession().addCommand("mpdecision");
+                    mShell.getSession().addCommand("start mpdecision");
             }
         });
 
@@ -120,7 +120,7 @@ public class CPUToolsFragment extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
-                mCPUText.setText((isChecked) ? "turned on cpu "+ cpuId : "turned off cpu"+ cpuId);
+                mCPUText.setText((isChecked) ? "turned on cpu "+ cpuId : "turned off cpu "+ cpuId);
             }
         };
     }
