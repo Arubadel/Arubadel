@@ -37,20 +37,14 @@
         android:layout_marginTop="16dp"
         android:text="Cpu 3"/>
 
-    <LinearLayout
-        android:layout_below="@+id/cpu3"
-
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/mpdecision"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="MPDecision" />
+        android:layout_alignLeft="@+id/cpu2"
+        android:layout_alignStart="@+id/cpu2"
+        android:layout_below="@+id/cpu2"
+        android:layout_marginTop="16dp"
+        android:text="MDP Decision"/>
 
-        <android.support.v7.widget.SwitchCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fragment_cputools_mpdecision" />
-    </LinearLayout>
 </RelativeLayout>
