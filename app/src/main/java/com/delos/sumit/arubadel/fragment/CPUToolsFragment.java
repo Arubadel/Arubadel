@@ -57,15 +57,14 @@ public class CPUToolsFragment extends Fragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                mShell.getSession().addCommand("killall mpdecision");
-                mShell.getSession().addCommand("killall mpdecision");
-                mShell.getSession().addCommand("killall mpdecision");
-                mShell.getSession().addCommand("killall mpdecision");
-
-
+                mShell.getSession().addCommand("mount -o remount , rw /system");
+                mShell.getSession().addCommand("chmod 664 /system/bin/mpdecision");
+                mShell.getSession().addCommand("pkill /system/bin/mpdecision");
 
                 if (isChecked)
-                    mShell.getSession().addCommand("start mpdecision");
+                mShell.getSession().addCommand("mount -o remount , rw /system");
+                mShell.getSession().addCommand("chmod 777 /system/bin/mpdecision");
+                mShell.getSession().addCommand("nohup /system/bin/mpdecision");
             }
         });
 
