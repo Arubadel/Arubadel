@@ -58,6 +58,11 @@ public class CPUToolsFragment extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 mShell.getSession().addCommand("killall mpdecision");
+                mShell.getSession().addCommand("killall mpdecision");
+                mShell.getSession().addCommand("killall mpdecision");
+                mShell.getSession().addCommand("killall mpdecision");
+
+
 
                 if (isChecked)
                     mShell.getSession().addCommand("start mpdecision");
