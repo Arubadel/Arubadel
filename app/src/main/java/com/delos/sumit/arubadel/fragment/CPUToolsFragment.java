@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.delos.sumit.arubadel.R;
 
@@ -24,6 +25,7 @@ public class CPUToolsFragment extends Fragment
     private SwitchCompat mCPU1;
     private SwitchCompat mCPU2;
     private SwitchCompat mCPU3;
+    private TextView cputext;
 
     @Nullable
     @Override
@@ -34,6 +36,7 @@ public class CPUToolsFragment extends Fragment
         mCPU1 = (SwitchCompat) rootView.findViewById(R.id.cpu1);
         mCPU2 = (SwitchCompat) rootView.findViewById(R.id.cpu2);
         mCPU3 = (SwitchCompat) rootView.findViewById(R.id.cpu3);
+        cputext = (TextView) rootView.findViewById(R.id.cputext);
 
         //attach a listener to check for changes in state
         mCPU1.setOnCheckedChangeListener(createSwitchListener(1));
@@ -78,6 +81,7 @@ public class CPUToolsFragment extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 Shell.SU.run("echo \"" + ((isChecked) ? 1 : 0) + "\" > /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
+                cputext.setText((isChecked) ? "turned on cpu "+cpuId : "turned off cpu"+cpuId);
             }
         };
     }
