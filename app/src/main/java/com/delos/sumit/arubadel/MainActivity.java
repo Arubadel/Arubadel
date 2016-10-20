@@ -17,6 +17,7 @@ import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
 import com.delos.sumit.arubadel.fragment.CreditsFragment;
 import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
+import com.delos.sumit.arubadel.fragment.Power;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -24,6 +25,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     public KernelUpdatesFragment mFragmentKernelUpdates;
     public CPUToolsFragment mFragmentCPUTools;
     public CreditsFragment mFragmentCredits;
+    public Power mPower;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,6 +50,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentKernelUpdates = new KernelUpdatesFragment();
         this.mFragmentCPUTools = new CPUToolsFragment();
         this.mFragmentCredits = new CreditsFragment();
+        this.mPower = new Power();
 
         this.updateFragment(this.mFragmentCPUTools);
     }
@@ -102,6 +105,12 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         {
             this.updateFragment(this.mFragmentCPUTools);
         }
+
+        if (id == R.id.nav_power)
+        {
+            this.updateFragment(this.mPower);
+        }
+
         else if (id == R.id.nav_kernel_updates)
         {
             this.updateFragment(this.mFragmentKernelUpdates);
