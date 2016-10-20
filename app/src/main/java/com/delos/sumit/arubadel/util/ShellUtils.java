@@ -55,6 +55,14 @@ public class ShellUtils
         }
     }
 
+    public void closeSession()
+    {
+        if (rootSession != null)
+            rootSession.close();
+
+        rootSession = null;
+    }
+
     public Shell.Interactive getSession()
     {
         return ShellUtils.rootSession;

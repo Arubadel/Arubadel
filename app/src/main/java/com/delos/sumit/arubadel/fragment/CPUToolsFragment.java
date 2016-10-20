@@ -24,8 +24,6 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class CPUToolsFragment extends Fragment
 {
-    protected enum SHELLIDS {CPU1, CPU2, CPU3, CPU4};
-
     private SwitchCompat mMPDecision;
     private SwitchCompat mCPU1;
     private SwitchCompat mCPU2;
@@ -47,11 +45,24 @@ public class CPUToolsFragment extends Fragment
         mCPU2 = (SwitchCompat) rootView.findViewById(R.id.cpu2);
         mCPU3 = (SwitchCompat) rootView.findViewById(R.id.cpu3);
         mCPUText = (TextView) rootView.findViewById(R.id.cputext);
+        mMPDecision = (SwitchCompat) rootView.findViewById(R.id.mpdecision);
 
         //attach a listener to check for changes in state
         mCPU1.setOnCheckedChangeListener(createSwitchListener(1));
         mCPU2.setOnCheckedChangeListener(createSwitchListener(2));
         mCPU3.setOnCheckedChangeListener(createSwitchListener(3));
+
+        mMPDecision.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                mShell.getSession().addCommand("killall mpdecision");
+
+                if (isChecked)
+                    mShell.getSession().addCommand("mpdecision");
+            }
+        });
 
         return rootView;
     }
@@ -89,6 +100,16 @@ public class CPUToolsFragment extends Fragment
         updateCpuState(this.mCPU1, 1);
         updateCpuState(this.mCPU2, 2);
         updateCpuState(this.mCPU3, 3);
+
+        mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
+        {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output)
+            {
+               if (exitCode == 10)
+                   mMPDecision.setChecked(output.size() > 0);
+            }
+        });
     }
 
     private CompoundButton.OnCheckedChangeListener createSwitchListener(final int cpuId)

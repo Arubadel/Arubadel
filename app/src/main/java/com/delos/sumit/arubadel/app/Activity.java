@@ -22,4 +22,16 @@ public class Activity extends AppCompatActivity
     {
         return this.mShellInstance;
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        if (mShellInstance != null)
+        {
+            mShellInstance.closeSession();
+            mShellInstance = null;
+        }
+    }
 }
