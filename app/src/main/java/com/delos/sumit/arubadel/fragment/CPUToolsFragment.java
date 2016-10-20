@@ -81,7 +81,7 @@ public class CPUToolsFragment extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 Shell.SU.run("echo \"" + ((isChecked) ? 1 : 0) + "\" > /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
-                cputext.setText((isChecked) ? "turned on cpu "+cpuId : "turned off cpu"+cpuId);
+                cputext.setText((isChecked) ? "turned on cpu "+cpuId : "turned off cpu "+cpuId);
             }
         };
     }
