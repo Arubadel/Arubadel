@@ -13,14 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
 import com.delos.sumit.arubadel.fragment.CreditsFragment;
 import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
-
     // Keep fragments in memory and load once to use less memory
     public KernelUpdatesFragment mFragmentKernelUpdates;
     public CPUToolsFragment mFragmentCPUTools;
