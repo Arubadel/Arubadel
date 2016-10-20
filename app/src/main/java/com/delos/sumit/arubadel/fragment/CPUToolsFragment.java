@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.app.Activity;
@@ -57,18 +58,33 @@ public class CPUToolsFragment extends Fragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                mShell.getSession().addCommand("mount -o remount , rw /system");
-                mShell.getSession().addCommand("chmod 664 /system/bin/mpdecision");
-                mShell.getSession().addCommand("pkill /system/bin/mpdecision");
-
-                if (isChecked)
-                mShell.getSession().addCommand("mount -o remount , rw /system");
-                mShell.getSession().addCommand("chmod 777 /system/bin/mpdecision");
-                mShell.getSession().addCommand("nohup /system/bin/mpdecision");
+                 mShell.getSession().addCommand(((isChecked) ? "start" : "stop") + " mpdecision");
             }
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        updateCpuState(this.mCPU1, 1);
+        updateCpuState(this.mCPU2, 2);
+        updateCpuState(this.mCPU3, 3);
+
+        mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
+        {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output)
+            {
+                Toast.makeText(getActivity(), "Debug: e=" + exitCode + "; size=" + output.size(), Toast.LENGTH_SHORT).show();
+
+                if (exitCode == 0)
+                    mMPDecision.setChecked(output.size() > 0);
+            }
+        });
     }
 
     private void updateCpuState(final SwitchCompat switchView, final int cpuId)
@@ -92,26 +108,6 @@ public class CPUToolsFragment extends Fragment
                         }
                     }
                 }
-            }
-        });
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        updateCpuState(this.mCPU1, 1);
-        updateCpuState(this.mCPU2, 2);
-        updateCpuState(this.mCPU3, 3);
-
-        mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
-        {
-            @Override
-            public void onCommandResult(int commandCode, int exitCode, List<String> output)
-            {
-               if (exitCode == 10)
-                   mMPDecision.setChecked(output.size() > 0);
             }
         });
     }
