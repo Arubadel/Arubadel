@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.app.Activity;
+import com.delos.sumit.arubadel.util.ConcurrentSync;
 import com.delos.sumit.arubadel.util.ShellUtils;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class CPUToolsFragment extends Fragment
     private SwitchCompat mCPU2;
     private SwitchCompat mCPU3;
     private TextView mCPUText;
+    private UpdateHelper mSync;
 
     private ShellUtils mShell;
 
@@ -58,7 +60,7 @@ public class CPUToolsFragment extends Fragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                 mShell.getSession().addCommand(((isChecked) ? "start" : "stop") + " mpdecision");
+                mShell.getSession().addCommand(((isChecked) ? "start" : "stop") + " mpdecision");
             }
         });
 
@@ -70,21 +72,16 @@ public class CPUToolsFragment extends Fragment
     {
         super.onResume();
 
-        updateCpuState(this.mCPU1, 1);
-        updateCpuState(this.mCPU2, 2);
-        updateCpuState(this.mCPU3, 3);
+        mSync = new UpdateHelper();
+        mSync.start();
+    }
 
-        mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
-        {
-            @Override
-            public void onCommandResult(int commandCode, int exitCode, List<String> output)
-            {
-                Toast.makeText(getActivity(), "Debug: e=" + exitCode + "; size=" + output.size(), Toast.LENGTH_SHORT).show();
+    @Override
+    public void onPause()
+    {
+        super.onPause();
 
-                if (exitCode == 0)
-                    mMPDecision.setChecked(output.size() > 0);
-            }
-        });
+        mSync.interrupt();
     }
 
     private void updateCpuState(final SwitchCompat switchView, final int cpuId)
@@ -120,9 +117,67 @@ public class CPUToolsFragment extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
-                mCPUText.setText((isChecked) ? "turned on cpu "+ cpuId : "turned off cpu "+ cpuId);
+                mCPUText.setText((isChecked) ? "turned on cpu " + cpuId : "turned off cpu " + cpuId);
             }
         };
+    }
+
+    private boolean updateOnActivity()
+    {
+        if (getActivity() == null || isDetached())
+            return false;
+
+        getActivity().runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    updateCpuState(mCPU1, 1);
+                    updateCpuState(mCPU2, 2);
+                    updateCpuState(mCPU3, 3);
+
+                    mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
+                    {
+                        @Override
+                        public void onCommandResult(int commandCode, int exitCode, List<String> output)
+                        {
+                            if (exitCode == 0)
+                                mMPDecision.setChecked(output.size() > 0);
+                        }
+                    });
+                }
+                catch (RuntimeException e)
+                {}
+                catch (Exception e)
+                {}
+            }
+        });
+
+        return true;
+    }
+
+    protected class UpdateHelper extends ConcurrentSync
+    {
+        @Override
+        protected void onRun()
+        {
+            try
+            {
+                Thread.sleep(2000);
+                updateOnActivity();
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected boolean onCondition()
+        {
+            return !isDetached() && getActivity() != null;
+        }
     }
 
 }
