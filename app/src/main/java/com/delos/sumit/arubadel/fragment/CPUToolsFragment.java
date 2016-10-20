@@ -29,7 +29,7 @@ public class CPUToolsFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_cputools, container, false);
 
         mCPU1 = (SwitchCompat) rootView.findViewById(R.id.cpu1);
         mCPU2 = (SwitchCompat) rootView.findViewById(R.id.cpu2);
