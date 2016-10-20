@@ -41,10 +41,9 @@
         android:id="@+id/mpdecision"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/cpu2"
-        android:layout_alignStart="@+id/cpu2"
-        android:layout_below="@+id/cpu2"
-        android:layout_marginTop="16dp"
-        android:text="MDP Decision"/>
+        android:text="MDP Decision"
+        android:layout_below="@+id/cpu3"
+        android:layout_alignLeft="@+id/cpu3"
+        android:layout_alignStart="@+id/cpu3" />
 
 </RelativeLayout>
