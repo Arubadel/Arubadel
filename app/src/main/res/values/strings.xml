@@ -5,4 +5,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="cpu">CPU</string>
+    <string name="battery">Battery</string>
+    <string name="development">Development</string>
+    <string name="kernel_updates">Kernel updates</string>
+    <string name="change_recovery">Change recovery</string>
+    <string name="about_us">About us</string>
+    <string name="credits">Credits</string>
+    <string name="mpdecision_description">MPDecision is an low-level program that manages CPU Cores. It will turn on/off CPUs when needed</string>
+    <string name="usb_fast_charge">USB Fast-charge</string>
+    <string name="usb_fast_charge_description">This will disable all programs working on USB (mass storage, mtp)</string>
 </resources>

@@ -35,14 +35,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="3dp"
-                android:text="MPDecision is an low-level program that manages CPU Cores. It will turn on/off CPUs when needed"
+                android:text="@string/mpdecision_description"
                 android:textSize="13dp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/fragment_cputools_mpdecision_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MDP Decision"/>
+                android:text="MPDecision"/>
 
         </LinearLayout>
 

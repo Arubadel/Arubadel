@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_fragment1"
-            android:title="Cpu" />
+            android:title="@string/cpu"/>
         <item
             android:id="@+id/nav_power"
-            android:title="Battery" />
+            android:title="@string/battery"/>
     </group>
-
-    <item android:title="Development">
+    <item android:title="@string/development">
         <menu>
-        <item
-            android:id="@+id/nav_kernel_updates"
-            android:title="Kernel updates" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_kernel_updates"
+                    android:title="@string/kernel_updates"/>
 
-        <item
-            android:id="@+id/nav_recovery"
-            android:title="Change recovery" />
-
+                <item
+                    android:id="@+id/nav_recovery"
+                    android:title="@string/change_recovery"/>
+            </group>
         </menu>
     </item>
-
-    <item android:title="About US">
+    <item android:title="@string/about_us">
         <menu>
-
-            <item
-                android:id="@+id/nav_credits"
-                android:title="Credits" />
-
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_credits"
+                    android:title="@string/credits"/>
+            </group>
         </menu>
     </item>
-
 </menu>

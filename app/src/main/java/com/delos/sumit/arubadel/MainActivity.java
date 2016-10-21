@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +16,7 @@ import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
 import com.delos.sumit.arubadel.fragment.CreditsFragment;
 import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
-import com.delos.sumit.arubadel.fragment.Power;
+import com.delos.sumit.arubadel.fragment.PowerFragment;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -25,7 +24,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     public KernelUpdatesFragment mFragmentKernelUpdates;
     public CPUToolsFragment mFragmentCPUTools;
     public CreditsFragment mFragmentCredits;
-    public Power mPower;
+    public PowerFragment mFragmentPower;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +49,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentKernelUpdates = new KernelUpdatesFragment();
         this.mFragmentCPUTools = new CPUToolsFragment();
         this.mFragmentCredits = new CreditsFragment();
-        this.mPower = new Power();
+        this.mFragmentPower = new PowerFragment();
 
         this.updateFragment(this.mFragmentCPUTools);
     }
@@ -105,12 +104,10 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         {
             this.updateFragment(this.mFragmentCPUTools);
         }
-
-        if (id == R.id.nav_power)
+        else if (id == R.id.nav_power)
         {
-            this.updateFragment(this.mPower);
+            this.updateFragment(this.mFragmentPower);
         }
-
         else if (id == R.id.nav_kernel_updates)
         {
             this.updateFragment(this.mFragmentKernelUpdates);
@@ -122,6 +119,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 

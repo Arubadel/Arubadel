@@ -23,14 +23,10 @@ import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 
-public class Power extends Fragment
+public class PowerFragment extends Fragment
 {
-    private SwitchCompat mMPDecision;
-    private SwitchCompat fastCharge;
-    private SwitchCompat mCPU2;
-    private SwitchCompat mCPU3;
-    private TextView Powertext;
-
+    private SwitchCompat mFastChargeSwitcher;
+    private TextView mInfoText;
     private ShellUtils mShell;
 
     @Nullable
@@ -42,11 +38,11 @@ public class Power extends Fragment
 
         View rootView = inflater.inflate(R.layout.fragment_power, container, false);
 
-        fastCharge = (SwitchCompat) rootView.findViewById(R.id.fast_charge);
-        Powertext = (TextView) rootView.findViewById(R.id.Powertext);
+        mFastChargeSwitcher = (SwitchCompat) rootView.findViewById(R.id.fragment_power_fastcharge_switch);
+        mInfoText = (TextView) rootView.findViewById(R.id.fragment_power_info_text);
 
         //attach a listener to check for changes in state
-        fastCharge.setOnCheckedChangeListener(createSwitchListener(1));
+        mFastChargeSwitcher.setOnCheckedChangeListener(createSwitchListener(1));
 
         return rootView;
     }
@@ -81,7 +77,7 @@ public class Power extends Fragment
     {
         super.onResume();
 
-        updateCpuState(this.fastCharge, 1);
+        updateCpuState(this.mFastChargeSwitcher, 1);
 
         mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
         {
@@ -89,7 +85,7 @@ public class Power extends Fragment
             public void onCommandResult(int commandCode, int exitCode, List<String> output)
             {
                 if (exitCode == 10)
-                    mMPDecision.setChecked(output.size() > 0);
+                    mFastChargeSwitcher.setChecked(output.size() > 0);
             }
         });
     }
@@ -102,8 +98,8 @@ public class Power extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > sys/kernel/fast_charge/force_fast_charge\n");
-                Powertext.setText((isChecked) ? "Fast charge on " : "Fast charge off");
-                Powertext.setTextColor(Color.GREEN);
+                mInfoText.setText((isChecked) ? "Fast charge on " : "Fast charge off");
+                mInfoText.setTextColor(Color.GREEN);
             }
         };
     }
