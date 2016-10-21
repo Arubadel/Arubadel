@@ -8,16 +8,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.delos.sumit.arubadel.R;
+import com.delos.sumit.arubadel.adapter.CPUToolsCPUListAdapter;
 import com.delos.sumit.arubadel.app.Activity;
+import com.delos.sumit.arubadel.util.CPUInfo;
+import com.delos.sumit.arubadel.util.CPUTools;
 import com.delos.sumit.arubadel.util.ConcurrentSync;
+import com.delos.sumit.arubadel.util.Config;
 import com.delos.sumit.arubadel.util.ShellUtils;
 
 import java.util.List;
@@ -26,14 +30,16 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class CPUToolsFragment extends Fragment
 {
+    public static final String TAG = "CPUToolsFragment";
+
+    private CPUCoreListFragment mCPUCoreListFragment;
     private SwitchCompat mMPDecision;
-    private SwitchCompat mCPU1;
-    private SwitchCompat mCPU2;
-    private SwitchCompat mCPU3;
-    private TextView mCPUText;
+    private TextView mCPUInfoText;
     private UpdateHelper mSync;
+    private View mMPDecisionLayout;
 
     private ShellUtils mShell;
+    private CPUInfo mCPUInfo = new CPUInfo();
 
     @Nullable
     @Override
@@ -44,16 +50,13 @@ public class CPUToolsFragment extends Fragment
 
         View rootView = inflater.inflate(R.layout.fragment_cputools, container, false);
 
-        mCPU1 = (SwitchCompat) rootView.findViewById(R.id.cpu1);
-        mCPU2 = (SwitchCompat) rootView.findViewById(R.id.cpu2);
-        mCPU3 = (SwitchCompat) rootView.findViewById(R.id.cpu3);
-        mCPUText = (TextView) rootView.findViewById(R.id.cputext);
-        mMPDecision = (SwitchCompat) rootView.findViewById(R.id.mpdecision);
+        mCPUInfoText = (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_text);
+        mMPDecision = (SwitchCompat) rootView.findViewById(R.id.fragment_cputools_mpdecision_switch);
+        mMPDecisionLayout = (View) rootView.findViewById(R.id.fragment_cputools_mpdecision_layout);
 
-        //attach a listener to check for changes in state
-        mCPU1.setOnCheckedChangeListener(createSwitchListener(1));
-        mCPU2.setOnCheckedChangeListener(createSwitchListener(2));
-        mCPU3.setOnCheckedChangeListener(createSwitchListener(3));
+        // Detected: mpdecision (make visible)
+        if (CPUTools.hasMPDecision())
+            mMPDecisionLayout.setVisibility(View.VISIBLE);
 
         mMPDecision.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
@@ -64,7 +67,18 @@ public class CPUToolsFragment extends Fragment
             }
         });
 
+        // Update stats for initializing
+        updateOnActivity();
+
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+
+        mCPUCoreListFragment = (CPUCoreListFragment) getChildFragmentManager().findFragmentById(R.id.cputools_cpulist_fragment);
     }
 
     @Override
@@ -72,8 +86,12 @@ public class CPUToolsFragment extends Fragment
     {
         super.onResume();
 
-        mSync = new UpdateHelper();
-        mSync.start();
+        // check if another thread is running. if not start one
+        if (mSync == null || mSync.getState() == Thread.State.TERMINATED)
+        {
+            mSync = new UpdateHelper();
+            mSync.start();
+        }
     }
 
     @Override
@@ -82,44 +100,6 @@ public class CPUToolsFragment extends Fragment
         super.onPause();
 
         mSync.interrupt();
-    }
-
-    private void updateCpuState(final SwitchCompat switchView, final int cpuId)
-    {
-        mShell.getSession().addCommand("cat /sys/devices/system/cpu/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener()
-        {
-            @Override
-            public void onCommandResult(int commandCode, int exitCode, List<String> output)
-            {
-                if (commandCode == cpuId)
-                {
-                    if (output.size() > 0)
-                    {
-                        // catch if bash send wrong type of string
-                        try
-                        {
-                            boolean currentState = 1 == Integer.valueOf(output.get(0));
-                            switchView.setChecked(currentState);
-                        } catch (Exception e)
-                        {
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    private CompoundButton.OnCheckedChangeListener createSwitchListener(final int cpuId)
-    {
-        return new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > /sys/devices/system/cpu/cpu" + cpuId + "/online\n");
-                mCPUText.setText((isChecked) ? "turned on cpu " + cpuId : "turned off cpu " + cpuId);
-            }
-        };
     }
 
     private boolean updateOnActivity()
@@ -132,11 +112,14 @@ public class CPUToolsFragment extends Fragment
             @Override
             public void run()
             {
+                // catch the exceptions if response of shell delays
                 try
                 {
-                    updateCpuState(mCPU1, 1);
-                    updateCpuState(mCPU2, 2);
-                    updateCpuState(mCPU3, 3);
+                    CPUTools.getCpuInfo(mShell, mCPUInfo);
+                    mCPUInfoText.setText(mCPUInfo.toString());
+
+                    if (mCPUCoreListFragment != null)
+                        mCPUCoreListFragment.update();
 
                     mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
                     {
@@ -169,7 +152,7 @@ public class CPUToolsFragment extends Fragment
                 updateOnActivity();
             } catch (InterruptedException e)
             {
-                e.printStackTrace();
+                // Known state don't do anything
             }
         }
 
