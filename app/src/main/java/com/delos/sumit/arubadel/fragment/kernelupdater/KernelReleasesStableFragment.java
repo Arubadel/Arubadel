@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 
 import com.delos.sumit.arubadel.adapter.GithubReleasesAdapter;
+import com.delos.sumit.arubadel.util.Config;
+import com.delos.sumit.arubadel.util.LongLiveResource;
 import com.github.kevinsawicki.http.HttpRequest;
 
 import org.json.JSONArray;
@@ -20,7 +22,6 @@ public class KernelReleasesStableFragment extends ListFragment
     private GithubReleasesAdapter mAdapter;
     private JSONArray mAwaitedList;
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
@@ -32,8 +33,18 @@ public class KernelReleasesStableFragment extends ListFragment
         updateCache();
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        update();
+    }
+
     public void updateCache()
     {
+        setEmptyText("Connecting to Github...");
+
         new Thread()
         {
             @Override
@@ -45,13 +56,13 @@ public class KernelReleasesStableFragment extends ListFragment
                 {
                     final StringBuilder result = new StringBuilder();
 
-                    HttpRequest httpRequest = HttpRequest.get("https://api.github.com/repos/genonbeta/CoolSocket-Client/releases");
+                    HttpRequest httpRequest = HttpRequest.get(Config.URL_RELASES);
                     httpRequest.receive(result);
 
-                    mAwaitedList = new JSONArray(result.toString());
+                    LongLiveResource.stableReleases = new JSONArray(result.toString());
 
                     update();
-                } catch (JSONException e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -72,8 +83,10 @@ public class KernelReleasesStableFragment extends ListFragment
                         @Override
                         public void run()
                         {
-                            if (mAwaitedList != null)
-                                mAdapter.update(mAwaitedList);
+                            setEmptyText("Loading...");
+
+                            if (LongLiveResource.stableReleases != null)
+                                mAdapter.update(LongLiveResource.stableReleases );
                         }
                     }
             );
