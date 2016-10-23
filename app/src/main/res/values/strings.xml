@@ -29,4 +29,6 @@
     <string name="cpu_info_speed_max">Maximum speed</string>
     <string name="cpu_info_speed_min">Minimum speed</string>
     <string name="cpu_info_active_governor">Active governor</string>
+    <string name="misc_stuff">Misc Stuff</string>
+
 </resources>

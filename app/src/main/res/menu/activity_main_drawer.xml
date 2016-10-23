@@ -7,6 +7,9 @@
         <item
             android:id="@+id/nav_power"
             android:title="@string/battery"/>
+        <item
+            android:id="@+id/nav_misc"
+            android:title="@string/misc_stuff"/>
     </group>
     <item android:title="@string/development">
         <menu>
