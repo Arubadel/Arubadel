@@ -53,13 +53,17 @@ public class Misc extends Fragment
                 mShell.getSession().addCommand(((isChecked) ? "setprop service.adb.tcp.port 5555 ; stop adbd ; start adbd" : " setprop service.adb.tcp.port -1 ; stop adbd ; start adbd"));
             }
         });
-
-        madb_wireless_text = (TextView) view.findViewById(R.id.adb_wireless_text);
-        WifiManager wim = (WifiManager) getActivity().getSystemService(WIFI_SERVICE);
-        List<WifiConfiguration> l = wim.getConfiguredNetworks();
-        WifiConfiguration wc = l.get(0);
-        madb_wireless_text.append("\n" + "adb connect \n" + Formatter.formatIpAddress(wim.getConnectionInfo().getIpAddress()));
-
+try {
+    madb_wireless_text = (TextView) view.findViewById(R.id.adb_wireless_text);
+    WifiManager wim = (WifiManager) getActivity().getSystemService(WIFI_SERVICE);
+    List<WifiConfiguration> l = wim.getConfiguredNetworks();
+    WifiConfiguration wc = l.get(0);
+    madb_wireless_text.append("\n" + "adb connect \n" + Formatter.formatIpAddress(wim.getConnectionInfo().getIpAddress()));
+}
+catch (Exception e)
+{
+    e.printStackTrace();
+}
         return view;
     }
 }
