@@ -20,19 +20,18 @@ public class PowerManagementAdapter extends BaseAdapter
 {
     private Context mContext;
     private LayoutInflater mInflater;
-    private ArrayList<String> mList = new ArrayList<>();
+    private ArrayList<PowerItem> mList = new ArrayList<>();
 
     public PowerManagementAdapter(Context context)
     {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
 
-        mList.add("Soft reboot");
-        mList.add("Reboot");
-        mList.add("Reboot recovery");
-        mList.add("Power off");
+        mList.add(new PowerItem(context.getString(R.string.power_item_soft_reboot), "killall system_server"));
+        mList.add(new PowerItem(context.getString(R.string.power_item_reboot), "reboot"));
+        mList.add(new PowerItem(context.getString(R.string.power_item_reboot_recovery), "reboot recovery"));
+        mList.add(new PowerItem(context.getString(R.string.power_item_poweroff), "poweroff"));
     }
-
 
     @Override
     public int getCount()
@@ -58,10 +57,22 @@ public class PowerManagementAdapter extends BaseAdapter
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.list_power, parent, false);
 
-        TextView text = (TextView)convertView.findViewById(R.id.list_power_text);
+        TextView text = (TextView) convertView.findViewById(R.id.list_power_text);
 
-        text.setText((String)getItem(position));
+        text.setText(((PowerItem) getItem(position)).cmdName);
 
         return convertView;
+    }
+
+    public class PowerItem
+    {
+        public String cmdName;
+        public String command;
+
+        public PowerItem(String cmdName, String command)
+        {
+            this.cmdName = cmdName;
+            this.command = command;
+        }
     }
 }

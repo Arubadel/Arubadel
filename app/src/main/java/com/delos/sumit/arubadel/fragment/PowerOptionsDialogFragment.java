@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import com.delos.sumit.arubadel.adapter.PowerManagementAdapter;
 import com.delos.sumit.arubadel.app.Activity;
@@ -35,23 +36,7 @@ public class PowerOptionsDialogFragment extends DialogFragment
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                String requested = (String) adapter.getItem(which);
-
-                switch (requested)
-                {
-                    case "soft reboot":
-                        shell.getSession().addCommand("killall system_server");
-                        break;
-                    case "reboot":
-                        shell.getSession().addCommand("reboot");
-                        break;
-                    case "reboot recovery":
-                        shell.getSession().addCommand("reboot recovery");
-                        break;
-                    case "power off":
-                        shell.getSession().addCommand("poweroff");
-                        break;
-                }
+                shell.getSession().addCommand(((PowerManagementAdapter.PowerItem) adapter.getItem(which)).command);
             }
         });
 
