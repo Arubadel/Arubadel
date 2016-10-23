@@ -2,6 +2,7 @@ package com.delos.sumit.arubadel;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,12 +12,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
 import com.delos.sumit.arubadel.fragment.CreditsFragment;
 import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
 import com.delos.sumit.arubadel.fragment.PowerFragment;
+import com.delos.sumit.arubadel.fragment.PowerOptionsDialogFragment;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -25,6 +29,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     public CPUToolsFragment mFragmentCPUTools;
     public CreditsFragment mFragmentCredits;
     public PowerFragment mFragmentPower;
+
+    public FloatingActionButton mFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,10 +51,24 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        this.mFAB = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         this.mFragmentKernelUpdates = new KernelUpdatesFragment();
         this.mFragmentCPUTools = new CPUToolsFragment();
         this.mFragmentCredits = new CreditsFragment();
         this.mFragmentPower = new PowerFragment();
+
+        // register click listener for fab
+        this.mFAB.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        PowerOptionsDialogFragment fragment = new PowerOptionsDialogFragment();
+                        fragment.show(getSupportFragmentManager(), "power_dialog_fragment");
+                    }
+                }
+        );
 
         this.updateFragment(this.mFragmentCPUTools);
     }
