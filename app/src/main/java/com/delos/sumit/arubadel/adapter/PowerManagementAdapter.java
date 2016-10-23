@@ -27,10 +27,10 @@ public class PowerManagementAdapter extends BaseAdapter
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
 
-        mList.add("soft reboot");
-        mList.add("reboot");
-        mList.add("reboot recovery");
-        mList.add("power off");
+        mList.add("Soft reboot");
+        mList.add("Reboot");
+        mList.add("Reboot recovery");
+        mList.add("Power off");
     }
 
 
