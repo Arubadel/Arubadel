@@ -98,7 +98,7 @@ public class PowerFragment extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > sys/kernel/fast_charge/force_fast_charge\n");
-                mInfoText.setText((isChecked) ? "Fast charge on " : "Fast charge off");
+                mInfoText.setText(getString((isChecked) ? R.string.fast_charge_enabled : R.string.fast_charge_disable));
                 mInfoText.setTextColor(Color.GREEN);
             }
         };

@@ -116,7 +116,19 @@ public class CPUToolsFragment extends Fragment
                 try
                 {
                     CPUTools.getCpuInfo(mShell, mCPUInfo);
-                    mCPUInfoText.setText(mCPUInfo.toString());
+
+                    StringBuilder cpuInfo = new StringBuilder();
+
+                    cpuInfo.append(getString(R.string.cpu_info_speed_current) + ": " + mCPUInfo.speedCurrent / 1000 + "MHz");
+                    cpuInfo.append("\n");
+                    cpuInfo.append(getString(R.string.cpu_info_speed_max) + ": " + mCPUInfo.speedMax / 1000 + "MHz");
+                    cpuInfo.append("\n");
+                    cpuInfo.append(getString(R.string.cpu_info_speed_min) + ": " + mCPUInfo.speedMin / 1000 + "MHz");
+                    cpuInfo.append("\n");
+                    cpuInfo.append(getString(R.string.cpu_info_active_governor) + ": " + mCPUInfo.governor);
+
+                    if (mCPUInfo.governor != null)
+                        mCPUInfoText.setText(cpuInfo.toString());
 
                     if (mCPUCoreListFragment != null)
                         mCPUCoreListFragment.update();

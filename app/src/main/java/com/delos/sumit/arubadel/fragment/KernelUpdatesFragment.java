@@ -38,7 +38,7 @@ public class KernelUpdatesFragment extends Fragment
         this.mFragmentBetaReleases = Fragment.instantiate(getActivity(), KernelReleasesBetaFragment.class.getName(), savedInstanceState);
         this.mFragmentStableReleases = Fragment.instantiate(getActivity(), KernelReleasesStableFragment.class.getName(), savedInstanceState);
 
-        this.mFragmentPager = new SimpleFragmentPagerAdapter(getFragmentManager(), getActivity(), new Fragment[]{mFragmentStableReleases, mFragmentBetaReleases}, new String[]{"Stable", "Beta"});
+        this.mFragmentPager = new SimpleFragmentPagerAdapter(getFragmentManager(), getActivity(), new Fragment[]{mFragmentStableReleases, mFragmentBetaReleases}, new String[]{getString(R.string.stable), getString(R.string.beta)});
 
         this.mPager.setAdapter(this.mFragmentPager);
         this.mTabLayout.setupWithViewPager(this.mPager);

@@ -7,7 +7,7 @@ package com.delos.sumit.arubadel.util;
 
 public class CPUInfo
 {
-    public String governor = "";
+    public String governor = null;
     public long speedCurrent = 0;
     public long speedMin = 0;
     public long speedMax = 0;

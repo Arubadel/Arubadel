@@ -15,4 +15,18 @@
     <string name="mpdecision_description">MPDecision is an low-level program that manages CPU Cores. It will turn on/off CPUs when needed</string>
     <string name="usb_fast_charge">USB Fast-charge</string>
     <string name="usb_fast_charge_description">This will disable all programs working on USB (mass storage, mtp)</string>
+    <string name="power_item_soft_reboot">Soft reboot</string>
+    <string name="power_item_reboot">Reboot</string>
+    <string name="power_item_reboot_recovery">Reboot recovery</string>
+    <string name="power_item_poweroff">Power off</string>
+    <string name="power_options_title">Power options</string>
+    <string name="fast_charge_disable">Fast charge is off</string>
+    <string name="fast_charge_enabled">Fast charge is on</string>
+    <string name="beta">Beta</string>
+    <string name="stable">Stable</string>
+    <string name="gathering_cpu_information">Gathering CPU information...</string>
+    <string name="cpu_info_speed_current">Current speed</string>
+    <string name="cpu_info_speed_max">Maximum speed</string>
+    <string name="cpu_info_speed_min">Minimum speed</string>
+    <string name="cpu_info_active_governor">Active governor</string>
 </resources>
