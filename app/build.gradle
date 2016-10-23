@@ -31,5 +31,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24+'
     compile 'com.android.support:design:24+'
     compile 'eu.chainfire:libsuperuser:1.0.0.+'
+    compile 'com.github.kevinsawicki:http-request:6+'
     testCompile 'junit:junit:4.12'
 }
