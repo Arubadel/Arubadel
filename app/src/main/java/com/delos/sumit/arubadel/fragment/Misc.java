@@ -20,6 +20,8 @@ import com.delos.sumit.arubadel.R;
 
 import java.util.List;
 
+import eu.chainfire.libsuperuser.Shell;
+
 import static android.content.Context.WIFI_SERVICE;
 
 /**
@@ -65,5 +67,19 @@ catch (Exception e)
     e.printStackTrace();
 }
         return view;
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        List<String> resultList = Shell.SU.run("getprop setprop service.adb.tcp.port\n");
+
+        if (resultList.size() > 5555)
+        {
+            boolean currentState = "-1".equals(resultList.get(0));
+
+            this.mADB_WIRELESS.setChecked(currentState);
+        }
     }
 }
