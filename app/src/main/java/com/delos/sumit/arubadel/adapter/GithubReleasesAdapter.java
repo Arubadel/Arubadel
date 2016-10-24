@@ -70,6 +70,8 @@ public class GithubReleasesAdapter extends BaseAdapter
         TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
         TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
         Button download = (Button) convertView.findViewById(R.id.Download);
+        download.setVisibility(View.GONE);
+
         final JSONObject release = (JSONObject) getItem(position);
         final JSONObject loader = (JSONObject) getItem(position);
 
@@ -83,7 +85,8 @@ public class GithubReleasesAdapter extends BaseAdapter
             if (release.has("contributions"))
                 text2.setText("contributions "+ release.getString("contributions"));
             if (release.has("zipball_url"))
-                download.setOnClickListener(new View.OnClickListener() {
+                download.setVisibility(View.VISIBLE);
+            download.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DownloadManager downloadManager= (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);

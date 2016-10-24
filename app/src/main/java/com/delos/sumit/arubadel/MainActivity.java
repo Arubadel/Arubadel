@@ -21,6 +21,7 @@ import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
 import com.delos.sumit.arubadel.fragment.MiscFragment;
 import com.delos.sumit.arubadel.fragment.PowerFragment;
 import com.delos.sumit.arubadel.fragment.PowerOptionsDialogFragment;
+import com.delos.sumit.arubadel.fragment.kernelupdater.AppRelease;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -31,6 +32,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     public PowerFragment mFragmentPower;
     public MiscFragment mMisc;
     private FloatingActionButton mFAB;
+    public Fragment mAppRelease;
 
     public Fragment mActiveFragment;
 
@@ -59,6 +61,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentCredits = new CreditsFragment();
         this.mFragmentPower = new PowerFragment();
         this.mMisc = new MiscFragment();
+        this.mAppRelease = new AppRelease();
 
         // register click listener for fab
         this.mFAB.setOnClickListener(
@@ -132,6 +135,11 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         else if (id == R.id.nav_misc)
         {
             this.updateFragment(this.mMisc);
+        }
+
+        else if (id == R.id.nav_AppRelease)
+        {
+            this.updateFragment(this.mAppRelease);
         }
 
         else if (id == R.id.nav_kernel_updates)

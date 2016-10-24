@@ -10,6 +10,9 @@
         <item
             android:id="@+id/nav_misc"
             android:title="@string/misc_stuff"/>
+        <item
+            android:id="@+id/nav_AppRelease"
+            android:title="@string/app_updates"/>
     </group>
     <item android:title="@string/development">
         <menu>
