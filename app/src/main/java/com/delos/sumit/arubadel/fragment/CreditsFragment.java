@@ -2,25 +2,83 @@ package com.delos.sumit.arubadel.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.ListFragment;
 
 import com.delos.sumit.arubadel.R;
+import com.delos.sumit.arubadel.adapter.GithubReleasesAdapter;
+import com.delos.sumit.arubadel.util.Config;
+import com.delos.sumit.arubadel.util.LongLiveResource;
+import com.github.kevinsawicki.http.HttpRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
- * Created by Sumit on 19.10.2016.
+ * Created by: Sumit
+ * Date: 19.10.2016 12:43 AM
  */
 
-public class CreditsFragment extends Fragment
+public class CreditsFragment extends ListFragment
 {
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
-        View view =inflater.inflate(R.layout.fragment_credits, container, false);
+    private GithubReleasesAdapter mAdapter;
+    private JSONArray mAwaitedList;
 
-        return view;
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+
+        this.mAdapter = new GithubReleasesAdapter(getActivity());
+
+        setListAdapter(mAdapter);
+        updateCache();
+    }
+
+    public void updateCache()
+    {
+        setEmptyText(getString(R.string.connecting_to_github));
+
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                super.run();
+
+                try
+                {
+                    final StringBuilder result = new StringBuilder();
+
+                    HttpRequest httpRequest = HttpRequest.get(Config.URL_CONTRIBUTERS);
+                    httpRequest.receive(result);
+
+                    LongLiveResource.stableReleases = new JSONArray(result.toString());
+
+                    update();
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+
+    public void update()
+    {
+        if (!isDetached() && getActivity() != null)
+            getActivity().runOnUiThread(
+                    new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            setEmptyText(getString(R.string.loading));
+
+                            if (LongLiveResource.stableReleases != null)
+                                mAdapter.update(LongLiveResource.stableReleases );
+                        }
+                    }
+            );
     }
 }

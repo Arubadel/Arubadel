@@ -74,6 +74,10 @@ public class GithubReleasesAdapter extends BaseAdapter
 
             if (release.has("name"))
                 text2.setText(release.getString("name"));
+            if (release.has("login"))
+                text1.setText(release.getString("login"));
+            if (release.has("contributions"))
+                text2.setText("contributions "+ release.getString("contributions"));
 
         } catch (JSONException e)
         {
