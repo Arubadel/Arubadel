@@ -81,7 +81,7 @@ public class GithubReleasesAdapter extends BaseAdapter
                 text2.setText(release.getString("name"));
             if (release.has("contributions"))
                 text2.setText("contributions "+ release.getString("contributions"));
-            if (release.has("contributions"))
+            if (release.has("zipball_url"))
                 download.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
