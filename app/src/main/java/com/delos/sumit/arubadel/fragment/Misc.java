@@ -73,7 +73,7 @@ catch (Exception e)
     {
         super.onResume();
 
-        List<String> resultList = Shell.SU.run("getprop setprop service.adb.tcp.port\n");
+        List<String> resultList = Shell.SU.run("getprop service.adb.tcp.port\n");
 
         if (resultList.size() > 5555)
         {
