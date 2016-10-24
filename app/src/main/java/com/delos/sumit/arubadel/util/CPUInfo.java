@@ -11,6 +11,8 @@ public class CPUInfo
     public long speedCurrent = 0;
     public long speedMin = 0;
     public long speedMax = 0;
+    public long speedMinAllowed = 0;
+    public long speedMaxAllowed = 0;
 
     // Wait idle
     public boolean lock = false;

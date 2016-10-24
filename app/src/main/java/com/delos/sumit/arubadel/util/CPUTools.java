@@ -39,7 +39,7 @@ public class CPUTools
             public void onCommandResult(int commandCode, int exitCode, List<String> output)
             {
                 if (output.size() >  0)
-                    info.speedMax = Long.valueOf(output.get(0));
+                    info.speedMaxAllowed = Long.valueOf(output.get(0));
             }
         });
 
@@ -49,7 +49,27 @@ public class CPUTools
             public void onCommandResult(int commandCode, int exitCode, List<String> output)
             {
                 if (output.size() >  0)
+                    info.speedMinAllowed = Long.valueOf(output.get(0));
+            }
+        });
+
+        shell.getSession().addCommand("cat " + corePath + "cpufreq/scaling_min_freq", 44, new Shell.OnCommandResultListener()
+        {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output)
+            {
+                if (output.size() >  0)
                     info.speedMin = Long.valueOf(output.get(0));
+            }
+        });
+
+        shell.getSession().addCommand("cat " + corePath + "cpufreq/scaling_max_freq", 44, new Shell.OnCommandResultListener()
+        {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output)
+            {
+                if (output.size() >  0)
+                    info.speedMax = Long.valueOf(output.get(0));
             }
         });
 

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.delos.sumit.arubadel.R;
@@ -38,6 +39,14 @@ public class CPUToolsFragment extends Fragment
     private UpdateHelper mSync;
     private View mMPDecisionLayout;
 
+    // cpu sliders
+    private TextView mCPUSliderMinLow;
+    private TextView mCPUSliderMinHigh;
+    private TextView mCPUSliderMaxLow;
+    private TextView mCPUSliderMaxHigh;
+    private SeekBar mCPUSliderMinSeekBar;
+    private SeekBar mCPUSliderMaxSeekBar;
+
     private ShellUtils mShell;
     private CPUInfo mCPUInfo = new CPUInfo();
 
@@ -53,6 +62,43 @@ public class CPUToolsFragment extends Fragment
         mCPUInfoText = (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_text);
         mMPDecision = (SwitchCompat) rootView.findViewById(R.id.fragment_cputools_mpdecision_switch);
         mMPDecisionLayout = (View) rootView.findViewById(R.id.fragment_cputools_mpdecision_layout);
+
+        mCPUSliderMaxHigh = (TextView) rootView.findViewById(R.id.cpu_sliders_max_high_value);
+        mCPUSliderMaxLow = (TextView) rootView.findViewById(R.id.cpu_sliders_max_low_value);
+        mCPUSliderMinHigh = (TextView) rootView.findViewById(R.id.cpu_sliders_min_high_value);
+        mCPUSliderMinLow = (TextView) rootView.findViewById(R.id.cpu_sliders_min_low_value);
+        mCPUSliderMaxSeekBar = (SeekBar) rootView.findViewById(R.id.cpu_sliders_max_seekbar);
+        mCPUSliderMinSeekBar = (SeekBar) rootView.findViewById(R.id.cpu_sliders_min_seekbar);
+
+        mCPUSliderMaxSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                mShell.getSession().addCommand("echo " + (seekBar.getProgress() + mCPUInfo.speedMinAllowed) + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_max_freq");
+            }
+        });
+
+        mCPUSliderMinSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                mShell.getSession().addCommand("echo " + (seekBar.getProgress() + mCPUInfo.speedMinAllowed) + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_min_freq");
+            }
+        });
 
         // Detected: mpdecision (make visible)
         if (CPUTools.hasMPDecision())
@@ -126,6 +172,18 @@ public class CPUToolsFragment extends Fragment
                     cpuInfo.append(getString(R.string.cpu_info_speed_min) + ": " + mCPUInfo.speedMin / 1000 + "MHz");
                     cpuInfo.append("\n");
                     cpuInfo.append(getString(R.string.cpu_info_active_governor) + ": " + mCPUInfo.governor);
+
+                    mCPUSliderMaxLow.setText(mCPUInfo.speedMinAllowed / 1000 + "MHz");
+                    mCPUSliderMaxHigh.setText(mCPUInfo.speedMaxAllowed / 1000 + "MHz");
+                    mCPUSliderMinLow.setText(mCPUInfo.speedMinAllowed / 1000 + "MHz");
+                    mCPUSliderMinHigh.setText(mCPUInfo.speedMax / 1000 + "MHz");
+
+                    mCPUSliderMaxSeekBar.setMax((int)(mCPUInfo.speedMaxAllowed - mCPUInfo.speedMinAllowed));
+                    mCPUSliderMinSeekBar.setMax((int)(mCPUInfo.speedMax - mCPUInfo.speedMinAllowed));
+
+                    mCPUSliderMaxSeekBar.setProgress((int)(mCPUInfo.speedMax - mCPUInfo.speedMinAllowed));
+                    mCPUSliderMinSeekBar.setProgress((int)(mCPUInfo.speedMin - mCPUInfo.speedMinAllowed));
+
 
                     if (mCPUInfo.governor != null)
                         mCPUInfoText.setText(cpuInfo.toString());
