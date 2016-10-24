@@ -1,10 +1,14 @@
 package com.delos.sumit.arubadel.adapter;
 
+import android.app.DownloadManager;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.delos.sumit.arubadel.R;
@@ -65,6 +69,7 @@ public class GithubReleasesAdapter extends BaseAdapter
 
         TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
         TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
+        Button download = (Button) convertView.findViewById(R.id.Download);
         JSONObject release = (JSONObject) getItem(position);
 
         try
@@ -78,6 +83,17 @@ public class GithubReleasesAdapter extends BaseAdapter
                 text1.setText(release.getString("login"));
             if (release.has("contributions"))
                 text2.setText("contributions "+ release.getString("contributions"));
+            if (release.has("contributions"))
+                download.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DownloadManager downloadManager= (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
+                        Uri uri = Uri.parse("https://api.github.com/repos/I8552-CM/android_kernel_arubaslim/zipball/v0.51");
+                        DownloadManager.Request request=new DownloadManager.Request(uri);
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        Long refrence=downloadManager.enqueue(request);
+                    }
+                });
 
         } catch (JSONException e)
         {
