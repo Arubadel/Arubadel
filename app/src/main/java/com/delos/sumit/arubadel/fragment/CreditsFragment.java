@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 
 import com.delos.sumit.arubadel.R;
-import com.delos.sumit.arubadel.adapter.GithubReleasesAdapter;
+import com.delos.sumit.arubadel.adapter.CreditsAdapter;
 import com.delos.sumit.arubadel.util.Config;
 import com.delos.sumit.arubadel.util.LongLiveResource;
 import com.github.kevinsawicki.http.HttpRequest;
@@ -20,7 +20,7 @@ import org.json.JSONException;
 
 public class CreditsFragment extends ListFragment
 {
-    private GithubReleasesAdapter mAdapter;
+    private CreditsAdapter mAdapter;
     private JSONArray mAwaitedList;
 
     @Override
@@ -28,7 +28,7 @@ public class CreditsFragment extends ListFragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        this.mAdapter = new GithubReleasesAdapter(getActivity());
+        this.mAdapter = new CreditsAdapter(getActivity());
 
         setListAdapter(mAdapter);
         updateCache();

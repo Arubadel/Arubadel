@@ -22,13 +22,13 @@ import org.json.JSONObject;
  * Date: 10/23/16 12:51 PM
  */
 
-public class GithubReleasesAdapter extends BaseAdapter
+public class CreditsAdapter extends BaseAdapter
 {
     public JSONArray mReleases;
     public Context mContext;
     public LayoutInflater mInflater;
 
-    public GithubReleasesAdapter(Context context)
+    public CreditsAdapter(Context context)
     {
         this.mContext = context;
         this.mReleases = new JSONArray();
@@ -65,33 +65,18 @@ public class GithubReleasesAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         if (convertView == null)
-            convertView = mInflater.inflate(R.layout.list_release, parent, false);
+            convertView = mInflater.inflate(R.layout.list_credits, parent, false);
 
-        TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
-        TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
-        Button download = (Button) convertView.findViewById(R.id.Download);
+        TextView text1 = (TextView) convertView.findViewById(R.id.list_name);
+        TextView text2 = (TextView) convertView.findViewById(R.id.list_contributions);
         JSONObject release = (JSONObject) getItem(position);
 
         try
         {
-            if (release.has("tag_name"))
-                text1.setText(release.getString("tag_name"));
-
-            if (release.has("name"))
-                text2.setText(release.getString("name"));
+            if (release.has("login"))
+                text1.setText(release.getString("login"));
             if (release.has("contributions"))
                 text2.setText("contributions "+ release.getString("contributions"));
-            if (release.has("contributions"))
-                download.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DownloadManager downloadManager= (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
-                        Uri uri = Uri.parse("https://api.github.com/repos/I8552-CM/android_kernel_arubaslim/zipball/v0.51");
-                        DownloadManager.Request request=new DownloadManager.Request(uri);
-                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                        Long refrence=downloadManager.enqueue(request);
-                    }
-                });
 
         } catch (JSONException e)
         {
