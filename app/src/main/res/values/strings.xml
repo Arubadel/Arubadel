@@ -31,7 +31,7 @@
     <string name="cpu_info_active_governor">Active governor</string>
     <string name="misc_stuff">Misc Stuff</string>
     <string name="nav_misc">Misc</string>
-    <string name="connecting_to_github">Connecting to Github...</string>
+    <string name="connecting_to_github">Connecting to Server...</string>
     <string name="loading">Loading...</string>
     <string name="no_network_available">No network available</string>
     <string name="app_updates">App Updates</string>
