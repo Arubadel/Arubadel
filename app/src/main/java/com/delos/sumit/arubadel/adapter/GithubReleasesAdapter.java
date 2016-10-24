@@ -70,7 +70,8 @@ public class GithubReleasesAdapter extends BaseAdapter
         TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
         TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
         Button download = (Button) convertView.findViewById(R.id.Download);
-        JSONObject release = (JSONObject) getItem(position);
+        final JSONObject release = (JSONObject) getItem(position);
+        final JSONObject loader = (JSONObject) getItem(position);
 
         try
         {
@@ -86,7 +87,12 @@ public class GithubReleasesAdapter extends BaseAdapter
                     @Override
                     public void onClick(View v) {
                         DownloadManager downloadManager= (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
-                        Uri uri = Uri.parse("https://api.github.com/repos/I8552-CM/android_kernel_arubaslim/zipball/v0.51");
+                        Uri uri = null;
+                        try {
+                            uri = Uri.parse(loader.getString("zipball_url"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         DownloadManager.Request request=new DownloadManager.Request(uri);
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         Long refrence=downloadManager.enqueue(request);
