@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.adapter.SimpleFragmentPagerAdapter;
 import com.delos.sumit.arubadel.fragment.kernelupdater.KernelReleasesBetaFragment;
 import com.delos.sumit.arubadel.fragment.kernelupdater.KernelReleasesStableFragment;
+import com.delos.sumit.arubadel.util.CPUTools;
 
 /**
  * Created by Veli on 18.10.2016.
@@ -20,6 +22,7 @@ import com.delos.sumit.arubadel.fragment.kernelupdater.KernelReleasesStableFragm
 
 public class KernelUpdatesFragment extends Fragment
 {
+    public static final String TAG = "KernelUpdatesFragment";
     private ViewPager mPager;
     private TabLayout mTabLayout;
     private Fragment mFragmentBetaReleases;
@@ -35,14 +38,13 @@ public class KernelUpdatesFragment extends Fragment
         this.mPager = (ViewPager) view.findViewById(R.id.fragment_kernelupdates_view_pager);
         this.mTabLayout = (TabLayout) view.findViewById(R.id.fragment_kernelupdates_tab_layout);
 
-        this.mFragmentBetaReleases = Fragment.instantiate(getActivity(), KernelReleasesBetaFragment.class.getName(), savedInstanceState);
-        this.mFragmentStableReleases = Fragment.instantiate(getActivity(), KernelReleasesStableFragment.class.getName(), savedInstanceState);
+        this.mFragmentBetaReleases = new KernelReleasesBetaFragment();
+        this.mFragmentStableReleases = new KernelReleasesStableFragment();
 
         this.mFragmentPager = new SimpleFragmentPagerAdapter(getFragmentManager(), getActivity(), new Fragment[]{mFragmentStableReleases, mFragmentBetaReleases}, new String[]{getString(R.string.stable), getString(R.string.beta)});
 
         this.mPager.setAdapter(this.mFragmentPager);
         this.mTabLayout.setupWithViewPager(this.mPager);
-
 
         return view;
     }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 
+import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.adapter.GithubReleasesAdapter;
 import com.delos.sumit.arubadel.util.Config;
 import com.delos.sumit.arubadel.util.LongLiveResource;
@@ -32,18 +33,10 @@ public class KernelReleasesStableFragment extends ListFragment
         setListAdapter(mAdapter);
         updateCache();
     }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        update();
-    }
-
+    
     public void updateCache()
     {
-        setEmptyText("Connecting to Github...");
+        setEmptyText(getString(R.string.connecting_to_github));
 
         new Thread()
         {
@@ -73,9 +66,6 @@ public class KernelReleasesStableFragment extends ListFragment
 
     public void update()
     {
-        if (isDetached() || getActivity() == null)
-            return;
-
         if (!isDetached() && getActivity() != null)
             getActivity().runOnUiThread(
                     new Runnable()
@@ -83,7 +73,7 @@ public class KernelReleasesStableFragment extends ListFragment
                         @Override
                         public void run()
                         {
-                            setEmptyText("Loading...");
+                            setEmptyText(getString(R.string.loading));
 
                             if (LongLiveResource.stableReleases != null)
                                 mAdapter.update(LongLiveResource.stableReleases );

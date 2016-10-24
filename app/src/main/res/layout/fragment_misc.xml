@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <android.support.v7.widget.SwitchCompat
-        android:id="@+id/adb_wireless"
+        android:id="@+id/fragment_misc_adb_switcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Adb Wireless"
-        android:textSize="20sp"
         android:padding="15dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:text="ADB Wireless"
+        android:textSize="20sp"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/fragment_misc_info_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/adb_wireless_text"
-        android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="43dp" />
+        android:layout_centerInParent="true"
+        android:text="@string/no_network_available"
+        android:textSize="20sp"/>
 </RelativeLayout>

@@ -4,8 +4,9 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter
+public class SimpleFragmentPagerAdapter extends FragmentStatePagerAdapter
 {
     private Context mContext;
     private Fragment[] mFragments;

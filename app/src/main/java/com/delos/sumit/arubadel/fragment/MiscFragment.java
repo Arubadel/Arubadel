@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.util.ShellUtils;
-
-import com.delos.sumit.arubadel.R;
+import com.genonbeta.core.util.NetworkUtils;
 
 import java.util.List;
 
@@ -28,26 +28,25 @@ import static android.content.Context.WIFI_SERVICE;
  * Created by Sumit on 19.10.2016.
  */
 
-public class Misc extends Fragment
+public class MiscFragment extends Fragment
 {
-    private SwitchCompat mADB_WIRELESS;
+    private SwitchCompat mADBSwitcher;
     private ShellUtils mShell;
-    private TextView madb_wireless_text;
+    private TextView mInfoText;
 
     @Nullable
     @Override
-    @SuppressWarnings("deprecation")
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         this.mShell = ((Activity) getActivity()).getShellSession();
 
-        View view =inflater.inflate(R.layout.fragment_misc, container, false);
-        mADB_WIRELESS = (SwitchCompat) view.findViewById(R.id.adb_wireless);
+        View view = inflater.inflate(R.layout.fragment_misc, container, false);
 
-        mADB_WIRELESS.setVisibility(View.VISIBLE);
+        mADBSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_adb_switcher);
+        mInfoText = (TextView) view.findViewById(R.id.fragment_misc_info_text);
 
-        mADB_WIRELESS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        mADBSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
@@ -55,31 +54,29 @@ public class Misc extends Fragment
                 mShell.getSession().addCommand(((isChecked) ? "setprop service.adb.tcp.port 5555 ; stop adbd ; start adbd" : " setprop service.adb.tcp.port -1 ; stop adbd ; start adbd"));
             }
         });
-try {
-    madb_wireless_text = (TextView) view.findViewById(R.id.adb_wireless_text);
-    WifiManager wim = (WifiManager) getActivity().getSystemService(WIFI_SERVICE);
-    List<WifiConfiguration> l = wim.getConfiguredNetworks();
-    WifiConfiguration wc = l.get(0);
-    madb_wireless_text.append("\n" + "adb connect \n" + Formatter.formatIpAddress(wim.getConnectionInfo().getIpAddress()));
-}
-catch (Exception e)
-{
-    e.printStackTrace();
-}
+
         return view;
     }
+
     @Override
     public void onResume()
     {
         super.onResume();
 
-        List<String> resultList = Shell.SU.run("getprop service.adb.tcp.port\n");
-
-        if (resultList.size() > 5555)
+        mShell.getSession().addCommand("getprop service.adb.tcp.port", 10, new Shell.OnCommandResultListener()
         {
-            boolean currentState = "-1".equals(resultList.get(0));
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output)
+            {
+                if (output.size() > 0)
+                    mADBSwitcher.setChecked(!"-1".equals(output.get(0)));
+            }
+        });
 
-            this.mADB_WIRELESS.setChecked(currentState);
-        }
+        List<String> availableNetworks = NetworkUtils.getInterfacesWithOnlyIp(true, new String[]{"rmnet"});
+
+        if(availableNetworks.size() > 0)
+            mInfoText.setText("adb connect " + availableNetworks.get(0) + ":5555");
+
     }
 }

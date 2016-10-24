@@ -1,6 +1,6 @@
 package com.delos.sumit.arubadel;
 
-import android.app.FragmentManager;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -13,16 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
 import com.delos.sumit.arubadel.fragment.CreditsFragment;
 import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
-import com.delos.sumit.arubadel.fragment.Misc;
+import com.delos.sumit.arubadel.fragment.MiscFragment;
 import com.delos.sumit.arubadel.fragment.PowerFragment;
 import com.delos.sumit.arubadel.fragment.PowerOptionsDialogFragment;
-import com.delos.sumit.arubadel.fragment.Misc;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -31,9 +29,10 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     public CPUToolsFragment mFragmentCPUTools;
     public CreditsFragment mFragmentCredits;
     public PowerFragment mFragmentPower;
-    public Misc mMisc;
+    public MiscFragment mMisc;
+    private FloatingActionButton mFAB;
 
-    public FloatingActionButton mFAB;
+    public Fragment mActiveFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,7 +58,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentCPUTools = new CPUToolsFragment();
         this.mFragmentCredits = new CreditsFragment();
         this.mFragmentPower = new PowerFragment();
-        this.mMisc = new Misc();
+        this.mMisc = new MiscFragment();
 
         // register click listener for fab
         this.mFAB.setOnClickListener(
@@ -120,7 +119,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     @Override
     public boolean onNavigationItemSelected(MenuItem item)
     {
-        FragmentManager fm = getFragmentManager();
         int id = item.getItemId();
 
         if (id == R.id.nav_fragment1)
@@ -154,6 +152,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     protected void updateFragment(Fragment fragment)
     {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, fragment).commit();
+
+        ft.replace(R.id.content_frame, fragment);
+        ft.commit();
     }
 }
