@@ -73,7 +73,6 @@ public class GithubReleasesAdapter extends BaseAdapter
         download.setVisibility(View.GONE);
 
         final JSONObject release = (JSONObject) getItem(position);
-        final JSONObject loader = (JSONObject) getItem(position);
 
         try
         {
@@ -84,23 +83,41 @@ public class GithubReleasesAdapter extends BaseAdapter
                 text2.setText(release.getString("name"));
             if (release.has("contributions"))
                 text2.setText("contributions "+ release.getString("contributions"));
-            if (release.has("zipball_url"))
+            if (release.has("assets"))
+            {
                 download.setVisibility(View.VISIBLE);
-            download.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DownloadManager downloadManager= (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
-                        Uri uri = null;
-                        try {
-                            uri = Uri.parse(loader.getString("zipball_url"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        DownloadManager.Request request=new DownloadManager.Request(uri);
-                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                        Long refrence=downloadManager.enqueue(request);
+
+                JSONArray assets = release.getJSONArray("assets");
+
+                if(assets.length() > 0)
+                {
+                    final JSONObject firstAsset = assets.getJSONObject(0);
+
+                    if (firstAsset.has("browser_download_url"))
+                    {
+                        download.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
+                                Uri uri = null;
+
+                                try
+                                {
+                                    uri = Uri.parse(firstAsset.getString("browser_download_url"));
+                                } catch (JSONException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                                DownloadManager.Request request = new DownloadManager.Request(uri);
+                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                                Long refrence = downloadManager.enqueue(request);
+                            }
+                        });
                     }
-                });
+                }
+            }
 
         } catch (JSONException e)
         {
