@@ -28,8 +28,8 @@ public class CreditsAdapter extends GithubAdapterIDEA
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.list_credits, parent, false);
 
-        TextView text1 = (TextView) convertView.findViewById(R.id.list_name);
-        TextView text2 = (TextView) convertView.findViewById(R.id.list_contributions);
+        TextView text1 = (TextView) convertView.findViewById(R.id.list_credits_name);
+        TextView text2 = (TextView) convertView.findViewById(R.id.list_credits_contributions);
         JSONObject release = (JSONObject) getItem(position);
 
         try
@@ -38,7 +38,7 @@ public class CreditsAdapter extends GithubAdapterIDEA
                 text1.setText(release.getString("login"));
 
             if (release.has("contributions"))
-                text2.setText("contributions "+ release.getString("contributions"));
+                text2.setText(getContext().getString(R.string.contribution_counter_info, release.getInt("contributions")));
 
         } catch (JSONException e)
         {

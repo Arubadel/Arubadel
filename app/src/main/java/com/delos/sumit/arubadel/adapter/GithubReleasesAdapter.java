@@ -31,36 +31,31 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
     protected View onView(int position, View convertView, ViewGroup parent)
     {
         if (convertView == null)
-            convertView = mInflater.inflate(R.layout.list_rom, parent, false);
+            convertView = mInflater.inflate(R.layout.list_release, parent, false);
 
-        TextView text1 = (TextView) convertView.findViewById(R.id.list_rom_text1);
-        TextView text2 = (TextView) convertView.findViewById(R.id.list_rom_text2);
-        TextView text3 = (TextView) convertView.findViewById(R.id.list_rom_text3);
-        Button download = (Button) convertView.findViewById(R.id.Download);
-        download.setVisibility(View.GONE);
+        TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
+        TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
+        TextView text3 = (TextView) convertView.findViewById(R.id.list_release_text3);
+        Button downloadButton = (Button) convertView.findViewById(R.id.list_release_download_button);
+
+        downloadButton.setVisibility(View.GONE);
 
         final JSONObject release = (JSONObject) getItem(position);
 
         try
         {
             if (release.has("tag_name"))
-            {
                 text1.setText(release.getString("tag_name"));
-            }
 
             if (release.has("name"))
-            {
                 text2.setText(release.getString("name"));
-            }
 
             if (release.has("body"))
-            {
                 text3.setText(release.getString("body"));
 
-            }
             if (release.has("assets"))
             {
-                download.setVisibility(View.VISIBLE);
+                downloadButton.setVisibility(View.VISIBLE);
 
                 JSONArray assets = release.getJSONArray("assets");
 
@@ -70,7 +65,7 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
 
                     if (firstAsset.has("browser_download_url"))
                     {
-                        download.setOnClickListener(new View.OnClickListener()
+                        downloadButton.setOnClickListener(new View.OnClickListener()
                         {
                             @Override
                             public void onClick(View v)

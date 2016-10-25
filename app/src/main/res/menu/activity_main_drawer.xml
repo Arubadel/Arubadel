@@ -24,7 +24,7 @@
                     android:title="@string/kernel_updates"/>
                 <item
                     android:id="@+id/nav_rom"
-                    android:title="Roms"/>
+                    android:title="@string/rom_updates"/>
 
                 <item
                     android:id="@+id/nav_recovery"

@@ -60,10 +60,41 @@ abstract public class AbstractGithubFragment extends ListFragment
                     update();
                 } catch (Exception e)
                 {
+                    pushInfoWithThread(R.string.something_went_wrong);
                     e.printStackTrace();
                 }
             }
         }.start();
+    }
+
+    public void pushInfoWithThread(final int info)
+    {
+        if (!isDetached() && getActivity() != null)
+            getActivity().runOnUiThread(
+                    new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            pushInfo(info);
+                        }
+                    }
+            );
+    }
+
+    public void pushInfo(final int info)
+    {
+        if (!isDetached() && getActivity() != null)
+            getActivity().runOnUiThread(
+                    new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            setEmptyText(getString(info));
+                        }
+                    }
+            );
     }
 
 
@@ -76,10 +107,10 @@ abstract public class AbstractGithubFragment extends ListFragment
                         @Override
                         public void run()
                         {
-                            setEmptyText(getString(R.string.no_files_found));
-
-                            if (mAwaitedList != null)
+                            if (mAwaitedList != null && mAwaitedList.length() > 0)
                                 mAdapter.update(mAwaitedList);
+                            else
+                                pushInfo(R.string.nothing_to_show);
                         }
                     }
             );
