@@ -4,12 +4,9 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.delos.sumit.arubadel.R;
@@ -20,57 +17,25 @@ import org.json.JSONObject;
 
 /**
  * Created by: veli
- * Date: 10/23/16 12:51 PM
+ * Date: 10/25/16 10:13 PM
  */
 
-public class GithubReleasesAdapter extends BaseAdapter
+public class GithubReleasesAdapter extends GithubAdapterIDEA
 {
-    public JSONArray mReleases;
-    public Context mContext;
-    public LayoutInflater mInflater;
-
     public GithubReleasesAdapter(Context context)
     {
-        this.mContext = context;
-        this.mReleases = new JSONArray();
-        this.mInflater = LayoutInflater.from(context);
+        super(context);
     }
 
     @Override
-    public int getCount()
-    {
-        return this.mReleases.length();
-    }
-
-    @Override
-    public Object getItem(int position)
-    {
-        try
-        {
-            return this.mReleases.getJSONObject(position);
-        } catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position)
-    {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    protected View onView(int position, View convertView, ViewGroup parent)
     {
         if (convertView == null)
-            convertView = mInflater.inflate(R.layout.list_release, parent, false);
+            convertView = mInflater.inflate(R.layout.list_rom, parent, false);
 
-        TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
-        TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
-        TextView text3 = (TextView) convertView.findViewById(R.id.list_release_text3);
+        TextView text1 = (TextView) convertView.findViewById(R.id.list_rom_text1);
+        TextView text2 = (TextView) convertView.findViewById(R.id.list_rom_text2);
+        TextView text3 = (TextView) convertView.findViewById(R.id.list_rom_text3);
         Button download = (Button) convertView.findViewById(R.id.Download);
         download.setVisibility(View.GONE);
 
@@ -87,11 +52,8 @@ public class GithubReleasesAdapter extends BaseAdapter
             {
                 text2.setText(release.getString("name"));
             }
-                if (release.has("contributions"))
-            {
-                text2.setText("contributions " + release.getString("contributions"));
-            }
-                if (release.has("body"))
+
+            if (release.has("body"))
             {
                 text3.setText(release.getString("body"));
 
@@ -113,7 +75,7 @@ public class GithubReleasesAdapter extends BaseAdapter
                             @Override
                             public void onClick(View v)
                             {
-                                DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
+                                DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(getContext().DOWNLOAD_SERVICE);
                                 Uri uri = null;
 
                                 try
@@ -139,13 +101,6 @@ public class GithubReleasesAdapter extends BaseAdapter
             e.printStackTrace();
         }
 
-
         return convertView;
-    }
-
-    public void update(JSONArray newList)
-    {
-        this.mReleases = newList;
-        this.notifyDataSetChanged();
     }
 }

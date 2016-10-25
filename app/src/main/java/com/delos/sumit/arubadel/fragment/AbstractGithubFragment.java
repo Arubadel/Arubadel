@@ -5,22 +5,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 
 import com.delos.sumit.arubadel.R;
-import com.delos.sumit.arubadel.adapter.GithubReleasesAdapter;
+import com.delos.sumit.arubadel.adapter.AbstractGithubAdapter;
 import com.delos.sumit.arubadel.util.Config;
-import com.delos.sumit.arubadel.util.LongLiveResource;
 import com.github.kevinsawicki.http.HttpRequest;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 /**
- * Created by: Veli
- * Date: 19.10.2016 12:43 AM
+ * Created by: veli
+ * Date: 10/25/16 5:45 PM
  */
 
-public class KernelReleasesBetaFragment extends ListFragment
+abstract public class AbstractGithubFragment extends ListFragment
 {
-    private GithubReleasesAdapter mAdapter;
+    public abstract String onTargetURL();
+    public abstract AbstractGithubAdapter onAdapter();
+
+    private AbstractGithubAdapter mAdapter;
+    private String mTargetURL;
     private JSONArray mAwaitedList;
 
     @Override
@@ -28,7 +30,8 @@ public class KernelReleasesBetaFragment extends ListFragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        this.mAdapter = new GithubReleasesAdapter(getActivity());
+        this.mAdapter = this.onAdapter();
+        this.mTargetURL = this.onTargetURL();
 
         setListAdapter(mAdapter);
         updateCache();
@@ -49,10 +52,10 @@ public class KernelReleasesBetaFragment extends ListFragment
                 {
                     final StringBuilder result = new StringBuilder();
 
-                    HttpRequest httpRequest = HttpRequest.get(Config.URL_KERNEL_BETA_RELEASE);
+                    HttpRequest httpRequest = HttpRequest.get(mTargetURL);
                     httpRequest.receive(result);
 
-                    LongLiveResource.stableReleases = new JSONArray(result.toString());
+                    mAwaitedList = new JSONArray(result.toString());
 
                     update();
                 } catch (Exception e)
@@ -75,8 +78,8 @@ public class KernelReleasesBetaFragment extends ListFragment
                         {
                             setEmptyText(getString(R.string.no_files_found));
 
-                            if (LongLiveResource.stableReleases != null)
-                                mAdapter.update(LongLiveResource.stableReleases );
+                            if (mAwaitedList != null)
+                                mAdapter.update(mAwaitedList);
                         }
                     }
             );

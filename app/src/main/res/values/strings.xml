@@ -24,16 +24,16 @@
     <string name="fast_charge_enabled">Fast charge is on</string>
     <string name="beta">Beta</string>
     <string name="stable">Stable</string>
-    <string name="gathering_cpu_information">Gathering CPU information...</string>
+    <string name="gathering_cpu_information">Gathering CPU information…</string>
     <string name="cpu_info_speed_current">Current speed</string>
     <string name="cpu_info_speed_max">Maximum speed</string>
     <string name="cpu_info_speed_min">Minimum speed</string>
     <string name="cpu_info_active_governor">Active governor</string>
     <string name="misc_stuff">Misc Stuff</string>
     <string name="nav_misc">Misc</string>
-    <string name="connecting_to_github">Connecting to Github...</string>
-    <string name="loading">Loading...</string>
-    <string name="no_files_found">Nothing To Show...</string>
+    <string name="connecting_to_github">Connecting to Github…</string>
+    <string name="loading">Loading…</string>
+    <string name="no_files_found">Nothing to show</string>
     <string name="no_network_available">No network available</string>
     <string name="app_updates">App Updates</string>
 </resources>

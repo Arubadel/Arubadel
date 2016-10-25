@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.adapter.SimpleFragmentPagerAdapter;
+import com.delos.sumit.arubadel.util.Config;
 
 /**
  * Created by Veli on 18.10.2016.
@@ -33,8 +34,8 @@ public class RecoveryUpdatesFragment extends Fragment
         this.mPager = (ViewPager) view.findViewById(R.id.fragment_recovery_view_pager);
         this.mTabLayout = (TabLayout) view.findViewById(R.id.fragment_recovery_tab_layout);
 
-        this.mFragmentBetaReleases = new RecoveryReleaseBetaFragment();
-        this.mFragmentStableReleases = new RecoveryReleaseStableFragment();
+        this.mFragmentBetaReleases = new GithubReleasesFragment().setTargetURL(Config.URL_RECOVERY_STABLE_RELEASE);
+        this.mFragmentStableReleases = new GithubReleasesFragment().setTargetURL(Config.URL_RECOVERY_BETA_RELEASE);
 
         this.mFragmentPager = new SimpleFragmentPagerAdapter(getFragmentManager(), getActivity(), new Fragment[]{mFragmentStableReleases, mFragmentBetaReleases}, new String[]{getString(R.string.stable), getString(R.string.beta)});
 

@@ -17,26 +17,25 @@ import android.view.View;
 import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
 import com.delos.sumit.arubadel.fragment.CreditsFragment;
+import com.delos.sumit.arubadel.fragment.GithubReleasesFragment;
 import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
 import com.delos.sumit.arubadel.fragment.MiscFragment;
 import com.delos.sumit.arubadel.fragment.PowerFragment;
 import com.delos.sumit.arubadel.fragment.PowerOptionsDialogFragment;
-import com.delos.sumit.arubadel.fragment.AppRelease;
-import com.delos.sumit.arubadel.fragment.RecoveryUpdatesFragment;
-import com.delos.sumit.arubadel.fragment.RomUpdatesFragment;
+import com.delos.sumit.arubadel.util.Config;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
     // Keep fragments in memory and load once to use less memory
-    public KernelUpdatesFragment mFragmentKernelUpdates;
-    public CPUToolsFragment mFragmentCPUTools;
-    public CreditsFragment mFragmentCredits;
-    public PowerFragment mFragmentPower;
-    public MiscFragment mMisc;
+    private KernelUpdatesFragment mFragmentKernelUpdates;
+    private CPUToolsFragment mFragmentCPUTools;
+    private CreditsFragment mFragmentCredits;
+    private PowerFragment mFragmentPower;
+    private MiscFragment mFragmentMisc;
     private FloatingActionButton mFAB;
-    public Fragment mAppRelease;
-    public Fragment mFragmentrecoveryUpdates;
-    public Fragment mFragmentRom;
+    private GithubReleasesFragment mFragmentRelApp;
+    private GithubReleasesFragment mFragmentRelRecovery;
+    private GithubReleasesFragment mFragmentRelROM;
 
     public Fragment mActiveFragment;
 
@@ -64,10 +63,11 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentCPUTools = new CPUToolsFragment();
         this.mFragmentCredits = new CreditsFragment();
         this.mFragmentPower = new PowerFragment();
-        this.mMisc = new MiscFragment();
-        this.mAppRelease = new AppRelease();
-        this.mFragmentrecoveryUpdates = new RecoveryUpdatesFragment();
-        this.mFragmentRom = new RomUpdatesFragment();
+        this.mFragmentMisc = new MiscFragment();
+        this.mFragmentRelApp = new GithubReleasesFragment().setTargetURL(Config.URL_APP_RELEASE);
+        this.mFragmentRelRecovery = new GithubReleasesFragment().setTargetURL(Config.URL_RECOVERY_STABLE_RELEASE);
+        this.mFragmentRelROM = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_STABLE_RELEASE);
+
         // register click listener for fab
         this.mFAB.setOnClickListener(
                 new View.OnClickListener()
@@ -139,12 +139,12 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         }
         else if (id == R.id.nav_misc)
         {
-            this.updateFragment(this.mMisc);
+            this.updateFragment(this.mFragmentMisc);
         }
 
         else if (id == R.id.nav_AppRelease)
         {
-            this.updateFragment(this.mAppRelease);
+            this.updateFragment(this.mFragmentRelApp);
         }
 
         else if (id == R.id.nav_kernel_updates)
@@ -153,12 +153,12 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         }
         else if (id == R.id.nav_recovery)
         {
-            this.updateFragment(this.mFragmentrecoveryUpdates);
+            this.updateFragment(this.mFragmentRelRecovery);
         }
 
         else if (id == R.id.nav_rom)
         {
-            this.updateFragment(this.mFragmentRom);
+            this.updateFragment(this.mFragmentRelROM);
         }
 
         else if (id == R.id.nav_credits)

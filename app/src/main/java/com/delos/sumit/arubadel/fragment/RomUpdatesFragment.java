@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.adapter.SimpleFragmentPagerAdapter;
+import com.delos.sumit.arubadel.util.Config;
 
 /**
  * Created by sumit on 25/10/16.
@@ -32,8 +33,8 @@ public class RomUpdatesFragment extends Fragment
         this.mPager = (ViewPager) view.findViewById(R.id.fragment_rom_view_pager);
         this.mTabLayout = (TabLayout) view.findViewById(R.id.fragment_rom_tab_layout);
 
-        this.mFragmentBetaReleases = new RomReleaseBeta();
-        this.mFragmentStableReleases = new RomReleaseStable();
+        this.mFragmentBetaReleases = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_STABLE_RELEASE);
+        this.mFragmentStableReleases = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_BETA_RELEASE);
 
         this.mFragmentPager = new SimpleFragmentPagerAdapter(getFragmentManager(), getActivity(), new Fragment[]{mFragmentStableReleases, mFragmentBetaReleases}, new String[]{getString(R.string.stable), getString(R.string.beta)});
 
