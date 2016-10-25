@@ -3,6 +3,7 @@ package com.delos.sumit.arubadel.adapter;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,7 @@ public class GithubReleasesAdapter extends BaseAdapter
                                     e.printStackTrace();
                                 }
                                 DownloadManager.Request request = new DownloadManager.Request(uri);
+                                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, String.valueOf(uri));
                                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                 Long refrence = downloadManager.enqueue(request);
                             }
