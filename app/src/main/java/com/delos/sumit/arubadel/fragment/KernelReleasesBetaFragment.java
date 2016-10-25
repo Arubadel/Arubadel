@@ -1,4 +1,4 @@
-package com.delos.sumit.arubadel.fragment.kernelupdater;
+package com.delos.sumit.arubadel.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,7 +18,7 @@ import org.json.JSONException;
  * Date: 19.10.2016 12:43 AM
  */
 
-public class KernelReleasesStableFragment extends ListFragment
+public class KernelReleasesBetaFragment extends ListFragment
 {
     private GithubReleasesAdapter mAdapter;
     private JSONArray mAwaitedList;
@@ -33,7 +33,7 @@ public class KernelReleasesStableFragment extends ListFragment
         setListAdapter(mAdapter);
         updateCache();
     }
-    
+
     public void updateCache()
     {
         setEmptyText(getString(R.string.connecting_to_github));
@@ -49,7 +49,7 @@ public class KernelReleasesStableFragment extends ListFragment
                 {
                     final StringBuilder result = new StringBuilder();
 
-                    HttpRequest httpRequest = HttpRequest.get(Config.URL_RELASES);
+                    HttpRequest httpRequest = HttpRequest.get(Config.URL_KERNEL_BETA_RELEASE);
                     httpRequest.receive(result);
 
                     LongLiveResource.stableReleases = new JSONArray(result.toString());
@@ -73,7 +73,7 @@ public class KernelReleasesStableFragment extends ListFragment
                         @Override
                         public void run()
                         {
-                            setEmptyText(getString(R.string.loading));
+                            setEmptyText(getString(R.string.no_files_found));
 
                             if (LongLiveResource.stableReleases != null)
                                 mAdapter.update(LongLiveResource.stableReleases );

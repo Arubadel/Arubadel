@@ -10,13 +10,15 @@
         <item
             android:id="@+id/nav_misc"
             android:title="@string/misc_stuff"/>
-        <item
-            android:id="@+id/nav_AppRelease"
-            android:title="@string/app_updates"/>
+
     </group>
     <item android:title="@string/development">
         <menu>
             <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_AppRelease"
+                    android:title="@string/app_updates"/>
+
                 <item
                     android:id="@+id/nav_kernel_updates"
                     android:title="@string/kernel_updates"/>
