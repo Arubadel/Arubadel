@@ -1,11 +1,7 @@
 package com.delos.sumit.arubadel.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.delos.sumit.arubadel.R;
 
@@ -14,12 +10,11 @@ import com.delos.sumit.arubadel.R;
  * Date: 10/26/16 12:08 AM
  */
 
-public class PreferencesFragment extends Fragment
+public class PreferencesFragment extends PreferenceFragmentCompat
 {
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
     {
-        return inflater.inflate(R.layout.fragment_preferences, container, false);
+        addPreferencesFromResource(R.xml.preferences_main);
     }
 }
