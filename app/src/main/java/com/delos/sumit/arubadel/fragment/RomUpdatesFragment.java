@@ -8,15 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.adapter.SimpleFragmentPagerAdapter;
 
 /**
- * Created by Veli on 18.10.2016.
+ * Created by sumit on 25/10/16.
  */
 
-public class RecoveryUpdatesFragment extends Fragment
+public class RomUpdatesFragment extends Fragment
 {
     private ViewPager mPager;
     private TabLayout mTabLayout;
@@ -28,13 +27,13 @@ public class RecoveryUpdatesFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_recovery, container, false);
+        View view = inflater.inflate(R.layout.fragment_rom, container, false);
 
-        this.mPager = (ViewPager) view.findViewById(R.id.fragment_recovery_view_pager);
-        this.mTabLayout = (TabLayout) view.findViewById(R.id.fragment_recovery_tab_layout);
+        this.mPager = (ViewPager) view.findViewById(R.id.fragment_rom_view_pager);
+        this.mTabLayout = (TabLayout) view.findViewById(R.id.fragment_rom_tab_layout);
 
-        this.mFragmentBetaReleases = new RecoveryReleaseBetaFragment();
-        this.mFragmentStableReleases = new RecoveryReleaseStableFragment();
+        this.mFragmentBetaReleases = new RomReleaseBeta();
+        this.mFragmentStableReleases = new RomReleaseStable();
 
         this.mFragmentPager = new SimpleFragmentPagerAdapter(getFragmentManager(), getActivity(), new Fragment[]{mFragmentStableReleases, mFragmentBetaReleases}, new String[]{getString(R.string.stable), getString(R.string.beta)});
 
@@ -43,4 +42,5 @@ public class RecoveryUpdatesFragment extends Fragment
 
         return view;
     }
+
 }

@@ -15,5 +15,7 @@ public class Config
     public final static String URL_KERNEL_BETA_RELEASE ="https://api.github.com/repos/Arubadel/kernel_beta/releases";
     public final static String URL_RECOVERY_STABLE_RELEASE ="https://api.github.com/repos/Arubadel/recovery_stable/releases";
     public final static String URL_RECOVERY_BETA_RELEASE ="https://api.github.com/repos/Arubadel/recovery_beta/releases";
+    public final static String URL_ROM_STABLE_RELEASE="https://api.github.com/repos/Arubadel/rom_stable/releases";
+    public final static String URL_ROM_BETA_RELEASE ="https://api.github.com/repos/Arubadel/rom_beta/releases";
 
 }
