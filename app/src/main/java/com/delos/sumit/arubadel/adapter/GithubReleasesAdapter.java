@@ -69,6 +69,7 @@ public class GithubReleasesAdapter extends BaseAdapter
 
         TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
         TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
+        TextView text3 = (TextView) convertView.findViewById(R.id.list_release_text3);
         Button download = (Button) convertView.findViewById(R.id.Download);
         download.setVisibility(View.GONE);
 
@@ -77,12 +78,23 @@ public class GithubReleasesAdapter extends BaseAdapter
         try
         {
             if (release.has("tag_name"))
+            {
                 text1.setText(release.getString("tag_name"));
+            }
 
             if (release.has("name"))
+            {
                 text2.setText(release.getString("name"));
-            if (release.has("contributions"))
-                text2.setText("contributions "+ release.getString("contributions"));
+            }
+                if (release.has("contributions"))
+            {
+                text2.setText("contributions " + release.getString("contributions"));
+            }
+                if (release.has("body"))
+            {
+                text3.setText(release.getString("body"));
+
+            }
             if (release.has("assets"))
             {
                 download.setVisibility(View.VISIBLE);
@@ -116,6 +128,7 @@ public class GithubReleasesAdapter extends BaseAdapter
                             }
                         });
                     }
+
                 }
             }
 
