@@ -55,8 +55,6 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
 
             if (release.has("assets"))
             {
-                downloadButton.setVisibility(View.VISIBLE);
-
                 JSONArray assets = release.getJSONArray("assets");
 
                 if(assets.length() > 0)
@@ -65,6 +63,7 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
 
                     if (firstAsset.has("browser_download_url"))
                     {
+                        downloadButton.setVisibility(View.VISIBLE);
                         downloadButton.setOnClickListener(new View.OnClickListener()
                         {
                             @Override

@@ -22,6 +22,7 @@ import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
 import com.delos.sumit.arubadel.fragment.MiscFragment;
 import com.delos.sumit.arubadel.fragment.PowerFragment;
 import com.delos.sumit.arubadel.fragment.PowerOptionsDialogFragment;
+import com.delos.sumit.arubadel.fragment.PreferencesFragment;
 import com.delos.sumit.arubadel.util.Config;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
@@ -32,6 +33,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private CreditsFragment mFragmentCredits;
     private PowerFragment mFragmentPower;
     private MiscFragment mFragmentMisc;
+    private PreferencesFragment mFragmentPreferences;
     private FloatingActionButton mFAB;
     private GithubReleasesFragment mFragmentRelApp;
     private GithubReleasesFragment mFragmentRelRecovery;
@@ -67,6 +69,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentRelApp = new GithubReleasesFragment().setTargetURL(Config.URL_APP_RELEASE);
         this.mFragmentRelRecovery = new GithubReleasesFragment().setTargetURL(Config.URL_RECOVERY_STABLE_RELEASE);
         this.mFragmentRelROM = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_STABLE_RELEASE);
+        this.mFragmentPreferences = new PreferencesFragment();
 
         // register click listener for fab
         this.mFAB.setOnClickListener(
@@ -96,31 +99,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -160,10 +138,18 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         {
             this.updateFragment(this.mFragmentRelROM);
         }
-
         else if (id == R.id.nav_credits)
         {
             this.updateFragment(this.mFragmentCredits);
+        }
+        else if (id == R.id.nav_credits)
+        {
+            this.updateFragment(this.mFragmentCredits);
+        }
+
+        else if (id == R.id.nav_settings)
+        {
+            this.updateFragment(this.mFragmentPreferences);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

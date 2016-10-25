@@ -11,6 +11,10 @@
             android:id="@+id/nav_misc"
             android:title="@string/misc_stuff"/>
 
+        <item
+            android:id="@+id/nav_settings"
+            android:title="@string/settings"/>
+
     </group>
     <item android:title="@string/development">
         <menu>
