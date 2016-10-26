@@ -7,4 +7,10 @@
         android:title="@string/preferences_show_beta_updates_title"
         android:summary="@string/preferences_show_beta_updates_summary"/>
 
+    <EditTextPreference
+        android:key="device_code_name"
+        android:title="@string/preferences_device_code_name_title"
+        android:summary="@string/preferences_device_code_name_summary"
+        />
+
 </PreferenceScreen>

@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -28,6 +29,7 @@ import java.io.File;
 public class GithubReleasesAdapter extends GithubAdapterIDEA
 {
     private boolean mShowBetaUpdates = false;
+    private String mDeviceCodeName;
 
     public GithubReleasesAdapter(Context context)
     {
@@ -38,6 +40,8 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
     protected void onUpdate(JSONArray list)
     {
         mShowBetaUpdates = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_beta_updates", false);
+        mDeviceCodeName = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("device_code_name", "null");
+
         super.onUpdate(list);
     }
 
@@ -48,7 +52,7 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
 
         try
         {
-            if (release.getBoolean("prerelease") && !mShowBetaUpdates)
+            if ((release.getBoolean("prerelease") && !mShowBetaUpdates) || (release.has("tag_name") && release.getString("tag_name").startsWith("@") && !release.getString("tag_name").startsWith("@" + mDeviceCodeName + ",")))
                 return mInflater.inflate(R.layout.layout_hidden_content, parent, false);
         } catch (JSONException e)
         {}
@@ -81,8 +85,19 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
                 title += release.getString("name");
 
             if (release.has("tag_name"))
-                title += " " + release.getString("tag_name");
+            {
+                String tag = release.getString("tag_name");
 
+                if (tag.startsWith("@"))
+                {
+                    int positionS = tag.indexOf(",");
+
+                    if (positionS != -1)
+                        tag = tag.substring(positionS + 1, tag.length());
+                }
+
+                title += " " + tag;
+            }
             text1.setText(title);
 
             if (release.has("body"))
