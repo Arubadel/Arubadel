@@ -58,23 +58,35 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
 
         TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
         TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
-        TextView text3 = (TextView) convertView.findViewById(R.id.list_release_text3);
         TextView betaWarningText = (TextView) convertView.findViewById(R.id.list_release_beta_release_warning);
         final Button actionButton = (Button) convertView.findViewById(R.id.list_release_action_button);
 
+        convertView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                actionButton.setVisibility((actionButton.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE);
+            }
+        });
+
         try
         {
+            String title = "";
+
             if (release.getBoolean("prerelease"))
                 betaWarningText.setVisibility(View.VISIBLE);
 
             if (release.has("name"))
-                text1.setText(release.getString("name"));
+                title += release.getString("name");
 
             if (release.has("tag_name"))
-                text2.setText(release.getString("tag_name"));
+                title += " " + release.getString("tag_name");
+
+            text1.setText(title);
 
             if (release.has("body"))
-                text3.setText(release.getString("body"));
+                text2.setText(release.getString("body"));
 
             if (release.has("assets"))
             {
@@ -82,14 +94,12 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
 
                 if (assets.length() > 0)
                 {
-                    actionButton.setVisibility(View.VISIBLE);
-
                     final JSONObject firstAsset = assets.getJSONObject(0);
                     final String fileName = firstAsset.getString("name");
                     final long fileId = firstAsset.getLong("id");
                     final long fileSize = firstAsset.getLong("size");
 
-                    final File fileIns = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + fileId + "-" + fileName);
+                    final File fileIns = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + fileId + "-" + fileName);
 
                     if (fileIns.isFile())
                     {
@@ -125,7 +135,7 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
                                     {
                                         Uri uri = Uri.parse(firstAsset.getString("browser_download_url"));
                                         DownloadManager.Request request = new DownloadManager.Request(uri);
-                                        request.setDestinationInExternalFilesDir(getContext(), Environment.DIRECTORY_DOWNLOADS, fileId + "-" + fileName);
+                                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileId + "-" + fileName);
 
                                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                         Long reference = downloadManager.enqueue(request);
