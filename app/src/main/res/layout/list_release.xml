@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/list_release_action_button"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_centerVertical="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
