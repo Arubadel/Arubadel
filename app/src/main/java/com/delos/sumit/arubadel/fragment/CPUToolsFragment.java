@@ -36,6 +36,7 @@ public class CPUToolsFragment extends Fragment
     private CPUCoreListFragment mCPUCoreListFragment;
     private SwitchCompat mMPDecision;
     private TextView mCPUInfoText;
+    private TextView mCPUInfoCurrentSpeedText;
     private UpdateHelper mSync;
     private View mMPDecisionLayout;
 
@@ -60,6 +61,7 @@ public class CPUToolsFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_cputools, container, false);
 
         mCPUInfoText = (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_text);
+        mCPUInfoCurrentSpeedText= (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_currentspeed_text);
         mMPDecision = (SwitchCompat) rootView.findViewById(R.id.fragment_cputools_mpdecision_switch);
         mMPDecisionLayout = (View) rootView.findViewById(R.id.fragment_cputools_mpdecision_layout);
 
@@ -165,13 +167,11 @@ public class CPUToolsFragment extends Fragment
 
                     StringBuilder cpuInfo = new StringBuilder();
 
-                    cpuInfo.append(getString(R.string.cpu_info_speed_current) + ": " + mCPUInfo.speedCurrent / 1000 + "MHz");
+                    mCPUInfoCurrentSpeedText.setText(mCPUInfo.speedCurrent / 1000 + "MHz");
+
+                    cpuInfo.append(mCPUInfo.speedMin / 1000 + "MHz / " + mCPUInfo.speedMax / 1000 + "MHz");
                     cpuInfo.append("\n");
-                    cpuInfo.append(getString(R.string.cpu_info_speed_max) + ": " + mCPUInfo.speedMax / 1000 + "MHz");
-                    cpuInfo.append("\n");
-                    cpuInfo.append(getString(R.string.cpu_info_speed_min) + ": " + mCPUInfo.speedMin / 1000 + "MHz");
-                    cpuInfo.append("\n");
-                    cpuInfo.append(getString(R.string.cpu_info_active_governor) + ": " + mCPUInfo.governor);
+                    cpuInfo.append(mCPUInfo.governor);
 
                     mCPUSliderMaxLow.setText(mCPUInfo.speedMinAllowed / 1000 + "MHz");
                     mCPUSliderMaxHigh.setText(mCPUInfo.speedMaxAllowed / 1000 + "MHz");
