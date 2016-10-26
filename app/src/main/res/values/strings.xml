@@ -43,4 +43,8 @@
     <string name="settings">Settings</string>
     <string name="preferences_show_beta_updates_title">Show beta updates</string>
     <string name="preferences_show_beta_updates_summary">Show experimental updates (risky)</string>
+    <string name="refresh">Refresh</string>
+    <string name="hidden_item_info">This item is hidden.</string>
+    <string name="install">Install</string>
+    <string name="choose_app_to_open">Open with?</string>
 </resources>

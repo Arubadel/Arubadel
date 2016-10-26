@@ -55,7 +55,7 @@ public class PowerManagementAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         if (convertView == null)
-            convertView = mInflater.inflate(R.layout.list_power, parent, false);
+            convertView = mInflater.inflate(R.layout.list_power_options, parent, false);
 
         TextView text = (TextView) convertView.findViewById(R.id.list_power_text);
 

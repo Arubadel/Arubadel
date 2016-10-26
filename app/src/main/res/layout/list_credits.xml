@@ -16,7 +16,7 @@
         android:id="@+id/list_credits_contributions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorContributions"
+        android:textColor="@color/colorInfo"
         android:textSize="13dp" />
 
 </LinearLayout>

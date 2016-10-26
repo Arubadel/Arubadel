@@ -2,18 +2,23 @@ package com.delos.sumit.arubadel.adapter;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.delos.sumit.arubadel.R;
+import com.delos.sumit.arubadel.util.ReleaseTools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
 
 /**
  * Created by: veli
@@ -22,33 +27,51 @@ import org.json.JSONObject;
 
 public class GithubReleasesAdapter extends GithubAdapterIDEA
 {
+    private boolean mShowBetaUpdates = false;
+
     public GithubReleasesAdapter(Context context)
     {
         super(context);
     }
 
     @Override
+    protected void onUpdate(JSONArray list)
+    {
+        mShowBetaUpdates = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_beta_updates", false);
+        super.onUpdate(list);
+    }
+
+    @Override
     protected View onView(int position, View convertView, ViewGroup parent)
     {
+        final JSONObject release = (JSONObject) getItem(position);
+
+        try
+        {
+            if (release.getBoolean("prerelease") && !mShowBetaUpdates)
+                return mInflater.inflate(R.layout.layout_hidden_content, parent, false);
+        } catch (JSONException e)
+        {}
+
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.list_release, parent, false);
 
         TextView text1 = (TextView) convertView.findViewById(R.id.list_release_text1);
         TextView text2 = (TextView) convertView.findViewById(R.id.list_release_text2);
         TextView text3 = (TextView) convertView.findViewById(R.id.list_release_text3);
-        Button downloadButton = (Button) convertView.findViewById(R.id.list_release_download_button);
-
-        downloadButton.setVisibility(View.GONE);
-
-        final JSONObject release = (JSONObject) getItem(position);
+        TextView betaWarningText = (TextView) convertView.findViewById(R.id.list_release_beta_release_warning);
+        final Button actionButton = (Button) convertView.findViewById(R.id.list_release_action_button);
 
         try
         {
-            if (release.has("tag_name"))
-                text1.setText(release.getString("tag_name"));
+            if (release.getBoolean("prerelease"))
+                betaWarningText.setVisibility(View.VISIBLE);
 
             if (release.has("name"))
-                text2.setText(release.getString("name"));
+                text1.setText(release.getString("name"));
+
+            if (release.has("tag_name"))
+                text2.setText(release.getString("tag_name"));
 
             if (release.has("body"))
                 text3.setText(release.getString("body"));
@@ -57,34 +80,64 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA
             {
                 JSONArray assets = release.getJSONArray("assets");
 
-                if(assets.length() > 0)
+                if (assets.length() > 0)
                 {
+                    actionButton.setVisibility(View.VISIBLE);
+
                     final JSONObject firstAsset = assets.getJSONObject(0);
+                    final String fileName = firstAsset.getString("name");
+                    final long fileId = firstAsset.getLong("id");
+                    final long fileSize = firstAsset.getLong("size");
 
-                    if (firstAsset.has("browser_download_url"))
+                    final File fileIns = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + fileId + "-" + fileName);
+
+                    if (fileIns.isFile())
                     {
-                        downloadButton.setVisibility(View.VISIBLE);
-                        downloadButton.setOnClickListener(new View.OnClickListener()
+                        if (fileIns.length() == fileSize)
                         {
-                            @Override
-                            public void onClick(View v)
-                            {
-                                DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(getContext().DOWNLOAD_SERVICE);
-                                Uri uri = null;
+                            actionButton.setText(R.string.install);
 
-                                try
+                            actionButton.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
                                 {
-                                    uri = Uri.parse(firstAsset.getString("browser_download_url"));
-                                } catch (JSONException e)
-                                {
-                                    e.printStackTrace();
+                                    ReleaseTools.openFile(getContext(), fileIns);
                                 }
-                                DownloadManager.Request request = new DownloadManager.Request(uri);
-                                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, String.valueOf(uri));
-                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                                Long refrence = downloadManager.enqueue(request);
-                            }
-                        });
+                            });
+                        }
+                        else
+                            actionButton.setEnabled(false);
+
+                    }
+                    else
+                    {
+                        if (firstAsset.has("browser_download_url"))
+                        {
+                            actionButton.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(getContext().DOWNLOAD_SERVICE);
+
+                                    try
+                                    {
+                                        Uri uri = Uri.parse(firstAsset.getString("browser_download_url"));
+                                        DownloadManager.Request request = new DownloadManager.Request(uri);
+                                        request.setDestinationInExternalFilesDir(getContext(), Environment.DIRECTORY_DOWNLOADS, fileId + "-" + fileName);
+
+                                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                                        Long reference = downloadManager.enqueue(request);
+
+                                        actionButton.setEnabled(false);
+                                    } catch (JSONException e)
+                                    {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                        }
                     }
 
                 }

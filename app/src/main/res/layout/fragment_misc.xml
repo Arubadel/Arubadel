@@ -1,22 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/fragment_misc_adb_switcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
         android:text="ADB Wireless"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"/>
 
     <TextView
         android:id="@+id/fragment_misc_info_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:text="@string/no_network_available"
-        android:textSize="20sp"/>
-</RelativeLayout>
+        android:textSize="14sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/fragment_misc_fastcharge_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/usb_fast_charge"
+        android:textSize="20sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"/>
+
+    <TextView
+        android:text="@string/usb_fast_charge_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"/>
+
+</LinearLayout>

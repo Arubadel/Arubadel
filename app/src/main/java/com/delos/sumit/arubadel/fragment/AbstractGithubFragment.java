@@ -3,6 +3,9 @@ package com.delos.sumit.arubadel.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.adapter.AbstractGithubAdapter;
@@ -34,37 +37,43 @@ abstract public class AbstractGithubFragment extends ListFragment
         this.mTargetURL = this.onTargetURL();
 
         setListAdapter(mAdapter);
+        setHasOptionsMenu(true);
         updateCache();
     }
 
-    public void updateCache()
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
-        setEmptyText(getString(R.string.connecting_to_github));
+        super.onCreateOptionsMenu(menu, inflater);
 
-        new Thread()
+        inflater.inflate(R.menu.fragment_github_releases, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (item.getItemId() == R.id.menuitem_github_releases_refresh)
         {
-            @Override
-            public void run()
-            {
-                super.run();
+            this.updateCache();
+            return true;
+        }
 
-                try
-                {
-                    final StringBuilder result = new StringBuilder();
+        return super.onOptionsItemSelected(item);
+    }
 
-                    HttpRequest httpRequest = HttpRequest.get(mTargetURL);
-                    httpRequest.receive(result);
+    public AbstractGithubAdapter getAdapter()
+    {
+        return this.mAdapter;
+    }
 
-                    mAwaitedList = new JSONArray(result.toString());
+    public JSONArray getList()
+    {
+        return this.mAwaitedList;
+    }
 
-                    update();
-                } catch (Exception e)
-                {
-                    pushInfoWithThread(R.string.something_went_wrong);
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+    public String getTargetURL()
+    {
+        return this.mTargetURL;
     }
 
     public void pushInfoWithThread(final int info)
@@ -97,7 +106,6 @@ abstract public class AbstractGithubFragment extends ListFragment
             );
     }
 
-
     public void update()
     {
         if (!isDetached() && getActivity() != null)
@@ -114,5 +122,35 @@ abstract public class AbstractGithubFragment extends ListFragment
                         }
                     }
             );
+    }
+
+    public void updateCache()
+    {
+        pushInfo(R.string.connecting_to_github);
+
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                super.run();
+
+                try
+                {
+                    final StringBuilder result = new StringBuilder();
+
+                    HttpRequest httpRequest = HttpRequest.get(mTargetURL);
+                    httpRequest.receive(result);
+
+                    mAwaitedList = new JSONArray(result.toString());
+
+                    update();
+                } catch (Exception e)
+                {
+                    pushInfoWithThread(R.string.something_went_wrong);
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }

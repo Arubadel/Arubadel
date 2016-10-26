@@ -9,13 +9,9 @@ package com.delos.sumit.arubadel.util;
 public class Config
 {
     public final static String PATH_CPUS = "/sys/devices/system/cpu";
-    public final static String URL_CONTRIBUTERS = "https://api.github.com/repos/Arubadel/Arubadel/contributors";
-    public final static String URL_APP_RELEASE ="https://api.github.com/repos/Arubadel/Arubadel/releases";
-    public final static String URL_KERNEL_STABLE_RELEASE ="https://api.github.com/repos/Arubadel/kernel_stable/releases";
-    public final static String URL_KERNEL_BETA_RELEASE ="https://api.github.com/repos/Arubadel/kernel_beta/releases";
-    public final static String URL_RECOVERY_STABLE_RELEASE ="https://api.github.com/repos/Arubadel/recovery_stable/releases";
-    public final static String URL_RECOVERY_BETA_RELEASE ="https://api.github.com/repos/Arubadel/recovery_beta/releases";
-    public final static String URL_ROM_STABLE_RELEASE="https://api.github.com/repos/Arubadel/rom_stable/releases";
-    public final static String URL_ROM_BETA_RELEASE ="https://api.github.com/repos/Arubadel/rom_beta/releases";
-
+    public final static String URL_CONTRIBUTORS = "https://api.github.com/repos/Arubadel/Arubadel/contributors";
+    public final static String URL_APP_RELEASES ="https://api.github.com/repos/Arubadel/Arubadel/releases";
+    public final static String URL_KERNEL_RELEASES ="https://api.github.com/repos/Arubadel/Kernel/releases";
+    public final static String URL_RECOVERY_RELEASES ="https://api.github.com/repos/Arubadel/Recovery/releases";
+    public final static String URL_ROM_RELEASES="https://api.github.com/repos/Arubadel/ROM/releases";
 }

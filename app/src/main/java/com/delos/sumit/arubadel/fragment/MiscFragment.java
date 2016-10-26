@@ -30,9 +30,10 @@ import static android.content.Context.WIFI_SERVICE;
 
 public class MiscFragment extends Fragment
 {
-    private SwitchCompat mADBSwitcher;
     private ShellUtils mShell;
     private TextView mInfoText;
+    private SwitchCompat mADBSwitcher;
+    private SwitchCompat mFastChargeSwitcher;
 
     @Nullable
     @Override
@@ -45,6 +46,7 @@ public class MiscFragment extends Fragment
 
         mADBSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_adb_switcher);
         mInfoText = (TextView) view.findViewById(R.id.fragment_misc_info_text);
+        mFastChargeSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_fastcharge_switch);
 
         mADBSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
@@ -52,6 +54,15 @@ public class MiscFragment extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 mShell.getSession().addCommand(((isChecked) ? "setprop service.adb.tcp.port 5555 ; stop adbd ; start adbd" : " setprop service.adb.tcp.port -1 ; stop adbd ; start adbd"));
+            }
+        });
+
+        mFastChargeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > sys/kernel/fast_charge/force_fast_charge\n");
             }
         });
 
@@ -72,6 +83,17 @@ public class MiscFragment extends Fragment
                     mADBSwitcher.setChecked(!"-1".equals(output.get(0)));
             }
         });
+
+        mShell.getSession().addCommand("cat sys/kernel/fast_charge/force_fast_charge", 10, new Shell.OnCommandResultListener()
+        {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output)
+            {
+                if (output.size() > 0)
+                    mFastChargeSwitcher.setChecked("1".equals(output.get(0)));
+            }
+        });
+
 
         List<String> availableNetworks = NetworkUtils.getInterfacesWithOnlyIp(true, new String[]{"rmnet"});
 

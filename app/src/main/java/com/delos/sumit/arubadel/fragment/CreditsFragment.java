@@ -22,7 +22,7 @@ public class CreditsFragment extends AbstractGithubFragment
     @Override
     public String onTargetURL()
     {
-        return Config.URL_CONTRIBUTERS;
+        return Config.URL_CONTRIBUTORS;
     }
 
     @Override

@@ -17,9 +17,7 @@ import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
 import com.delos.sumit.arubadel.fragment.CreditsFragment;
 import com.delos.sumit.arubadel.fragment.GithubReleasesFragment;
-import com.delos.sumit.arubadel.fragment.KernelUpdatesFragment;
 import com.delos.sumit.arubadel.fragment.MiscFragment;
-import com.delos.sumit.arubadel.fragment.PowerFragment;
 import com.delos.sumit.arubadel.fragment.PowerOptionsDialogFragment;
 import com.delos.sumit.arubadel.fragment.PreferencesFragment;
 import com.delos.sumit.arubadel.util.Config;
@@ -27,13 +25,12 @@ import com.delos.sumit.arubadel.util.Config;
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
     // Keep fragments in memory and load once to use less memory
-    private KernelUpdatesFragment mFragmentKernelUpdates;
     private CPUToolsFragment mFragmentCPUTools;
     private CreditsFragment mFragmentCredits;
-    private PowerFragment mFragmentPower;
     private MiscFragment mFragmentMisc;
     private PreferencesFragment mFragmentPreferences;
     private FloatingActionButton mFAB;
+    private GithubReleasesFragment mFragmentRelKernel;
     private GithubReleasesFragment mFragmentRelApp;
     private GithubReleasesFragment mFragmentRelRecovery;
     private GithubReleasesFragment mFragmentRelROM;
@@ -58,14 +55,13 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         navigationView.setNavigationItemSelectedListener(this);
 
         this.mFAB = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        this.mFragmentKernelUpdates = new KernelUpdatesFragment();
         this.mFragmentCPUTools = new CPUToolsFragment();
         this.mFragmentCredits = new CreditsFragment();
-        this.mFragmentPower = new PowerFragment();
         this.mFragmentMisc = new MiscFragment();
-        this.mFragmentRelApp = new GithubReleasesFragment().setTargetURL(Config.URL_APP_RELEASE);
-        this.mFragmentRelRecovery = new GithubReleasesFragment().setTargetURL(Config.URL_RECOVERY_STABLE_RELEASE);
-        this.mFragmentRelROM = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_STABLE_RELEASE);
+        this.mFragmentRelKernel = new GithubReleasesFragment().setTargetURL(Config.URL_KERNEL_RELEASES);
+        this.mFragmentRelApp = new GithubReleasesFragment().setTargetURL(Config.URL_APP_RELEASES);
+        this.mFragmentRelRecovery = new GithubReleasesFragment().setTargetURL(Config.URL_RECOVERY_RELEASES);
+        this.mFragmentRelROM = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_RELEASES);
         this.mFragmentPreferences = new PreferencesFragment();
 
         // register click listener for fab
@@ -104,50 +100,24 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     {
         int id = item.getItemId();
 
-        if (id == R.id.nav_fragment1)
-        {
+        if (id == R.id.nav_cputools)
             this.updateFragment(this.mFragmentCPUTools);
-        }
-        else if (id == R.id.nav_power)
-        {
-            this.updateFragment(this.mFragmentPower);
-        }
         else if (id == R.id.nav_misc)
-        {
             this.updateFragment(this.mFragmentMisc);
-        }
-
-        else if (id == R.id.nav_AppRelease)
-        {
+        else if (id == R.id.nav_app_updates)
             this.updateFragment(this.mFragmentRelApp);
-        }
-
         else if (id == R.id.nav_kernel_updates)
-        {
-            this.updateFragment(this.mFragmentKernelUpdates);
-        }
+            this.updateFragment(this.mFragmentRelKernel);
         else if (id == R.id.nav_recovery)
-        {
             this.updateFragment(this.mFragmentRelRecovery);
-        }
-
         else if (id == R.id.nav_rom)
-        {
             this.updateFragment(this.mFragmentRelROM);
-        }
         else if (id == R.id.nav_credits)
-        {
             this.updateFragment(this.mFragmentCredits);
-        }
         else if (id == R.id.nav_credits)
-        {
             this.updateFragment(this.mFragmentCredits);
-        }
-
         else if (id == R.id.nav_settings)
-        {
             this.updateFragment(this.mFragmentPreferences);
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
