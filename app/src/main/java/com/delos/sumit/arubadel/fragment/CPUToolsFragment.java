@@ -50,19 +50,14 @@ public class CPUToolsFragment extends Fragment
 
     private ShellUtils mShell;
     private CPUInfo mCPUInfo = new CPUInfo();
-    boolean suAvailable = false;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        suAvailable = Shell.SU.available();
         // get terminal session
-        if (suAvailable)
-        {
+        this.mShell = ((Activity) getActivity()).getShellSession();
 
-            this.mShell = ((Activity) getActivity()).getShellSession();
-        }
         View rootView = inflater.inflate(R.layout.fragment_cputools, container, false);
 
         mCPUInfoText = (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_text);
@@ -76,53 +71,53 @@ public class CPUToolsFragment extends Fragment
         mCPUSliderMinLow = (TextView) rootView.findViewById(R.id.cpu_sliders_min_low_value);
         mCPUSliderMaxSeekBar = (SeekBar) rootView.findViewById(R.id.cpu_sliders_max_seekbar);
         mCPUSliderMinSeekBar = (SeekBar) rootView.findViewById(R.id.cpu_sliders_min_seekbar);
-        suAvailable = Shell.SU.available();
-        if (suAvailable) {
 
-            mCPUSliderMaxSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                }
+        mCPUSliderMaxSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
 
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    mShell.getSession().addCommand("echo " + (seekBar.getProgress() + mCPUInfo.speedMinAllowed) + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_max_freq");
-                }
-            });
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                mShell.getSession().addCommand("echo " + (seekBar.getProgress() + mCPUInfo.speedMinAllowed) + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_max_freq");
+            }
+        });
 
-            mCPUSliderMinSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                }
+        mCPUSliderMinSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
 
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    mShell.getSession().addCommand("echo " + (seekBar.getProgress() + mCPUInfo.speedMinAllowed) + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_min_freq");
-                }
-            });
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                mShell.getSession().addCommand("echo " + (seekBar.getProgress() + mCPUInfo.speedMinAllowed) + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_min_freq");
+            }
+        });
 
-            // Detected: mpdecision (make visible)
-            if (CPUTools.hasMPDecision())
-                mMPDecisionLayout.setVisibility(View.VISIBLE);
+        // Detected: mpdecision (make visible)
+        if (CPUTools.hasMPDecision())
+            mMPDecisionLayout.setVisibility(View.VISIBLE);
 
-            mMPDecision.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    mShell.getSession().addCommand(((isChecked) ? "mount -o rw,remount,rw /system ; chmod 777 /system/bin/mpdecision; start mpdecision" : "mount -o rw,remount,rw /system ; chmod 664 /system/bin/mpdecision ; killall mpdecision; stop mpdecision"));
-                }
-            });
+        mMPDecision.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                mShell.getSession().addCommand(((isChecked) ? "mount -o rw,remount,rw /system ; chmod 777 /system/bin/mpdecision; start mpdecision" : "mount -o rw,remount,rw /system ; chmod 664 /system/bin/mpdecision ; killall mpdecision; stop mpdecision"));
+            }
+        });
 
-            // Update stats for initializing
-            updateOnActivity();
-        }
+        // Update stats for initializing
+        updateOnActivity();
+
         return rootView;
     }
 
