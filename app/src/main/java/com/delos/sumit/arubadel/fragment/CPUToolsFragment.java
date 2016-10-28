@@ -34,11 +34,9 @@ public class CPUToolsFragment extends Fragment
     public static final String TAG = "CPUToolsFragment";
 
     private CPUCoreListFragment mCPUCoreListFragment;
-    private SwitchCompat mMPDecision;
     private TextView mCPUInfoText;
     private TextView mCPUInfoCurrentSpeedText;
     private UpdateHelper mSync;
-    private View mMPDecisionLayout;
 
     // cpu sliders
     private TextView mCPUSliderMinLow;
@@ -63,9 +61,6 @@ public class CPUToolsFragment extends Fragment
 
         mCPUInfoText = (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_text);
         mCPUInfoCurrentSpeedText= (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_currentspeed_text);
-        mMPDecision = (SwitchCompat) rootView.findViewById(R.id.fragment_cputools_mpdecision_switch);
-        mMPDecisionLayout = (View) rootView.findViewById(R.id.fragment_cputools_mpdecision_layout);
-
         mCPUSliderMaxHigh = (TextView) rootView.findViewById(R.id.cpu_sliders_max_high_value);
         mCPUSliderMaxLow = (TextView) rootView.findViewById(R.id.cpu_sliders_max_low_value);
         mCPUSliderMinHigh = (TextView) rootView.findViewById(R.id.cpu_sliders_min_high_value);
@@ -106,18 +101,7 @@ public class CPUToolsFragment extends Fragment
             }
         });
 
-        // Detected: mpdecision (make visible)
-        if (CPUTools.hasMPDecision())
-            mMPDecisionLayout.setVisibility(View.VISIBLE);
 
-        mMPDecision.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                mShell.getSession().addCommand(((isChecked) ? "mount -o rw,remount,rw /system ; chmod 777 /system/bin/mpdecision; start mpdecision" : "mount -o rw,remount,rw /system ; chmod 664 /system/bin/mpdecision ; killall mpdecision; stop mpdecision"));
-            }
-        });
 
         // Update stats for initializing
         updateOnActivity();
@@ -195,15 +179,7 @@ public class CPUToolsFragment extends Fragment
                     if (mCPUCoreListFragment != null)
                         mCPUCoreListFragment.update();
 
-                    mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
-                    {
-                        @Override
-                        public void onCommandResult(int commandCode, int exitCode, List<String> output)
-                        {
-                            if (exitCode == 0)
-                                mMPDecision.setChecked(output.size() > 0);
-                        }
-                    });
+
                 }
                 catch (RuntimeException e)
                 {}

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.app.Activity;
+import com.delos.sumit.arubadel.util.CPUTools;
 import com.delos.sumit.arubadel.util.ShellUtils;
 import com.genonbeta.core.util.NetworkUtils;
 
@@ -36,6 +37,8 @@ public class MiscFragment extends Fragment
     private SwitchCompat mADBSwitcher;
     private SwitchCompat mFastChargeSwitcher;
     boolean suAvailable;
+    private SwitchCompat mMPDecision;
+
     @Nullable
     @Override
 
@@ -48,6 +51,8 @@ public class MiscFragment extends Fragment
         mADBSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_adb_switcher);
         mInfoText = (TextView) view.findViewById(R.id.fragment_misc_info_text);
         mFastChargeSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_fastcharge_switch);
+        mMPDecision = (SwitchCompat) view.findViewById(R.id.fragment_cputools_mpdecision_switch);
+
         suAvailable = Shell.SU.available();
         if (suAvailable)
         {
@@ -70,6 +75,18 @@ public class MiscFragment extends Fragment
         {
             Toast.makeText(getActivity().getApplicationContext(),"Phone not Rooted", Toast.LENGTH_SHORT).show();
 
+        }
+
+        // Detected: mpdecision (make visible)
+        if (CPUTools.hasMPDecision())
+        {
+
+            mMPDecision.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mShell.getSession().addCommand(((isChecked) ? "mount -o rw,remount,rw /system ; chmod 777 /system/bin/mpdecision; start mpdecision" : "mount -o rw,remount,rw /system ; chmod 664 /system/bin/mpdecision ; killall mpdecision; stop mpdecision"));
+                }
+            });
         }
 
         return view;
@@ -102,6 +119,15 @@ public class MiscFragment extends Fragment
 
             if (availableNetworks.size() > 0)
                 mInfoText.setText("adb connect " + availableNetworks.get(0) + ":5555");
+            mShell.getSession().addCommand("pgrep mpdecision", 10, new Shell.OnCommandResultListener()
+            {
+                @Override
+                public void onCommandResult(int commandCode, int exitCode, List<String> output)
+                {
+                    if (exitCode == 0)
+                        mMPDecision.setChecked(output.size() > 0);
+                }
+            });
 
         }
         else
