@@ -39,7 +39,7 @@ public class Activity extends AppCompatActivity
         {
             String deviceCode = null;
 
-            if (Build.MODEL.equals("GT-I8552") || Build.MODEL.equals("I8552") || Build.MODEL.equals("GT-I8550"))
+            if (Build.MODEL.equals("GT-I8552") || Build.MODEL.equals("I8552") || Build.MODEL.equals("GT-I8550") || Build.MODEL.equals("SAMSUNG I-8552"))
                 deviceCode = "delos3geur";
             else if (Build.MODEL.equals("GT-I8262") || Build.MODEL.equals("GT-I8260"))
                 deviceCode = "arubaslim";
