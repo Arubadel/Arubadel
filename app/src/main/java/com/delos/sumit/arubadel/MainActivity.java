@@ -1,9 +1,12 @@
 package com.delos.sumit.arubadel;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -78,6 +81,9 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         );
 
         this.updateFragment(this.mFragmentCPUTools);
+
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+
     }
 
     @Override
