@@ -26,6 +26,7 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
     private ShellUtils mShell;
     private Context mContext;
     private LayoutInflater mInflater;
+    boolean suAvailable = Shell.SU.available();
 
     public CPUToolsCPUListAdapter(ShellUtils shell, Context context)
     {
@@ -43,7 +44,9 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n");
+                if (suAvailable)
+                 mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n");
+
             }
         };
     }
@@ -79,26 +82,26 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
 
     private void updateCpuState(final SwitchCompat switchView, final int cpuId)
     {
-        mShell.getSession().addCommand("cat " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener()
-        {
-            @Override
-            public void onCommandResult(int commandCode, int exitCode, List<String> output)
-            {
-                if (commandCode == cpuId)
-                {
-                    if (output.size() > 0)
-                    {
-                        // catch if bash send wrong type of string
-                        try
-                        {
-                            boolean currentState = 1 == Integer.valueOf(output.get(0));
-                            switchView.setChecked(currentState);
-                        } catch (Exception e)
-                        {
+        if (suAvailable)
+
+            mShell.getSession().addCommand("cat " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener() {
+                @Override
+                public void onCommandResult(int commandCode, int exitCode, List<String> output) {
+
+                    if (commandCode == cpuId) {
+
+                        if (output.size() > 0) {
+                            // catch if bash send wrong type of string
+                            try {
+                                boolean currentState = 1 == Integer.valueOf(output.get(0));
+                                switchView.setChecked(currentState);
+                            } catch (Exception e) {
+                            }
                         }
                     }
+
                 }
-            }
-        });
+            });
+
     }
 }

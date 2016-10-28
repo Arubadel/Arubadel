@@ -13,6 +13,8 @@ import com.delos.sumit.arubadel.adapter.PowerManagementAdapter;
 import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.util.ShellUtils;
 
+import eu.chainfire.libsuperuser.Shell;
+
 /**
  * Created by: veli
  * Date: 10/23/16 4:17 PM
@@ -20,6 +22,8 @@ import com.delos.sumit.arubadel.util.ShellUtils;
 
 public class PowerOptionsDialogFragment extends DialogFragment
 {
+    boolean suAvailable = Shell.SU.available();
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -37,6 +41,7 @@ public class PowerOptionsDialogFragment extends DialogFragment
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
+                if (suAvailable)
                 shell.getSession().addCommand(((PowerManagementAdapter.PowerItem) adapter.getItem(which)).command);
             }
         });
