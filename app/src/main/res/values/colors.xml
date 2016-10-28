@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorInfo">#2b7b00</color>
     <color name="colorBetaRelease">#7b0008</color>
+    <color name="red">#FF0000</color>
+
 </resources>
