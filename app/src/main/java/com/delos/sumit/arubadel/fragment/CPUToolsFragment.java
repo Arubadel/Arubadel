@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.adapter.CPUToolsCPUListAdapter;
@@ -124,11 +123,6 @@ public class CPUToolsFragment extends Fragment
             // Update stats for initializing
             updateOnActivity();
         }
-        else
-        {
-            Toast.makeText(getActivity().getApplicationContext(),"Phone not Rooted", Toast.LENGTH_SHORT).show();
-        }
-
         return rootView;
     }
 
