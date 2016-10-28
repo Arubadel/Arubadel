@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.delos.sumit.arubadel.app.Activity;
+import com.delos.sumit.arubadel.fragment.AboutDevice;
 import com.delos.sumit.arubadel.fragment.CPUToolsFragment;
 import com.delos.sumit.arubadel.fragment.CreditsFragment;
 import com.delos.sumit.arubadel.fragment.GithubReleasesFragment;
@@ -37,6 +38,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private GithubReleasesFragment mFragmentRelApp;
     private GithubReleasesFragment mFragmentRelRecovery;
     private GithubReleasesFragment mFragmentRelROM;
+    private AboutDevice mAboutDevice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,7 +68,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentRelRecovery = new GithubReleasesFragment().setTargetURL(Config.URL_RECOVERY_RELEASES);
         this.mFragmentRelROM = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_RELEASES);
         this.mFragmentPreferences = new PreferencesFragment();
-
+        this.mAboutDevice = new AboutDevice();
         // register click listener for fab
         this.mFAB.setOnClickListener(
                 new View.OnClickListener()
@@ -124,6 +126,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
             this.updateFragment(this.mFragmentCredits);
         else if (id == R.id.nav_settings)
             this.updateFragment(this.mFragmentPreferences);
+        else if (id == R.id.nav_about_device)
+            this.updateFragment(this.mAboutDevice);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -31,6 +31,9 @@
                 <item
                     android:id="@+id/nav_recovery"
                     android:title="@string/change_recovery"/>
+                <item
+                    android:id="@+id/nav_about_device"
+                    android:title="About This Device"/>
             </group>
         </menu>
     </item>
