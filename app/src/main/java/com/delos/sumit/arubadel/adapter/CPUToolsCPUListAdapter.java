@@ -26,6 +26,7 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
     private ShellUtils mShell;
     private Context mContext;
     private LayoutInflater mInflater;
+    boolean suAvailable = false;
 
     public CPUToolsCPUListAdapter(ShellUtils shell, Context context)
     {
@@ -77,28 +78,25 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
         return view;
     }
 
-    private void updateCpuState(final SwitchCompat switchView, final int cpuId)
-    {
-        mShell.getSession().addCommand("cat " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener()
-        {
-            @Override
-            public void onCommandResult(int commandCode, int exitCode, List<String> output)
-            {
-                if (commandCode == cpuId)
-                {
-                    if (output.size() > 0)
-                    {
-                        // catch if bash send wrong type of string
-                        try
-                        {
-                            boolean currentState = 1 == Integer.valueOf(output.get(0));
-                            switchView.setChecked(currentState);
-                        } catch (Exception e)
-                        {
+    private void updateCpuState(final SwitchCompat switchView, final int cpuId) {
+        suAvailable = Shell.SU.available();
+        // get terminal session
+        if (suAvailable) {
+            mShell.getSession().addCommand("cat " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener() {
+                @Override
+                public void onCommandResult(int commandCode, int exitCode, List<String> output) {
+                    if (commandCode == cpuId) {
+                        if (output.size() > 0) {
+                            // catch if bash send wrong type of string
+                            try {
+                                boolean currentState = 1 == Integer.valueOf(output.get(0));
+                                switchView.setChecked(currentState);
+                            } catch (Exception e) {
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 }
