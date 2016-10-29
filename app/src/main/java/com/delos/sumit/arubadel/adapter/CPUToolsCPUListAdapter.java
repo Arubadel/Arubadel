@@ -26,7 +26,6 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
     private ShellUtils mShell;
     private Context mContext;
     private LayoutInflater mInflater;
-    boolean suAvailable = Shell.SU.available();
 
     public CPUToolsCPUListAdapter(ShellUtils shell, Context context)
     {
@@ -44,7 +43,6 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                if (suAvailable)
                  mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n");
 
             }
@@ -82,7 +80,6 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
 
     private void updateCpuState(final SwitchCompat switchView, final int cpuId)
     {
-        if (suAvailable)
 
             mShell.getSession().addCommand("cat " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener() {
                 @Override

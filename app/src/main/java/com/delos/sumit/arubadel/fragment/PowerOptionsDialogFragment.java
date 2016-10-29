@@ -22,7 +22,6 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class PowerOptionsDialogFragment extends DialogFragment
 {
-    boolean suAvailable = Shell.SU.available();
 
     @NonNull
     @Override
@@ -41,7 +40,6 @@ public class PowerOptionsDialogFragment extends DialogFragment
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                if (suAvailable)
                 shell.getSession().addCommand(((PowerManagementAdapter.PowerItem) adapter.getItem(which)).command);
             }
         });

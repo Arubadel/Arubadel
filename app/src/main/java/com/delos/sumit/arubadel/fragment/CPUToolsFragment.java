@@ -48,7 +48,6 @@ public class CPUToolsFragment extends Fragment
 
     private ShellUtils mShell;
     private CPUInfo mCPUInfo = new CPUInfo();
-    boolean suAvailable = Shell.SU.available();
 
     @Nullable
     @Override
@@ -79,7 +78,6 @@ public class CPUToolsFragment extends Fragment
             @Override
             public void onStopTrackingTouch(SeekBar seekBar)
             {
-                if(suAvailable)
                  mShell.getSession().addCommand("echo " + (seekBar.getProgress() + mCPUInfo.speedMinAllowed) + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_max_freq");
 
                 }
@@ -96,7 +94,6 @@ public class CPUToolsFragment extends Fragment
             @Override
             public void onStopTrackingTouch(SeekBar seekBar)
             {
-                if (suAvailable)
                 mShell.getSession().addCommand("echo " + (seekBar.getProgress() + mCPUInfo.speedMinAllowed) + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_min_freq");
             }
         });

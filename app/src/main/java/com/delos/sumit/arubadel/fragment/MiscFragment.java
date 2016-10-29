@@ -36,7 +36,6 @@ public class MiscFragment extends Fragment
     private TextView mInfoText;
     private SwitchCompat mADBSwitcher;
     private SwitchCompat mFastChargeSwitcher;
-    boolean suAvailable;
     private SwitchCompat mMPDecision;
 
     @Nullable
@@ -53,8 +52,6 @@ public class MiscFragment extends Fragment
         mFastChargeSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_fastcharge_switch);
         mMPDecision = (SwitchCompat) view.findViewById(R.id.fragment_cputools_mpdecision_switch);
 
-        suAvailable = Shell.SU.available();
-        if (suAvailable)
         {
 
             mADBSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -70,11 +67,6 @@ public class MiscFragment extends Fragment
                     mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > sys/kernel/fast_charge/force_fast_charge\n");
                 }
             });
-        }
-        else
-        {
-            Toast.makeText(getActivity().getApplicationContext(),"Phone not Rooted", Toast.LENGTH_SHORT).show();
-
         }
 
         // Detected: mpdecision (make visible)
@@ -95,8 +87,6 @@ public class MiscFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        suAvailable = Shell.SU.available();
-        if (suAvailable) {
 
             mShell.getSession().addCommand("getprop service.adb.tcp.port", 10, new Shell.OnCommandResultListener() {
                 @Override
@@ -129,11 +119,6 @@ public class MiscFragment extends Fragment
                 }
             });
 
-        }
-        else
-        {
-            Toast.makeText(getActivity().getApplicationContext(),"Phone not Rooted", Toast.LENGTH_SHORT).show();
 
-        }
     }
 }

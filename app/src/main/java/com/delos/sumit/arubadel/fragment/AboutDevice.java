@@ -31,7 +31,6 @@ public class AboutDevice extends Fragment
     private TextView mBuild_description;
     private TextView mBuild_fingerprint;
     private TextView mRoot_Status;
-    boolean suAvailable = Shell.SU.available();
 
     List<String> model_sh=Shell.SH.run("getprop ro.product.model");;
     List<String> platform_release=Shell.SH.run("getprop ro.build.version.release");
@@ -60,15 +59,8 @@ public class AboutDevice extends Fragment
         mKernel_version.setText("Kernel Version :- " + kernel_version+"\n");
         mBuild_description.setText("Build Description :- " + build_desciption+"\n");
         mBuild_fingerprint.setText("Build FingerPrint :- " + build_fingerprint+"\n");
-        if(suAvailable)
-        {
-            mRoot_Status.setText("Root Status :- Rooted" + "\n");
-        }
-        else
-        {
-            mRoot_Status.setText("Root Status :- Not Rooted" + "\n");
+        mRoot_Status.setText("Root Status :- Rooted" + "\n");
 
-        }
         return rootView;
     }
 

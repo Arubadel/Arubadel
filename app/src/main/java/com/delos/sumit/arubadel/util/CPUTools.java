@@ -15,13 +15,11 @@ import eu.chainfire.libsuperuser.Shell;
 public class CPUTools
 {
     public final static String TAG = "CPUTools";
-    static boolean suAvailable = false;
 
     // use with caution: Due to thread delay, info may not pushed before its read sequence
     public static void getCpuInfo(ShellUtils shell, final CPUInfo info)
     {
-        suAvailable = Shell.SU.available();
-        if (suAvailable) {
+
             String corePath = Config.PATH_CPUS + "/cpu0/";
 
             info.lock = true;
@@ -76,7 +74,7 @@ public class CPUTools
                 }
             });
         }
-    }
+
 
      public static boolean hasMPDecision()
      {
