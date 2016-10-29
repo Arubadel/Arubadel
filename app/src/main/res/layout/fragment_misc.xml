@@ -68,4 +68,23 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"/>
 
+    <Button
+        android:text="Governor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/governor_button"
+        android:textSize="20sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose your governor"
+        android:textSize="14sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"/>
+
 </LinearLayout>

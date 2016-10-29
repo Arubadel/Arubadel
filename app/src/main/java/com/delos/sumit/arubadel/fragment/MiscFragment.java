@@ -10,6 +10,7 @@ import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,8 @@ public class MiscFragment extends Fragment
     private SwitchCompat mADBSwitcher;
     private SwitchCompat mFastChargeSwitcher;
     private SwitchCompat mMPDecision;
+    private Button mGovernor;
+
 
     @Nullable
     @Override
@@ -51,6 +54,20 @@ public class MiscFragment extends Fragment
         mInfoText = (TextView) view.findViewById(R.id.fragment_misc_info_text);
         mFastChargeSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_fastcharge_switch);
         mMPDecision = (SwitchCompat) view.findViewById(R.id.fragment_cputools_mpdecision_switch);
+        mGovernor =(Button)view.findViewById(R.id.governor_button);
+
+        this.mGovernor.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        GovernorOptionDialogFragment fragment = new GovernorOptionDialogFragment();
+                        fragment.show(getActivity().getSupportFragmentManager(), "power_dialog_fragment");
+                    }
+                }
+        );
+
 
         {
 

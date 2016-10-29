@@ -51,4 +51,23 @@
     <string name="preferences_device_code_name_summary">Some updates will be device specified (risky)</string>
     <string name="device_code_error">Your device code could not be gathered. Please manually edit in settings</string>
     <string name="refresing">Refresing</string>
+    <string name="choose_governor">Choose Governor</string>
+    <string name="lazy">lazy</string>
+    <string name="smoove">smoove</string>
+    <string name="lagfree">lagfree</string>
+    <string name="intellidemand">intellidemand</string>
+    <string name="ondemandX">ondemandX</string>
+    <string name="hyper">hyper</string>
+    <string name="smartassV2">smartassV2</string>
+    <string name="lulzactive">lulzactive</string>
+    <string name="interactiveX">interactiveX</string>
+    <string name="adaptive">adaptive</string>
+    <string name="interactive">interactive</string>
+    <string name="conservative">conservative</string>
+    <string name="userspace">userspace</string>
+    <string name="wheatley">wheatley</string>
+    <string name="lionheart">lionheart</string>
+    <string name="ondemand">ondemand</string>
+    <string name="performance">performance</string>
+
 </resources>
