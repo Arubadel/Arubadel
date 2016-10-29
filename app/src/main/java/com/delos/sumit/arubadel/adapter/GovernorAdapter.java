@@ -10,7 +10,11 @@ import android.widget.TextView;
 import com.delos.sumit.arubadel.R;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.delos.sumit.arubadel.util.CPUTools;
+
+import eu.chainfire.libsuperuser.Shell;
 
 /**
  * Created by: sumit
@@ -22,28 +26,50 @@ public class GovernorAdapter extends BaseAdapter
     private Context mContext;
     private LayoutInflater mInflater;
     private ArrayList<GovernorItem> mList = new ArrayList<>();
-    String scaling_gov_path="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+    String Scaling_gov_path="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+    List<String> get_gov=(Shell.SU.run("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"));
+    String store_gov= String.valueOf(get_gov);
+    String[] parts = store_gov.split("\\s+"); // escape .
+
     public GovernorAdapter(Context context)
     {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
+        String gov1 = parts[0];
+        String gov2 = parts[1];
+        String gov3 = parts[2];
+        String gov4 = parts[3];
+        String gov5 = parts[4];
+        String gov6 = parts[5];
+        String gov7 = parts[6];
+        String gov8 = parts[7];
+        String gov9 = parts[8];
+        String gov10 = parts[9];
+        String gov11= parts[10];
+        String gov12 = parts[11];
+        String gov13 = parts[12];
+        String gov14 = parts[13];
+        String gov15 = parts[14];
+        String gov16 = parts[15];
+        String gov17 = parts[16];
 
-        mList.add(new GovernorItem(context.getString(R.string.lazy), "echo 'lazy' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.smoove), "echo 'smoove' > "+ scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.lagfree), "echo 'lagfree' >  " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.intellidemand), "echo 'intellidemand' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.ondemandX), "echo 'ondemandX' >  " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.hyper), "echo 'hyper' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.smartassV2), "echo 'smartassV2' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.lulzactive), "echo 'lulzactive' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.interactiveX), "echo 'interactiveX' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.adaptive), "echo 'adaptive' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.conservative), "echo 'conservative' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.userspace), "echo 'userspace' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.wheatley), "echo 'wheatley' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.lionheart), "echo 'lionheart' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.ondemand), "echo 'ondemand' > " + scaling_gov_path));
-        mList.add(new GovernorItem(context.getString(R.string.performance), "echo 'performance' > " + scaling_gov_path));
+        mList.add(new GovernorItem(gov1, "echo" + gov1 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov2, "echo" + gov2 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov3, "echo" + gov3 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov4, "echo" + gov4 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov5, "echo" + gov5 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov6, "echo" + gov6 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov7, "echo" + gov7 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov8, "echo" + gov8 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov9, "echo" + gov9 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov10, "echo" + gov10 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov11, "echo" + gov11 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov12, "echo" + gov12 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov13, "echo" + gov13 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov14, "echo" + gov14 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov15, "echo" + gov15 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov16, "echo" + gov16 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov17, "echo" + gov17 + ">"  + Scaling_gov_path));
 
     }
 
