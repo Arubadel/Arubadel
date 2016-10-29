@@ -28,27 +28,48 @@ public class TcpCongestionControlAdapter extends BaseAdapter
     private Context mContext;
     private LayoutInflater mInflater;
     private ArrayList<TcpItem> mList = new ArrayList<>();
-    String tcp_change="sysctl -w net.ipv4.tcp_congestion_control=";
-    List<String> get_tcp=(Shell.SU.run("sysctl net.ipv4.tcp_available_congestion_control"));
-    String store_tcp_value= String.valueOf(get_tcp);
-    String[] parts = store_tcp_value.split("\\s+");
-
+    private String tcp_change="sysctl -w net.ipv4.tcp_congestion_control=";
+    private List<String> get_tcp=(Shell.SU.run("sysctl net.ipv4.tcp_available_congestion_control"));
+    private String store_tcp_value= String.valueOf(get_tcp);
+    private String[] parts = store_tcp_value.split("\\s+");
+    private String tcp1;
+    private String tcp2;
+    private String tcp3;
+    private String tcp4;
+    private String tcp5;
+    private String tcp6;
+    private String tcp7;
+    private String tcp8;
+    private String tcp9;
+    private String tcp10;
+    private String tcp11;
+    private String tcp12;
     public TcpCongestionControlAdapter(Context context)
     {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        String tcp1 = parts[2];
-        String tcp2 = parts[3];
-        String tcp3 = parts[4];
-        String tcp4 = parts[5];
-        String tcp5 = parts[6];
-        String tcp6 = parts[7];
-        String tcp7 = parts[8];
-        String tcp8 = parts[9];
-        String tcp9 = parts[10];
-        String tcp10 = parts[11];
-        String tcp11 = parts[12];
-        String tcp12 = parts[13];
+
+        tcp1=parts[2];
+        tcp2=parts[3];
+        try
+        {
+            tcp3=parts[4];
+            tcp4=parts[5];
+            tcp5=parts[6];
+            tcp1=parts[7];
+            tcp6=parts[8];
+            tcp7=parts[9];
+            tcp8=parts[10];
+            tcp9=parts[11];
+            tcp10=parts[12];
+            tcp11=parts[13];
+            tcp12=parts[14];
+        }
+        catch (Exception e)
+        {
+
+        }
+
 
         mList.add(new TcpItem(tcp1,  tcp_change+tcp1));
         mList.add(new TcpItem(tcp2,  tcp_change+tcp2));
@@ -61,14 +82,13 @@ public class TcpCongestionControlAdapter extends BaseAdapter
         mList.add(new TcpItem(tcp9,  tcp_change+tcp9));
         mList.add(new TcpItem(tcp10,  tcp_change+tcp10));
         mList.add(new TcpItem(tcp11,  tcp_change+tcp11));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if(Objects.equals(tcp12, "illinois]"))
-                mList.add(new TcpItem("illinois",  tcp_change + "illinois"));
+            if(tcp12.equals("illinois]"))
+                    mList.add(new TcpItem("illinois",  tcp_change + "illinois"));
             else
             {
-                mList.add(new TcpItem(tcp12,  tcp_change + tcp12));
+        mList.add(new TcpItem(tcp12,  tcp_change + tcp12));
             }
-        }
+
     }
 
     @Override

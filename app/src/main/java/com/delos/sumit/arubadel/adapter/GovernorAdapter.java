@@ -28,43 +28,57 @@ public class GovernorAdapter extends BaseAdapter
     private Context mContext;
     private LayoutInflater mInflater;
     private ArrayList<GovernorItem> mList = new ArrayList<>();
-    String Scaling_gov_path="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-    List<String> get_gov=(Shell.SU.run("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"));
-    String store_gov= String.valueOf(get_gov);
-    String[] parts = store_gov.split("\\s+"); // escape .
-
+    private String Scaling_gov_path="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+    private List<String> get_gov=(Shell.SU.run("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"));
+    private String store_gov= String.valueOf(get_gov);
+    private String[] parts = store_gov.split("\\s+"); // escape .
+    private String gov1;
+    private String gov2;
+    private String gov3;
+    private String gov4;
+    private String gov5;
+    private String gov6;
+    private String gov7;
+    private String gov8;
+    private String gov9;
+    private String gov10;
+    private String gov11;
+    private String gov12;
+    private String gov13;
+    private String gov14;
+    private String gov15;
+    private String gov16;
+    private String gov17;
     public GovernorAdapter(Context context)
     {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        String gov1 = parts[0];
-        String gov2 = parts[1];
-        String gov3 = parts[2];
-        String gov4 = parts[3];
-        String gov5 = parts[4];
-        String gov6 = parts[5];
-        String gov7 = parts[6];
-        String gov8 = parts[7];
-        String gov9 = parts[8];
-        String gov10 = parts[9];
-        String gov11= parts[10];
-        String gov12 = parts[11];
-        String gov13 = parts[12];
-        String gov14 = parts[13];
-        String gov15 = parts[14];
-        String gov16 = parts[15];
-        String gov17 = parts[16];
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        gov1=parts[0];
+        gov2=parts[1];
+        gov3=parts[2];
+        gov4=parts[3];
+        gov5=parts[4];
+        try
         {
-            if(Objects.equals(gov1, "[lazy"))
+            gov6 = parts[5];
+            gov7 = parts[6];
+            gov8 = parts[7];
+            gov9 = parts[8];
+            gov10 = parts[9];
+            gov11 = parts[10];
+            gov12 = parts[11];
+            gov13 = parts[12];
+            gov14 = parts[13];
+            gov15 = parts[14];
+            gov16 = parts[15];
+            gov17 = parts[16];
+        }
+        catch (Exception e)
         {
-            mList.add(new GovernorItem(context.getString(R.string.lazy), "echo " + "lazy" + " > " + Scaling_gov_path));
+
         }
-        else
-        {
-            mList.add(new GovernorItem(gov1, "echo " + gov1 + " > "  + Scaling_gov_path));
-        }
-        }
+
+        mList.add(new GovernorItem(gov1, "echo " + gov1 + " > "  + Scaling_gov_path));
         mList.add(new GovernorItem(gov2, "echo " + gov2 + " > "  + Scaling_gov_path));
         mList.add(new GovernorItem(gov3, "echo " + gov3 + " > "  + Scaling_gov_path));
         mList.add(new GovernorItem(gov4, "echo " + gov4 + " > "  + Scaling_gov_path));
