@@ -11,6 +11,7 @@ import com.delos.sumit.arubadel.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.delos.sumit.arubadel.util.CPUTools;
 
@@ -52,8 +53,14 @@ public class GovernorAdapter extends BaseAdapter
         String gov15 = parts[14];
         String gov16 = parts[15];
         String gov17 = parts[16];
-
-        mList.add(new GovernorItem(context.getString(R.string.lazy), "echo " + "lazy" + " > "  + Scaling_gov_path));
+        if(Objects.equals(gov1, "[lazy"))
+        {
+            mList.add(new GovernorItem(context.getString(R.string.lazy), "echo " + "lazy" + " > " + Scaling_gov_path));
+        }
+        else
+        {
+            mList.add(new GovernorItem(gov1, "echo " + gov1 + " > "  + Scaling_gov_path));
+        }
         mList.add(new GovernorItem(gov2, "echo " + gov2 + " > "  + Scaling_gov_path));
         mList.add(new GovernorItem(gov3, "echo " + gov3 + " > "  + Scaling_gov_path));
         mList.add(new GovernorItem(gov4, "echo " + gov4 + " > "  + Scaling_gov_path));
