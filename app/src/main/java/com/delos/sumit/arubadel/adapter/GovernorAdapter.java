@@ -1,6 +1,7 @@
 package com.delos.sumit.arubadel.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,13 +54,16 @@ public class GovernorAdapter extends BaseAdapter
         String gov15 = parts[14];
         String gov16 = parts[15];
         String gov17 = parts[16];
-        if(Objects.equals(gov1, "[lazy"))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            if(Objects.equals(gov1, "[lazy"))
         {
             mList.add(new GovernorItem(context.getString(R.string.lazy), "echo " + "lazy" + " > " + Scaling_gov_path));
         }
         else
         {
             mList.add(new GovernorItem(gov1, "echo " + gov1 + " > "  + Scaling_gov_path));
+        }
         }
         mList.add(new GovernorItem(gov2, "echo " + gov2 + " > "  + Scaling_gov_path));
         mList.add(new GovernorItem(gov3, "echo " + gov3 + " > "  + Scaling_gov_path));

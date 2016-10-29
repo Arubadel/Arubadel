@@ -69,5 +69,7 @@
     <string name="lionheart">lionheart</string>
     <string name="ondemand">ondemand</string>
     <string name="performance">performance</string>
+    <string name="choose_tcp">"Choose Tcp "</string>
+    <string name="about_this_device">About This Device</string>
 
 </resources>

@@ -12,6 +12,9 @@
         <item
             android:id="@+id/nav_settings"
             android:title="@string/settings"/>
+        <item
+            android:id="@+id/nav_about_device"
+            android:title="@string/about_this_device"/>
 
     </group>
     <item android:title="@string/development">
@@ -31,9 +34,7 @@
                 <item
                     android:id="@+id/nav_recovery"
                     android:title="@string/change_recovery"/>
-                <item
-                    android:id="@+id/nav_about_device"
-                    android:title="About This Device"/>
+
             </group>
         </menu>
     </item>

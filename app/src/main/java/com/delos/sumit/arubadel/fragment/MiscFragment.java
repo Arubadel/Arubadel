@@ -39,6 +39,7 @@ public class MiscFragment extends Fragment
     private SwitchCompat mFastChargeSwitcher;
     private SwitchCompat mMPDecision;
     private Button mGovernor;
+    private Button mTcp;
 
 
     @Nullable
@@ -55,6 +56,7 @@ public class MiscFragment extends Fragment
         mFastChargeSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_fastcharge_switch);
         mMPDecision = (SwitchCompat) view.findViewById(R.id.fragment_cputools_mpdecision_switch);
         mGovernor =(Button)view.findViewById(R.id.governor_button);
+        mTcp =(Button)view.findViewById(R.id.tcp_congestion_control);
 
         this.mGovernor.setOnClickListener(
                 new View.OnClickListener()
@@ -67,6 +69,18 @@ public class MiscFragment extends Fragment
                     }
                 }
         );
+        this.mTcp.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        TcpOptionDialogFragment fragment = new TcpOptionDialogFragment();
+                        fragment.show(getActivity().getSupportFragmentManager(), "power_dialog_fragment");
+                    }
+                }
+        );
+
 
 
         {
