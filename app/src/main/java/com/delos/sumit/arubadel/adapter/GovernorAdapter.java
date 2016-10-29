@@ -53,23 +53,23 @@ public class GovernorAdapter extends BaseAdapter
         String gov16 = parts[15];
         String gov17 = parts[16];
 
-        mList.add(new GovernorItem(gov1, "echo" + gov1 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov2, "echo" + gov2 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov3, "echo" + gov3 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov4, "echo" + gov4 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov5, "echo" + gov5 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov6, "echo" + gov6 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov7, "echo" + gov7 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov8, "echo" + gov8 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov9, "echo" + gov9 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov10, "echo" + gov10 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov11, "echo" + gov11 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov12, "echo" + gov12 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov13, "echo" + gov13 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov14, "echo" + gov14 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov15, "echo" + gov15 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov16, "echo" + gov16 + ">"  + Scaling_gov_path));
-        mList.add(new GovernorItem(gov17, "echo" + gov17 + ">"  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov1, "echo " + gov1 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov2, "echo " + gov2 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov3, "echo " + gov3 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov4, "echo " + gov4 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov5, "echo " + gov5 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov6, "echo " + gov6 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov7, "echo " + gov7 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov8, "echo " + gov8 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov9, "echo " + gov9 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov10, "echo " + gov10 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov11, "echo " + gov11 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov12, "echo " + gov12 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov13, "echo " + gov13 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov14, "echo " + gov14 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov15, "echo " + gov15 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov16, "echo " + gov16 + " > "  + Scaling_gov_path));
+        mList.add(new GovernorItem(gov17, "echo " + gov17 + " > "  + Scaling_gov_path));
 
     }
 
