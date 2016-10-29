@@ -50,4 +50,5 @@
     <string name="preferences_device_code_name_title">Device code name</string>
     <string name="preferences_device_code_name_summary">Some updates will be device specified (risky)</string>
     <string name="device_code_error">Your device code could not be gathered. Please manually edit in settings</string>
+    <string name="refresing">Refresing</string>
 </resources>
