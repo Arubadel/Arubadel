@@ -1,5 +1,6 @@
 package com.delos.sumit.arubadel.fragment;
 
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,8 @@ public class AboutDevice extends Fragment
     private TextView mBuild_description;
     private TextView mBuild_fingerprint;
     private TextView mRoot_Status;
+    String App_version = "";
+    TextView mApp_version;
 
     List<String> model_sh=Shell.SH.run("getprop ro.product.model");;
     List<String> platform_release=Shell.SH.run("getprop ro.build.version.release");
@@ -51,6 +54,17 @@ public class AboutDevice extends Fragment
         mKernel_version=(TextView)rootView.findViewById(R.id.kernel_version_text);
         mBoard=(TextView)rootView.findViewById(R.id.board_text);
         mRoot_Status=(TextView)rootView.findViewById(R.id.root_status);
+         mApp_version = (TextView) rootView.findViewById(R.id.app_version);
+
+        try
+        {
+            App_version = getActivity().getApplicationContext().getPackageManager().getPackageInfo(getActivity().getApplicationContext().getPackageName(), 0).versionName;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        mApp_version.setText("App Version :- "+ "[ "+App_version+" ]\n");
 
         model_text.setText("Model Number :- " + model_sh+"\n");
         mplatform_release_text.setText("Device Version :- " + platform_release+"\n");

@@ -7,6 +7,12 @@
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/app_version" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/model_text" />
 
     <TextView
