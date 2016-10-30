@@ -46,26 +46,29 @@ public class TcpCongestionControlAdapter extends BaseAdapter
     private String tcp10;
     private String tcp11;
     private String tcp12;
+    private String tcp13;
+
     public TcpCongestionControlAdapter(Context context)
     {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
 
-        tcp1=parts[2];
-        tcp2=parts[3];
+        tcp1=parts[1];
+        tcp2=parts[2];
         try
         {
-            tcp3=parts[4];
-            tcp4=parts[5];
-            tcp5=parts[6];
-            tcp1=parts[7];
-            tcp6=parts[8];
-            tcp7=parts[9];
-            tcp8=parts[10];
-            tcp9=parts[11];
-            tcp10=parts[12];
-            tcp11=parts[13];
-            tcp12=tcp_last_part[0];
+            tcp3=parts[3];
+            tcp4=parts[4];
+            tcp5=parts[5];
+            tcp1=parts[6];
+            tcp6=parts[7];
+            tcp7=parts[8];
+            tcp8=parts[9];
+            tcp9=parts[10];
+            tcp10=parts[11];
+            tcp11=parts[12];
+            tcp12=parts[13];
+            tcp13=tcp_last_part[0];
 
         }
         catch (Exception e)
@@ -86,6 +89,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter
         mList.add(new TcpItem(tcp10,  tcp_change+tcp10));
         mList.add(new TcpItem(tcp11,  tcp_change+tcp11));
         mList.add(new TcpItem(tcp12,  tcp_change + tcp12));
+        mList.add(new TcpItem(tcp13,  tcp_change + tcp13));
 
 
     }
