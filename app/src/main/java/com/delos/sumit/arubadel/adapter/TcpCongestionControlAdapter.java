@@ -32,6 +32,8 @@ public class TcpCongestionControlAdapter extends BaseAdapter
     private List<String> get_tcp=(Shell.SU.run("sysctl net.ipv4.tcp_available_congestion_control"));
     private String store_tcp_value= String.valueOf(get_tcp);
     private String[] parts = store_tcp_value.split("\\s+");
+    private String[] tcp_last_part = parts[14].split("\\]");
+
     private String tcp1;
     private String tcp2;
     private String tcp3;
@@ -63,7 +65,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter
             tcp9=parts[11];
             tcp10=parts[12];
             tcp11=parts[13];
-            tcp12=parts[14];
+            tcp12=tcp_last_part[0];
 
         }
         catch (Exception e)
