@@ -64,6 +64,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter
             tcp10=parts[12];
             tcp11=parts[13];
             tcp12=parts[14];
+
         }
         catch (Exception e)
         {
@@ -82,12 +83,8 @@ public class TcpCongestionControlAdapter extends BaseAdapter
         mList.add(new TcpItem(tcp9,  tcp_change+tcp9));
         mList.add(new TcpItem(tcp10,  tcp_change+tcp10));
         mList.add(new TcpItem(tcp11,  tcp_change+tcp11));
-            if(tcp12.equals("illinois]"))
-                    mList.add(new TcpItem("illinois",  tcp_change + "illinois"));
-            else
-            {
         mList.add(new TcpItem(tcp12,  tcp_change + tcp12));
-            }
+
 
     }
 
