@@ -48,6 +48,9 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/fragment_cputools_mpdecision_switch"
@@ -78,6 +81,7 @@
         android:paddingRight="15dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"/>
+
     <Button
         android:text="Tcp Congestion Control"
         android:layout_width="match_parent"
