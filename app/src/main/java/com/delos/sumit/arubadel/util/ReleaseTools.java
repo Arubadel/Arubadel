@@ -3,6 +3,7 @@ package com.delos.sumit.arubadel.util;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import com.delos.sumit.arubadel.R;
 
@@ -23,15 +24,18 @@ public class ReleaseTools
         try
         {
             Intent openIntent = new Intent(Intent.ACTION_VIEW);
-
             openIntent.setDataAndType(Uri.fromFile(file), getFileContentType(file.getAbsolutePath()));
-
             context.startActivity(Intent.createChooser(openIntent, context.getString(R.string.choose_app_to_open)));
         } catch (Exception e) {}
     }
 
     public static String getFileContentType(String fileUrl)
     {
+        int dotPos = fileUrl.lastIndexOf(".");
+
+        if (dotPos != -1 && fileUrl.substring(dotPos).equals(".img"))
+            return "application/vflasher";
+
         FileNameMap nameMap = URLConnection.getFileNameMap();
         String fileType = nameMap.getContentTypeFor(fileUrl);
 

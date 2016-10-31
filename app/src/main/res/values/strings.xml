@@ -71,5 +71,19 @@
     <string name="performance">performance</string>
     <string name="choose_tcp">"Choose Tcp "</string>
     <string name="about_this_device">About This Device</string>
+    <string name="vflasher">VFlasher</string>
+    <string name="flash_partition_warning">What are we flashing? Please be careful. You will be asked one more time to start flashing</string>
+    <string name="recovery_partition">Recovery partition</string>
+    <string name="kernel_partition">Kernel partition</string>
+    <string name="flash_partition">Flash partition</string>
+    <string name="flash_before_start_warning">After proceeding, the app will start flashing partition. While this happening, please wait until you see done message. Also have a fresh backup</string>
+    <string name="flash_verb">Flash</string>
+    <string name="proceed">Proceed</string>
+    <string name="please_wait">Please wait</string>
+    <string name="flashing">Flashing</string>
+    <string name="flash_completed_message">Flashed. Please reboot your device</string>
+    <string name="specify_partition_warning">Please specify the partition</string>
+    <string name="flash_gone_wrong_error">No result is returned. Something might be gone wrong</string>
+    <string name="flash_result">Flash result: %s</string>
 
 </resources>
