@@ -22,6 +22,9 @@ public class Activity extends AppCompatActivity
 
     public ShellUtils getShellSession()
     {
+        if (this.mShellInstance == null || this.mShellInstance.getSession() == null)
+            loadShell();
+
         return this.mShellInstance;
     }
 
