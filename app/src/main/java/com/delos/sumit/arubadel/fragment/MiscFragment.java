@@ -18,11 +18,12 @@ import android.widget.Toast;
 import com.delos.sumit.arubadel.R;
 import com.delos.sumit.arubadel.app.Activity;
 import com.delos.sumit.arubadel.util.CPUTools;
+import com.delos.sumit.arubadel.util.Config;
 import com.delos.sumit.arubadel.util.ShellUtils;
 import com.genonbeta.core.util.NetworkUtils;
 
 import java.util.List;
-
+import com.delos.sumit.arubadel.util.CPUInfo;
 import eu.chainfire.libsuperuser.Shell;
 
 import static android.content.Context.WIFI_SERVICE;
@@ -40,6 +41,8 @@ public class MiscFragment extends Fragment
     private SwitchCompat mMPDecision;
     private Button mGovernor;
     private Button mTcp;
+    private  SwitchCompat mDeepSleep;
+    private CPUInfo mCPUInfo = new CPUInfo();
 
 
     @Nullable
@@ -57,6 +60,24 @@ public class MiscFragment extends Fragment
         mMPDecision = (SwitchCompat) view.findViewById(R.id.fragment_cputools_mpdecision_switch);
         mGovernor =(Button)view.findViewById(R.id.governor_button);
         mTcp =(Button)view.findViewById(R.id.tcp_congestion_control);
+        mDeepSleep=(SwitchCompat)view.findViewById(R.id.fragment_misc_deep_sleep);
+
+        this.mDeepSleep.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        mShell.getSession().addCommand("echo " + mCPUInfo.speedMaxAllowed + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_max_freq");
+                        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu1/online");
+                        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu2/online");
+                        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu3/online");
+                        mShell.getSession().addCommand("input keyevent KEYCODE_POWER");
+                        getActivity().finish();
+                        getActivity().moveTaskToBack(true);
+                    }
+                }
+        );
 
         this.mGovernor.setOnClickListener(
                 new View.OnClickListener()
@@ -64,6 +85,7 @@ public class MiscFragment extends Fragment
                     @Override
                     public void onClick(View v)
                     {
+
                         GovernorOptionDialogFragment fragment = new GovernorOptionDialogFragment();
                         fragment.show(getActivity().getSupportFragmentManager(), "power_dialog_fragment");
                     }
