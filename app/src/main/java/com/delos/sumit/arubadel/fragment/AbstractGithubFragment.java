@@ -117,7 +117,8 @@ abstract public class AbstractGithubFragment extends ListFragment
                         {
                             if (mAwaitedList != null && mAwaitedList.length() > 0)
                                 mAdapter.update(mAwaitedList);
-                            else
+
+                            if (mAdapter.getCount() == 0)
                                 pushInfo(R.string.nothing_to_show);
                         }
                     }
