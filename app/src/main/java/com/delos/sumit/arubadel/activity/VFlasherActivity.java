@@ -35,8 +35,6 @@ public class VFlasherActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 
-		loadShell();
-
 		final ShellUtils shell = getShellSession();
 
 		if (getIntent() != null)
