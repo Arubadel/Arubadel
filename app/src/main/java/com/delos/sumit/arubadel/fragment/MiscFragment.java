@@ -72,6 +72,8 @@ public class MiscFragment extends Fragment
                     @Override
                     public void onClick(View v)
                     {
+                        mShell.getSession().addCommand("mount -o rw,remount,rw /system ; chmod 664 /system/bin/mpdecision ; killall mpdecision; stop mpdecision");
+                        mShell.getSession().addCommand("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled ");
                         mShell.getSession().addCommand("echo " + mCPUInfo.speedMaxAllowed + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_max_freq");
                         mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu1/online");
                         mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu2/online");
