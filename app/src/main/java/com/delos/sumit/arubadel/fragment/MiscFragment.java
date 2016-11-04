@@ -42,6 +42,7 @@ public class MiscFragment extends Fragment
     private Button mGovernor;
     private Button mTcp;
     private  SwitchCompat mDeepSleep;
+    private  Button mGpuFreq;
     private CPUInfo mCPUInfo = new CPUInfo();
 
 
@@ -61,6 +62,7 @@ public class MiscFragment extends Fragment
         mGovernor =(Button)view.findViewById(R.id.governor_button);
         mTcp =(Button)view.findViewById(R.id.tcp_congestion_control);
         mDeepSleep=(SwitchCompat)view.findViewById(R.id.fragment_misc_deep_sleep);
+        mGpuFreq=(Button)view.findViewById(R.id.gpu_freq_control);
 
         this.mDeepSleep.setOnClickListener(
                 new View.OnClickListener()
@@ -91,6 +93,7 @@ public class MiscFragment extends Fragment
                     }
                 }
         );
+
         this.mTcp.setOnClickListener(
                 new View.OnClickListener()
                 {
@@ -98,6 +101,19 @@ public class MiscFragment extends Fragment
                     public void onClick(View v)
                     {
                         TcpOptionDialogFragment fragment = new TcpOptionDialogFragment();
+                        fragment.show(getActivity().getSupportFragmentManager(), "power_dialog_fragment");
+                    }
+                }
+        );
+
+
+        this.mGpuFreq.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        GpuOptionDialogFragment fragment = new GpuOptionDialogFragment();
                         fragment.show(getActivity().getSupportFragmentManager(), "power_dialog_fragment");
                     }
                 }

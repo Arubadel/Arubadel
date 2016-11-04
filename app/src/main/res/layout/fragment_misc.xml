@@ -107,6 +107,18 @@
         android:paddingBottom="8dp"/>
 
     <Button
+        android:text="Gpu Freq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gpu_freq_control"
+        android:textSize="20sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"/>
+
+
+    <Button
         android:text="Tcp Congestion Control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
