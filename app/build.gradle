@@ -8,7 +8,7 @@ android {
     aaptOptions.useNewCruncher = false
 
     defaultConfig {
-        applicationId "com.delos.sumit.arubadel"
+        applicationId "com.delos.github.arubadel"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
