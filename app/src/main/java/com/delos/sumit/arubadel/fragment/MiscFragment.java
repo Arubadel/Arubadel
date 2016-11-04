@@ -44,6 +44,7 @@ public class MiscFragment extends Fragment
     private  SwitchCompat mDeepSleep;
     private  Button mGpuFreq;
     private CPUInfo mCPUInfo = new CPUInfo();
+    private SwitchCompat mMSM_Hotplug;
 
 
     @Nullable
@@ -63,6 +64,7 @@ public class MiscFragment extends Fragment
         mTcp =(Button)view.findViewById(R.id.tcp_congestion_control);
         mDeepSleep=(SwitchCompat)view.findViewById(R.id.fragment_misc_deep_sleep);
         mGpuFreq=(Button)view.findViewById(R.id.gpu_freq_control);
+        mMSM_Hotplug=(SwitchCompat)view.findViewById(R.id.fragment_cputools_msm_mpdecision_hotplug_switch);
 
         this.mDeepSleep.setOnClickListener(
                 new View.OnClickListener()
@@ -150,6 +152,13 @@ public class MiscFragment extends Fragment
             });
         }
 
+        mMSM_Hotplug.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > /sys/kernel/msm_mpdecision/conf/enabled\n");
+            }
+        });
+
         return view;
     }
 
@@ -173,6 +182,14 @@ public class MiscFragment extends Fragment
                 }
             });
 
+
+        mShell.getSession().addCommand("cat /sys/kernel/msm_mpdecision/conf/enabled", 10, new Shell.OnCommandResultListener() {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output) {
+                if (output.size() > 0)
+                    mMSM_Hotplug.setChecked("1".equals(output.get(0)));
+            }
+        });
 
             List<String> availableNetworks = NetworkUtils.getInterfacesWithOnlyIp(true, new String[]{"rmnet"});
 
