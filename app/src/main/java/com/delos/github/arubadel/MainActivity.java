@@ -126,29 +126,48 @@ else
     {
         int id = item.getItemId();
 
-        if (id == R.id.nav_cputools)
+        if (id == R.id.nav_cputools) {
             this.updateFragment(this.mFragmentCPUTools);
-        else if (id == R.id.nav_msm_mpdecision_hotplug)
+            setTitle("Cpu Tools");
+        }
+        else if (id == R.id.nav_msm_mpdecision_hotplug) {
             this.updateFragment(this.mHotplug);
-        else if (id == R.id.nav_misc)
+            setTitle("Msm Hotplug");
+        }
+        else if (id == R.id.nav_misc) {
             this.updateFragment(this.mFragmentMisc);
-        else if (id == R.id.nav_app_updates)
+            setTitle("Misc Stuff");
+        }
+        else if (id == R.id.nav_app_updates) {
             this.updateFragment(this.mFragmentRelApp);
-        else if (id == R.id.nav_kernel_updates)
+            setTitle("App Updates");
+        }
+         else if (id == R.id.nav_kernel_updates) {
             this.updateFragment(this.mFragmentRelKernel);
-        else if (id == R.id.nav_recovery)
+            setTitle("Kernels");
+        }
+        else if (id == R.id.nav_recovery) {
             this.updateFragment(this.mFragmentRelRecovery);
-        else if (id == R.id.nav_rom)
+            setTitle("Recoverys");
+        }
+        else if (id == R.id.nav_rom) {
             this.updateFragment(this.mFragmentRelROM);
+            setTitle("Roms");
+        }
         else if (id == R.id.nav_credits)
+        {
             this.updateFragment(this.mFragmentCredits);
-        else if (id == R.id.nav_credits)
-            this.updateFragment(this.mFragmentCredits);
+            setTitle("Credits");
+        }
         else if (id == R.id.nav_settings)
+        {
             this.updateFragment(this.mFragmentPreferences);
-        else if (id == R.id.nav_about_device)
+            setTitle("Settings");
+        }
+        else if (id == R.id.nav_about_device) {
             this.updateFragment(this.mAboutDevice);
-
+            setTitle("About Device");
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 

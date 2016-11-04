@@ -29,6 +29,7 @@ import eu.chainfire.libsuperuser.Shell;
 public class MsmMpdecisionHotplug extends Fragment
 {
     private ShellUtils mShell;
+    private SwitchCompat mMSM_Hotplug;
 
 
     @Nullable
@@ -39,7 +40,14 @@ public class MsmMpdecisionHotplug extends Fragment
         this.mShell = ((Activity) getActivity()).getShellSession();
 
         View view = inflater.inflate(R.layout.fragment_msm_mpdecision_hotplug, container, false);
+        mMSM_Hotplug=(SwitchCompat) view.findViewById(R.id.fragment_cputools_msm_mpdecision_hotplug_switch);
 
+        mMSM_Hotplug.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > /sys/kernel/msm_mpdecision/conf/enabled\n");
+            }
+        });
 
         return view;
     }
@@ -48,6 +56,13 @@ public class MsmMpdecisionHotplug extends Fragment
     public void onResume() {
         super.onResume();
 
+        mShell.getSession().addCommand("cat /sys/kernel/msm_mpdecision/conf/enabled", 10, new Shell.OnCommandResultListener() {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output) {
+                if (output.size() > 0)
+                    mMSM_Hotplug.setChecked("1".equals(output.get(0)));
+            }
+        });
 
 
     }
