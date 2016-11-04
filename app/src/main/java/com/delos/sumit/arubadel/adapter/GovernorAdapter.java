@@ -29,7 +29,7 @@ public class GovernorAdapter extends BaseAdapter
     private LayoutInflater mInflater;
     private ArrayList<GovernorItem> mList = new ArrayList<>();
     private String Scaling_gov_path="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-    private List<String> get_gov=(Shell.SU.run("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"));
+    private List<String> get_gov=(Shell.SH.run("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"));
     private String store_gov= String.valueOf(get_gov);
     private String[] governor_parts = store_gov.split("\\[");
     private String[] parts = governor_parts[1].split("\\s+"); // escape .

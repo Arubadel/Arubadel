@@ -29,7 +29,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter
     private LayoutInflater mInflater;
     private ArrayList<TcpItem> mList = new ArrayList<>();
     private String tcp_change="sysctl -w net.ipv4.tcp_congestion_control=";
-    private List<String> get_tcp=(Shell.SU.run("sysctl net.ipv4.tcp_available_congestion_control"));
+    private List<String> get_tcp=(Shell.SH.run("sysctl net.ipv4.tcp_available_congestion_control"));
     private String store_tcp_value= String.valueOf(get_tcp);
     private String[] parts = store_tcp_value.split("\\s+");
     private String[] tcp_last_part = parts[14].split("\\]");

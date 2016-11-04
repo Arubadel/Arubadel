@@ -29,7 +29,7 @@ public class GpuAdapter extends BaseAdapter
     private LayoutInflater mInflater;
     private ArrayList<GpuItem> mList = new ArrayList<>();
     private String gpu_scaling_path="/sys/class/kgsl/kgsl-3d0/max_gpuclk";
-    private List<String> get_gpu_scaling_freq=(Shell.SU.run("cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies"));
+    private List<String> get_gpu_scaling_freq=(Shell.SH.run("cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies"));
     private String store_gov= String.valueOf(get_gpu_scaling_freq);
     private String[] governor_parts = store_gov.split("\\[");
     private String[] parts = governor_parts[1].split("\\s+"); // escape .
