@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.delos.sumit.arubadel">
+          package="com.delos.github.arubadel">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -20,13 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.delos.github.arubadel.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".CheckSuSplash"
+            android:name="com.delos.github.arubadel.CheckSuSplash"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.VFlasherActivity"
+            android:name="com.delos.github.arubadel.activity.VFlasherActivity"
             android:label="@string/vflasher">
             <intent-filter>
                 <data
@@ -63,7 +63,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.BootReceiver">
+        <receiver android:name="com.delos.github.arubadel.receiver.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
