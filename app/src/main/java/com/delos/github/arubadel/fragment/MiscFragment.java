@@ -54,6 +54,7 @@ public class MiscFragment extends Fragment
         mInfoText = (TextView) view.findViewById(R.id.fragment_misc_info_text);
         mFastChargeSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_fastcharge_switch);
         mMPDecision = (SwitchCompat) view.findViewById(R.id.fragment_cputools_mpdecision_switch);
+        mMPDecision.setVisibility(View.GONE);
         mGovernor =(Button)view.findViewById(R.id.governor_button);
         mTcp =(Button)view.findViewById(R.id.tcp_congestion_control);
         mDeepSleep=(SwitchCompat)view.findViewById(R.id.fragment_misc_deep_sleep);
@@ -139,6 +140,7 @@ public class MiscFragment extends Fragment
         // Detected: mpdecision (make visible)
         if (CPUTools.hasMPDecision())
         {
+            mMPDecision.setVisibility(View.VISIBLE);
 
             mMPDecision.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

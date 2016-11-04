@@ -78,4 +78,9 @@ public class CPUTools
      {
          return new File("/system/bin/mpdecision").isFile();
      }
+
+    public static boolean hasMsmMPDecisionHotplug()
+    {
+        return new File("/sys/kernel/msm_mpdecision/conf/enabled").isFile();
+    }
 }

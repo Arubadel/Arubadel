@@ -3,6 +3,9 @@ package com.delos.github.arubadel;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.design.internal.NavigationMenu;
+import android.support.design.internal.NavigationMenuItemView;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -21,8 +25,10 @@ import com.delos.github.arubadel.fragment.CPUToolsFragment;
 import com.delos.github.arubadel.fragment.CreditsFragment;
 import com.delos.github.arubadel.fragment.GithubReleasesFragment;
 import com.delos.github.arubadel.fragment.MiscFragment;
+import com.delos.github.arubadel.fragment.MsmMpdecisionHotplug;
 import com.delos.github.arubadel.fragment.PowerOptionsDialogFragment;
 import com.delos.github.arubadel.fragment.PreferencesFragment;
+import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
@@ -38,6 +44,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private GithubReleasesFragment mFragmentRelRecovery;
     private GithubReleasesFragment mFragmentRelROM;
     private AboutDevice mAboutDevice;
+    private MsmMpdecisionHotplug mHotplug;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,6 +73,20 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentRelROM = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_RELEASES);
         this.mFragmentPreferences = new PreferencesFragment();
         this.mAboutDevice = new AboutDevice();
+        this.mHotplug=new MsmMpdecisionHotplug();
+        Menu menu = navigationView.getMenu();
+        MenuItem msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
+if(CPUTools.hasMsmMPDecisionHotplug())
+
+{
+    msm_hotplug.setVisible(true);
+}
+else
+{
+    msm_hotplug.setVisible(false);
+
+}
+
         // register click listener for fab
         this.mFAB.setOnClickListener(
                 new View.OnClickListener()
@@ -107,6 +128,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
         if (id == R.id.nav_cputools)
             this.updateFragment(this.mFragmentCPUTools);
+        else if (id == R.id.nav_msm_mpdecision_hotplug)
+            this.updateFragment(this.mHotplug);
         else if (id == R.id.nav_misc)
             this.updateFragment(this.mFragmentMisc);
         else if (id == R.id.nav_app_updates)

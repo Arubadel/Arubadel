@@ -6,6 +6,11 @@
             android:title="@string/cpu"/>
 
         <item
+            android:id="@+id/nav_msm_mpdecision_hotplug"
+            android:title="@string/msm_mpd_hotplug"/>
+
+
+        <item
             android:id="@+id/nav_misc"
             android:title="@string/misc_stuff"/>
 

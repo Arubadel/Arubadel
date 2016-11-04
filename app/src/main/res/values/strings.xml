@@ -88,5 +88,6 @@
     <string name="deep_sleep_info">This option will turn off 3 cores and freq will changed to lowest. This will turn off your display too </string>
     <string name="gpu_freq">Choose Gpu Freq</string>
     <string name="msm_mpdecision_hotplug_description">An in-kernel replacement for Qualcomm\'s MPDecision developed by show-p1984</string>
+    <string name="msm_mpd_hotplug">MSM Mpd Hotplug</string>
 
 </resources>
