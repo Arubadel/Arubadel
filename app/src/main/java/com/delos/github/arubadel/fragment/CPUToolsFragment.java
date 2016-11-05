@@ -48,7 +48,6 @@ public class CPUToolsFragment extends Fragment
         // get terminal session
         this.mShell = ((Activity) getActivity()).getShellSession();
         View rootView = inflater.inflate(R.layout.fragment_cputools, container, false);
-
         mCPUInfoText = (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_text);
         mCPUInfoCurrentSpeedText= (TextView) rootView.findViewById(R.id.fragment_cputools_cpuinfo_currentspeed_text);
         mCPUSliderMaxHigh = (TextView) rootView.findViewById(R.id.cpu_sliders_max_high_value);

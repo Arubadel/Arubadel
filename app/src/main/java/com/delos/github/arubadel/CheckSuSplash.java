@@ -37,11 +37,16 @@ public class CheckSuSplash extends Activity {
         }
         else
         {
-            finish();
-            moveTaskToBack(true);
-            Toast.makeText(getApplicationContext(), "Device is not rooted :( .", Toast.LENGTH_SHORT).show();
-
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                /* Create an Intent that will start the Menu-Activity. */
+                    Intent mainIntent = new Intent(CheckSuSplash.this, MainActivity.class);
+                    CheckSuSplash.this.startActivity(mainIntent);
+                    CheckSuSplash.this.finish();
+                }
+            }, SPLASH_DISPLAY_LENGTH);
 
         }
-    }
+}
 }

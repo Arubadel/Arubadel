@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
@@ -30,6 +31,8 @@ import com.delos.github.arubadel.fragment.PowerOptionsDialogFragment;
 import com.delos.github.arubadel.fragment.PreferencesFragment;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
+
+import eu.chainfire.libsuperuser.Shell;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -45,7 +48,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private GithubReleasesFragment mFragmentRelROM;
     private AboutDevice mAboutDevice;
     private MsmMpdecisionHotplug mHotplug;
-
+    boolean suAvailable= Shell.SU.available();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -76,7 +79,9 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mHotplug=new MsmMpdecisionHotplug();
         Menu menu = navigationView.getMenu();
         MenuItem msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
-if(CPUTools.hasMsmMPDecisionHotplug())
+        MenuItem Cputools=menu.findItem(R.id.nav_cputools);
+        MenuItem Misc=menu.findItem(R.id.nav_misc);
+        if(CPUTools.hasMsmMPDecisionHotplug())
 
 {
     msm_hotplug.setVisible(true);
@@ -86,7 +91,24 @@ else
     msm_hotplug.setVisible(false);
 
 }
+if(suAvailable)
+{
+    Cputools.setVisible(true);
+    Misc.setVisible(true);
+    msm_hotplug.setVisible(true);
+    this.updateFragment(this.mFragmentCPUTools);
 
+}
+else
+{
+    Cputools.setVisible(false);
+    Misc.setVisible(false);
+    msm_hotplug.setVisible(false);
+    this.updateFragment(this.mFragmentRelKernel);
+    Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
+
+
+}
         // register click listener for fab
         this.mFAB.setOnClickListener(
                 new View.OnClickListener()
@@ -100,7 +122,6 @@ else
                 }
         );
 
-        this.updateFragment(this.mFragmentCPUTools);
 
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 
