@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
+import com.delos.github.arubadel.util.ShellExecuter;
 
 import java.util.List;
 
@@ -28,17 +29,38 @@ public class AboutDevice extends Fragment
     private TextView mBuild_description;
     private TextView mBuild_fingerprint;
     private TextView mRoot_Status;
+    private ShellExecuter mShell;
     String App_version = "";
     TextView mApp_version;
 
-    List<String> model_sh=Shell.SH.run("getprop ro.product.model");;
-    List<String> platform_release=Shell.SH.run("getprop ro.build.version.release");
-    List<String> ril_class=Shell.SH.run("getprop ro.telephony.ril_class");
-    List<String> board=Shell.SH.run("getprop ro.product.board");
-    List<String> kernel_version=Shell.SH.run("cat /proc/version");
-    List<String> build_desciption=Shell.SH.run("getprop ro.build.description");
-    List<String> build_fingerprint=Shell.SH.run("getprop ro.build.fingerprint");
-
+    public String model (){
+        mShell.command="getprop ro.product.model";
+        return mShell.runAsRoot();
+}
+    public String platform_release (){
+        mShell.command="getprop ro.build.version.release";
+        return mShell.runAsRoot();
+    }
+    public String ril_class (){
+        mShell.command="getprop ro.telephony.ril_class";
+        return mShell.runAsRoot();
+    }
+    public String board (){
+        mShell.command="getprop ro.product.board";
+        return mShell.runAsRoot();
+    }
+    public String kernel_version (){
+        mShell.command="cat /proc/version";
+        return mShell.runAsRoot();
+    }
+    public String build_desciption (){
+        mShell.command="getprop ro.build.description";
+        return mShell.runAsRoot();
+    }
+    public String build_fingerprint (){
+        mShell.command="getprop ro.build.fingerprint";
+        return mShell.runAsRoot();
+    }
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_about_device, container, false);
@@ -52,6 +74,7 @@ public class AboutDevice extends Fragment
         mRoot_Status=(TextView)rootView.findViewById(R.id.root_status);
          mApp_version = (TextView) rootView.findViewById(R.id.app_version);
 
+
         try
         {
             App_version = getActivity().getApplicationContext().getPackageManager().getPackageInfo(getActivity().getApplicationContext().getPackageName(), 0).versionName;
@@ -60,15 +83,15 @@ public class AboutDevice extends Fragment
         {
             e.printStackTrace();
         }
-        mApp_version.setText("App Version :- "+ "[ "+App_version+" ]\n");
+        mApp_version.setText("App Version :- "+ App_version+"\n");
 
-        model_text.setText("Model Number :- " + model_sh+"\n");
-        mplatform_release_text.setText("Device Version :- " + platform_release+"\n");
-        mRil_class.setText("Ril Class :- " + ril_class+"\n");
-        mBoard.setText("Device Board :- " + board+"\n");
-        mKernel_version.setText("Kernel Version :- " + kernel_version+"\n");
-        mBuild_description.setText("Build Description :- " + build_desciption+"\n");
-        mBuild_fingerprint.setText("Build FingerPrint :- " + build_fingerprint+"\n");
+        model_text.setText("Model Number :- " + model()+"\n");
+        mplatform_release_text.setText("Device Version :- " + platform_release()+"\n");
+        mRil_class.setText("Ril Class :- " + ril_class()+"\n");
+        mBoard.setText("Device Board :- " + board()+"\n");
+        mKernel_version.setText("Kernel Version :- " + kernel_version()+"\n");
+        mBuild_description.setText("Build Description :- " + build_desciption()+"\n");
+        mBuild_fingerprint.setText("Build FingerPrint :- " + build_fingerprint()+"\n");
         mRoot_Status.setText("Root Status :- Rooted" + "\n");
 
         return rootView;
