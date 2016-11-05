@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_over_all_device_info"
+            android:title="OverAll Device Status"/>
+
+        <item
             android:id="@+id/nav_cputools"
             android:title="@string/cpu"/>
 

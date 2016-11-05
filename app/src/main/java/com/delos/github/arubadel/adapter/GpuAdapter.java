@@ -46,10 +46,10 @@ public class GpuAdapter extends BaseAdapter
         gpufreq4=parts[3];
 
 
-        mList.add(new GpuItem(gpufreq1, "echo " + gpufreq1 + " > "  + gpu_scaling_path));
-        mList.add(new GpuItem(gpufreq2, "echo " + gpufreq2 + " > "  + gpu_scaling_path));
-        mList.add(new GpuItem(gpufreq3, "echo " + gpufreq3 + " > "  + gpu_scaling_path));
-        mList.add(new GpuItem(gpufreq4, "echo " + gpufreq4 + " > "  + gpu_scaling_path));
+        mList.add(new GpuItem(gpufreq1+" hz", "echo " + gpufreq1 + " > "  + gpu_scaling_path));
+        mList.add(new GpuItem(gpufreq2+" hz", "echo " + gpufreq2 + " > "  + gpu_scaling_path));
+        mList.add(new GpuItem(gpufreq3+" hz", "echo " + gpufreq3 + " > "  + gpu_scaling_path));
+        mList.add(new GpuItem(gpufreq4+" hz", "echo " + gpufreq4 + " > "  + gpu_scaling_path));
 
     }
 

@@ -27,6 +27,7 @@ import com.delos.github.arubadel.fragment.CreditsFragment;
 import com.delos.github.arubadel.fragment.GithubReleasesFragment;
 import com.delos.github.arubadel.fragment.MiscFragment;
 import com.delos.github.arubadel.fragment.MsmMpdecisionHotplug;
+import com.delos.github.arubadel.fragment.OverAllDeviceInfo;
 import com.delos.github.arubadel.fragment.PowerOptionsDialogFragment;
 import com.delos.github.arubadel.fragment.PreferencesFragment;
 import com.delos.github.arubadel.util.CPUTools;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private GithubReleasesFragment mFragmentRelROM;
     private AboutDevice mAboutDevice;
     private MsmMpdecisionHotplug mHotplug;
+    private OverAllDeviceInfo mDeviceStatus;
     boolean suAvailable= Shell.SU.available();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,6 +79,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentPreferences = new PreferencesFragment();
         this.mAboutDevice = new AboutDevice();
         this.mHotplug=new MsmMpdecisionHotplug();
+        mDeviceStatus=new OverAllDeviceInfo();
         Menu menu = navigationView.getMenu();
         MenuItem msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
         MenuItem Cputools=menu.findItem(R.id.nav_cputools);
@@ -96,7 +99,7 @@ if(suAvailable)
     Cputools.setVisible(true);
     Misc.setVisible(true);
     msm_hotplug.setVisible(true);
-    this.updateFragment(this.mFragmentCPUTools);
+    this.updateFragment(this.mDeviceStatus);
     mFAB.setVisibility(View.VISIBLE);
 
 }
@@ -147,6 +150,12 @@ else
     public boolean onNavigationItemSelected(MenuItem item)
     {
         int id = item.getItemId();
+
+        if(id==R.id.nav_over_all_device_info)
+        {
+            this.updateFragment(this.mDeviceStatus);
+            setTitle("Device Status");
+        }
 
         if (id == R.id.nav_cputools) {
             this.updateFragment(this.mFragmentCPUTools);
