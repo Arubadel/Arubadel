@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
+import com.delos.github.arubadel.util.ShellExecuter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,12 @@ public class TcpCongestionControlAdapter extends BaseAdapter
     private LayoutInflater mInflater;
     private ArrayList<TcpItem> mList = new ArrayList<>();
     private String tcp_change="sysctl -w net.ipv4.tcp_congestion_control=";
-    private List<String> get_tcp=(Shell.SH.run("sysctl net.ipv4.tcp_available_congestion_control"));
-    private String store_tcp_value= String.valueOf(get_tcp);
+    private String get_tcp(){
+        ShellExecuter.command="sysctl net.ipv4.tcp_available_congestion_control";
+        return ShellExecuter.runAsRoot();
+    }
+    private String store_tcp_value= get_tcp();
     private String[] parts = store_tcp_value.split("\\s+");
-    private String[] tcp_last_part = parts[14].split("\\]");
 
     private String tcp1;
     private String tcp2;
@@ -64,7 +67,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter
             tcp10=parts[11];
             tcp11=parts[12];
             tcp12=parts[13];
-            tcp13=tcp_last_part[0];
+            tcp13=parts[14];
 
         }
         catch (Exception e)

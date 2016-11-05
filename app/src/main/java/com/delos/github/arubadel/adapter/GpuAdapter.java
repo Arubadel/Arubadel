@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
+import com.delos.github.arubadel.util.ShellExecuter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,12 @@ public class GpuAdapter extends BaseAdapter
     private LayoutInflater mInflater;
     private ArrayList<GpuItem> mList = new ArrayList<>();
     private String gpu_scaling_path="/sys/class/kgsl/kgsl-3d0/max_gpuclk";
-    private List<String> get_gpu_scaling_freq=(Shell.SH.run("cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies"));
-    private String store_gov= String.valueOf(get_gpu_scaling_freq);
-    private String[] governor_parts = store_gov.split("\\[");
-    private String[] parts = governor_parts[1].split("\\s+"); // escape .
+    private String get_gpu_scaling_freq(){
+        ShellExecuter.command="cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
+        return ShellExecuter.runAsRoot();
+    }
+    private String store_gov= get_gpu_scaling_freq();
+    private String[] parts = store_gov.split("\\s+"); // escape .
     private String gpufreq1;
     private String gpufreq2;
     private String gpufreq3;

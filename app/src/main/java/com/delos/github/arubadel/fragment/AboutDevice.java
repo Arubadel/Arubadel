@@ -11,10 +11,6 @@ import android.widget.TextView;
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellExecuter;
 
-import java.util.List;
-
-import eu.chainfire.libsuperuser.Shell;
-
 /**
  * Created by sumit on 28/10/16.
  */
@@ -53,7 +49,7 @@ public class AboutDevice extends Fragment
         mShell.command="cat /proc/version";
         return mShell.runAsRoot();
     }
-    public String build_desciption (){
+    public String build_description(){
         mShell.command="getprop ro.build.description";
         return mShell.runAsRoot();
     }
@@ -90,7 +86,7 @@ public class AboutDevice extends Fragment
         mRil_class.setText("Ril Class :- " + ril_class()+"\n");
         mBoard.setText("Device Board :- " + board()+"\n");
         mKernel_version.setText("Kernel Version :- " + kernel_version()+"\n");
-        mBuild_description.setText("Build Description :- " + build_desciption()+"\n");
+        mBuild_description.setText("Build Description :- " + build_description()+"\n");
         mBuild_fingerprint.setText("Build FingerPrint :- " + build_fingerprint()+"\n");
         mRoot_Status.setText("Root Status :- Rooted" + "\n");
 

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
+import com.delos.github.arubadel.util.ShellExecuter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,12 @@ public class GovernorAdapter extends BaseAdapter
     private LayoutInflater mInflater;
     private ArrayList<GovernorItem> mList = new ArrayList<>();
     private String Scaling_gov_path="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-    private List<String> get_gov=(Shell.SH.run("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"));
-    private String store_gov= String.valueOf(get_gov);
-    private String[] governor_parts = store_gov.split("\\[");
-    private String[] parts = governor_parts[1].split("\\s+"); // escape .
+    private String get_gov(){
+        ShellExecuter.command="cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
+        return ShellExecuter.runAsRoot();
+    }
+    private String store_gov= get_gov();
+    private String[] parts = store_gov.split("\\s+"); // escape .
     private String gov1;
     private String gov2;
     private String gov3;
