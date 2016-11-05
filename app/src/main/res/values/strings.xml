@@ -89,5 +89,6 @@
     <string name="gpu_freq">Choose Gpu Freq</string>
     <string name="msm_mpdecision_hotplug_description">An in-kernel replacement for Qualcomm\'s MPDecision developed by show-p1984</string>
     <string name="msm_mpd_hotplug">MSM Mpd Hotplug</string>
+    <string name="fsync_description">When enabled and screen is on, fsync operation is asynchronous. When screen is off , this opration is done synchronously</string>
 
 </resources>

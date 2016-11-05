@@ -83,4 +83,9 @@ public class CPUTools
     {
         return new File("/sys/kernel/msm_mpdecision/conf/enabled").isFile();
     }
+    public static boolean DynamicFsync()
+    {
+        return new File("/sys/kernel/dyn_fsync/Dyn_fsync_active").isFile();
+    }
+
 }

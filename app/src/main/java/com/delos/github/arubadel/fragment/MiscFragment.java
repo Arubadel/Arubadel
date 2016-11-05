@@ -38,6 +38,7 @@ public class MiscFragment extends Fragment
     private  SwitchCompat mDeepSleep;
     private  Button mGpuFreq;
     private CPUInfo mCPUInfo = new CPUInfo();
+    private SwitchCompat mFsyncButton;
 
 
     @Nullable
@@ -57,7 +58,8 @@ public class MiscFragment extends Fragment
         mTcp =(Button)view.findViewById(R.id.tcp_congestion_control);
         mDeepSleep=(SwitchCompat)view.findViewById(R.id.fragment_misc_deep_sleep);
         mGpuFreq=(Button)view.findViewById(R.id.gpu_freq_control);
-
+        mFsyncButton=(SwitchCompat)view.findViewById(R.id.fragment_cputools_dyn_fsync_switch);
+        mFastChargeSwitcher.setVisibility(View.GONE);
         this.mDeepSleep.setOnClickListener(
                 new View.OnClickListener()
                 {
@@ -146,6 +148,16 @@ public class MiscFragment extends Fragment
                 }
             });
         }
+        if(CPUTools.hasMPDecision())
+        {
+            mFsyncButton.setVisibility(View.VISIBLE);
+            mFsyncButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mShell.getSession().addCommand(((isChecked) ? "echo 1 > /sys/kernel/dyn_fsync/Dyn_fsync_active" : "echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active"));
+                }
+            });
+        }
 
 
         return view;
@@ -171,6 +183,13 @@ public class MiscFragment extends Fragment
                 }
             });
 
+        mShell.getSession().addCommand("cat /sys/kernel/dyn_fsync/Dyn_fsync_active", 10, new Shell.OnCommandResultListener() {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output) {
+                if (output.size() > 0)
+                    mFsyncButton.setChecked("1".equals(output.get(0)));
+            }
+        });
 
             List<String> availableNetworks = NetworkUtils.getInterfacesWithOnlyIp(true, new String[]{"rmnet"});
 

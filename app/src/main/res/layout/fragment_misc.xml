@@ -77,6 +77,26 @@
         android:paddingRight="15dp"/>
 
     <android.support.v7.widget.SwitchCompat
+        android:id="@+id/fragment_cputools_dyn_fsync_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dynamic Fsync"
+        android:textSize="20sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fsync_description"
+        android:textSize="14sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"/>
+
+
+    <android.support.v7.widget.SwitchCompat
         android:id="@+id/fragment_misc_deep_sleep"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
