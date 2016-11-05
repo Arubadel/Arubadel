@@ -97,6 +97,7 @@ if(suAvailable)
     Misc.setVisible(true);
     msm_hotplug.setVisible(true);
     this.updateFragment(this.mFragmentCPUTools);
+    mFAB.setVisibility(View.VISIBLE);
 
 }
 else
@@ -106,7 +107,7 @@ else
     msm_hotplug.setVisible(false);
     this.updateFragment(this.mFragmentRelKernel);
     Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
-
+    mFAB.setVisibility(View.GONE);
 
 }
         // register click listener for fab
