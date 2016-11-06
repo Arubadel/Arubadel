@@ -46,6 +46,7 @@ public class OverAllDeviceInfo extends Fragment
         View view = inflater.inflate(R.layout.fragment_all_device_info, container, false);
         mGpuStatus=(TextView)view.findViewById(R.id.Gpu_status_textview);
         mBatteryTmp=(TextView)view.findViewById(R.id.battery_tmp);
+        mGpuStatus.setVisibility(View.GONE);
         mBatteryVoltage=(TextView)view.findViewById(R.id.battery_voltage);
         Thread t = new Thread() {
 
@@ -91,7 +92,11 @@ public class OverAllDeviceInfo extends Fragment
     }
 
     private void updateTextView() {
-        mGpuStatus.setText("Gpu Status :- "+gpuStatus()+" hz");
+        if (Shell.hasGpu())
+        {
+            mGpuStatus.setVisibility(View.VISIBLE);
+            mGpuStatus.setText("Gpu Status :- "+gpuStatus()+" hz");
+        }
         mBatteryTmp.setText("Battery Tmp:- "+batterytmp());
         mBatteryVoltage.setText("Battery Voltage:- "+batteryvol()+"muv");
     }

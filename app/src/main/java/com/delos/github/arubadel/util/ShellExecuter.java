@@ -58,4 +58,5 @@ public class ShellExecuter {
         List<String> newShell= (Shell.SH.run(command));
         return newShell;
     }
+    public static boolean hasGpu(){return new File("/sys/class/kgsl/kgsl-3d0/gpuclk").isFile();}
 }

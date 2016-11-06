@@ -15,6 +15,7 @@ import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
+import com.delos.github.arubadel.util.ShellExecuter;
 import com.delos.github.arubadel.util.ShellUtils;
 import com.genonbeta.core.util.NetworkUtils;
 
@@ -60,6 +61,7 @@ public class MiscFragment extends Fragment
         mGpuFreq=(Button)view.findViewById(R.id.gpu_freq_control);
         mFsyncButton=(SwitchCompat)view.findViewById(R.id.fragment_cputools_dyn_fsync_switch);
         mFastChargeSwitcher.setVisibility(View.GONE);
+        mGpuFreq.setVisibility(View.GONE);
         this.mDeepSleep.setOnClickListener(
                 new View.OnClickListener()
                 {
@@ -104,20 +106,19 @@ public class MiscFragment extends Fragment
                 }
         );
 
-
-        this.mGpuFreq.setOnClickListener(
-                new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        GpuOptionDialogFragment fragment = new GpuOptionDialogFragment();
-                        fragment.show(getActivity().getSupportFragmentManager(), "power_dialog_fragment");
-                    }
+if(ShellExecuter.hasGpu()) {
+    mGpuFreq.setVisibility(View.VISIBLE);
+    this.mGpuFreq.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GpuOptionDialogFragment fragment = new GpuOptionDialogFragment();
+                    fragment.show(getActivity().getSupportFragmentManager(), "power_dialog_fragment");
                 }
-        );
+            }
+    );
 
-
+}
 
         {
 
