@@ -89,23 +89,32 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         MenuItem Cputools=menu.findItem(R.id.nav_cputools);
         MenuItem Misc=menu.findItem(R.id.nav_misc);
         MenuItem bSelinuxChanger=menu.findItem(R.id.nav_selinux_changer);
-        if(CPUTools.hasMsmMPDecisionHotplug())
-
-{
-    msm_hotplug.setVisible(true);
-}
-else
-{
-    msm_hotplug.setVisible(false);
-
-}
+        MenuItem bOverAllDeviceStatus=menu.findItem(R.id.nav_over_all_device_info);
 if(suAvailable)
 {
     Cputools.setVisible(true);
     Misc.setVisible(true);
-    msm_hotplug.setVisible(true);
-    bSelinuxChanger.setVisible(true);
+    if(CPUTools.hasMsmMPDecisionHotplug())
+
+    {
+        msm_hotplug.setVisible(true);
+    }
+    else
+    {
+        msm_hotplug.setVisible(false);
+
+    }
     this.updateFragment(this.mDeviceStatus);
+
+    if(ShellExecuter.hasSelinux())
+    {
+        bSelinuxChanger.setVisible(true);
+    }else{
+        bSelinuxChanger.setVisible(false);
+    }
+
+    bOverAllDeviceStatus.setVisible(true);
+
     mFAB.setVisibility(View.VISIBLE);
 
 }
@@ -115,17 +124,12 @@ else
     Misc.setVisible(false);
     msm_hotplug.setVisible(false);
     bSelinuxChanger.setVisible(false);
-    this.updateFragment(this.mFragmentRelKernel);
+    this.updateFragment(this.mAboutDevice);
+    bOverAllDeviceStatus.setVisible(false);
     Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
     mFAB.setVisibility(View.GONE);
 
 }
-        if(ShellExecuter.hasSelinux())
-        {
-            bSelinuxChanger.setVisible(true);
-        }else{
-            bSelinuxChanger.setVisible(false);
-        }
         // register click listener for fab
         this.mFAB.setOnClickListener(
                 new View.OnClickListener()
