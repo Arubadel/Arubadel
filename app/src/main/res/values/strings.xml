@@ -90,5 +90,8 @@
     <string name="msm_mpdecision_hotplug_description">An in-kernel replacement for Qualcomm\'s MPDecision developed by show-p1984</string>
     <string name="msm_mpd_hotplug">MSM Mpd Hotplug</string>
     <string name="fsync_description">When enabled and screen is on, fsync operation is asynchronous. When screen is off , this opration is done synchronously</string>
+    <string name="selinux_changer">Selinux Changer</string>
+    <string name="overall_device_status">OverAll Device Status</string>
+    <string name="Selinux_warning">Note some devices has locked selinux which cannot be changed.</string>
 
 </resources>

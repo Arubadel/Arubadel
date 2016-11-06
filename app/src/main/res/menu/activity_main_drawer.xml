@@ -3,7 +3,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_over_all_device_info"
-            android:title="OverAll Device Status"/>
+            android:title="@string/overall_device_status"/>
 
         <item
             android:id="@+id/nav_cputools"
@@ -17,6 +17,10 @@
         <item
             android:id="@+id/nav_misc"
             android:title="@string/misc_stuff"/>
+        <item
+            android:id="@+id/nav_selinux_changer"
+            android:title="@string/selinux_changer"/>
+
 
         <item
             android:id="@+id/nav_settings"

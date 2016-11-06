@@ -30,8 +30,10 @@ import com.delos.github.arubadel.fragment.MsmMpdecisionHotplug;
 import com.delos.github.arubadel.fragment.OverAllDeviceInfo;
 import com.delos.github.arubadel.fragment.PowerOptionsDialogFragment;
 import com.delos.github.arubadel.fragment.PreferencesFragment;
+import com.delos.github.arubadel.fragment.SelinuxChanger;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
+import com.delos.github.arubadel.util.ShellExecuter;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -50,6 +52,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private AboutDevice mAboutDevice;
     private MsmMpdecisionHotplug mHotplug;
     private OverAllDeviceInfo mDeviceStatus;
+    private SelinuxChanger mSelinuxChanger;
     boolean suAvailable= Shell.SU.available();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -80,10 +83,12 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mAboutDevice = new AboutDevice();
         this.mHotplug=new MsmMpdecisionHotplug();
         mDeviceStatus=new OverAllDeviceInfo();
+        mSelinuxChanger=new SelinuxChanger();
         Menu menu = navigationView.getMenu();
         MenuItem msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
         MenuItem Cputools=menu.findItem(R.id.nav_cputools);
         MenuItem Misc=menu.findItem(R.id.nav_misc);
+        MenuItem bSelinuxChanger=menu.findItem(R.id.nav_selinux_changer);
         if(CPUTools.hasMsmMPDecisionHotplug())
 
 {
@@ -99,6 +104,7 @@ if(suAvailable)
     Cputools.setVisible(true);
     Misc.setVisible(true);
     msm_hotplug.setVisible(true);
+    bSelinuxChanger.setVisible(true);
     this.updateFragment(this.mDeviceStatus);
     mFAB.setVisibility(View.VISIBLE);
 
@@ -108,11 +114,18 @@ else
     Cputools.setVisible(false);
     Misc.setVisible(false);
     msm_hotplug.setVisible(false);
+    bSelinuxChanger.setVisible(false);
     this.updateFragment(this.mFragmentRelKernel);
     Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
     mFAB.setVisibility(View.GONE);
 
 }
+        if(ShellExecuter.hasSelinux())
+        {
+            bSelinuxChanger.setVisible(true);
+        }else{
+            bSelinuxChanger.setVisible(false);
+        }
         // register click listener for fab
         this.mFAB.setOnClickListener(
                 new View.OnClickListener()
@@ -168,6 +181,10 @@ else
         else if (id == R.id.nav_misc) {
             this.updateFragment(this.mFragmentMisc);
             setTitle("Misc Stuff");
+        }
+        else if (id == R.id.nav_selinux_changer) {
+            this.updateFragment(this.mSelinuxChanger);
+            setTitle("Selinux Changer");
         }
         else if (id == R.id.nav_app_updates) {
             this.updateFragment(this.mFragmentRelApp);
