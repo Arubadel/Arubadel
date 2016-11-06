@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellExecuter;
+import com.delos.github.arubadel.util.ShellUtils;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class SelinuxChanger extends Fragment
     private ShellExecuter Shell;
     private Button mEnforcing;
     private Button mPermissive;
-
+    private ShellUtils mShell;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_selinux, container, false);
@@ -48,6 +49,8 @@ public class SelinuxChanger extends Fragment
                         public void onClick(View v) {
                             SetEnforcing();
                             mSelinuxStatus.setText(SelinuxStatus());
+                            mEnforcing.setEnabled(false);
+                            mPermissive.setEnabled(true);
                         }
                     }
             );
@@ -58,6 +61,9 @@ public class SelinuxChanger extends Fragment
                         public void onClick(View v) {
                             SetPermissive();
                             mSelinuxStatus.setText(SelinuxStatus());
+                            mPermissive.setEnabled(false);
+                            mEnforcing.setEnabled(true);
+
                         }
                     }
             );
@@ -78,6 +84,5 @@ public class SelinuxChanger extends Fragment
         Shell.command="su -c setenforce 0";
         return Shell.runAsRoot();
     }
-
 
 }
