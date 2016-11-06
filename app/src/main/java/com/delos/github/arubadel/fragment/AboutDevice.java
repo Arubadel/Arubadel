@@ -25,37 +25,37 @@ public class AboutDevice extends Fragment
     private TextView mBuild_description;
     private TextView mBuild_fingerprint;
     private TextView mRoot_Status;
-    private ShellExecuter mShell;
+    private ShellExecuter Shell;
     String App_version = "";
     TextView mApp_version;
 
     public String model (){
-        mShell.command="getprop ro.product.model";
-        return mShell.runAsRoot();
+        Shell.command="getprop ro.product.model";
+        return Shell.runAsRoot();
 }
     public String platform_release (){
-        mShell.command="getprop ro.build.version.release";
-        return mShell.runAsRoot();
+        Shell.command="getprop ro.build.version.release";
+        return Shell.runAsRoot();
     }
     public String ril_class (){
-        mShell.command="getprop ro.telephony.ril_class";
-        return mShell.runAsRoot();
+        Shell.command="getprop ro.telephony.ril_class";
+        return Shell.runAsRoot();
     }
     public String board (){
-        mShell.command="getprop ro.product.board";
-        return mShell.runAsRoot();
+        Shell.command="getprop ro.product.board";
+        return Shell.runAsRoot();
     }
     public String kernel_version (){
-        mShell.command="cat /proc/version";
-        return mShell.runAsRoot();
+        Shell.command="cat /proc/version";
+        return Shell.runAsRoot();
     }
     public String build_description(){
-        mShell.command="getprop ro.build.description";
-        return mShell.runAsRoot();
+        Shell.command="getprop ro.build.description";
+        return Shell.runAsRoot();
     }
     public String build_fingerprint (){
-        mShell.command="getprop ro.build.fingerprint";
-        return mShell.runAsRoot();
+        Shell.command="getprop ro.build.fingerprint";
+        return Shell.runAsRoot();
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -88,8 +88,12 @@ public class AboutDevice extends Fragment
         mKernel_version.setText("Kernel Version :- " + kernel_version()+"\n");
         mBuild_description.setText("Build Description :- " + build_description()+"\n");
         mBuild_fingerprint.setText("Build FingerPrint :- " + build_fingerprint()+"\n");
-        mRoot_Status.setText("Root Status :- Rooted" + "\n");
-
+        if(Shell.hasRoot()) {
+            mRoot_Status.setText("Root Status :- Rooted" + "\n");
+        }
+        else {
+            mRoot_Status.setText("Root Status :- Not Rooted :(" + "\n");
+        }
         return rootView;
     }
 

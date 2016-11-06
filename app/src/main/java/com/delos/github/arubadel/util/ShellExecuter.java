@@ -47,4 +47,8 @@ public class ShellExecuter {
     {
         return new File("/sys/fs/selinux/enforce").isFile();
     }
+    public static boolean hasRoot()
+    {
+        return new File("/system/xbin/su").isFile();
+    }
 }
