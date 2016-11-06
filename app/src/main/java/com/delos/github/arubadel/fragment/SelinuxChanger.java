@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
@@ -75,14 +76,14 @@ public class SelinuxChanger extends Fragment
         Shell.command="getenforce";
         return Shell.runAsRoot();
     }
-    private String SetEnforcing(){
-        Shell.command="su -c setenforce 1";
-        return Shell.runAsRoot();
+    private List<String> SetEnforcing(){
+        Shell.command="su -c 'setenforce 1'";
+        return Shell.SuperSu();
     }
 
-    private String SetPermissive() {
-        Shell.command="su -c setenforce 0";
-        return Shell.runAsRoot();
+    private List<String> SetPermissive() {
+        Shell.command="su -c 'setenforce 0'";
+        return Shell.SuperSu();
     }
 
 }

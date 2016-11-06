@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+
+import eu.chainfire.libsuperuser.Shell;
 
 /**
  * Created by sumit on 5/11/16.
@@ -50,5 +53,9 @@ public class ShellExecuter {
     public static boolean hasRoot()
     {
         return new File("/system/xbin/su").isFile();
+    }
+    public static List<String> SuperSu(){
+        List<String> newShell= (Shell.SH.run(command));
+        return newShell;
     }
 }
