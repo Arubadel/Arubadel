@@ -93,5 +93,6 @@
     <string name="selinux_changer">Selinux Changer</string>
     <string name="overall_device_status">OverAll Device Status</string>
     <string name="Selinux_warning">Note some devices has locked selinux which cannot be changed.</string>
+    <string name="flash">Flash</string>
 
 </resources>

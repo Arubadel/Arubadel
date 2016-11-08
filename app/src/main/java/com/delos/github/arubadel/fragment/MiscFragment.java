@@ -129,12 +129,15 @@ if(ShellExecuter.hasGpu()) {
                 }
             });
 
-            mFastChargeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > sys/kernel/fast_charge/force_fast_charge\n");
-                }
-            });
+            if (ShellExecuter.hasFastCharge()) {
+                mFastChargeSwitcher.setVisibility(View.VISIBLE);
+                mFastChargeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > sys/kernel/fast_charge/force_fast_charge\n");
+                    }
+                });
+            }
         }
 
         // Detected: mpdecision (make visible)

@@ -20,7 +20,9 @@
         <item
             android:id="@+id/nav_selinux_changer"
             android:title="@string/selinux_changer"/>
-
+        <item
+            android:id="@+id/nav_flasher"
+            android:title="@string/flash"/>
 
         <item
             android:id="@+id/nav_settings"
