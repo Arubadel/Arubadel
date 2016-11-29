@@ -3,6 +3,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_over_all_device_info"
+            android:visible="false"
             android:title="@string/overall_device_status"/>
 
         <item

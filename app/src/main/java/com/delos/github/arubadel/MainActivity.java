@@ -3,9 +3,6 @@ package com.delos.github.arubadel;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.support.design.internal.NavigationMenu;
-import android.support.design.internal.NavigationMenuItemView;
-import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -108,7 +105,7 @@ if(suAvailable)
         msm_hotplug.setVisible(false);
 
     }
-    this.updateFragment(this.mDeviceStatus);
+    this.updateFragment(this.mFragmentCPUTools);
 
     if(ShellExecuter.hasSelinux())
     {
