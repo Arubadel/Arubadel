@@ -19,7 +19,7 @@
             android:text="Flash Boot"/>
 
         <RadioButton
-            android:id="@+id/activity_vflasher_radio_kernel"
+            android:id="@+id/fragment_flasher_radio_recovery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"

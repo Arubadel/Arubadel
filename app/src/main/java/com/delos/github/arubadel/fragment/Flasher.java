@@ -20,7 +20,6 @@ import com.delos.github.arubadel.util.FileUtil;
 import com.delos.github.arubadel.util.ShellUtils;
 
 import java.net.URISyntaxException;
-import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -33,11 +32,9 @@ import static android.app.Activity.RESULT_OK;
 public class Flasher extends Fragment
 {
     private ShellUtils mShell;
-    private RadioButton mFlashBoot;
+    private RadioButton mFlashBoot,mFlashRecovery;
     private static final int FILE_SELECT_CODE = 0;
-    private String path;
-    private List<String> mBootPath;
-    private List<String> mRecoveryPath;
+    private String path,mBootPath,mRecoveryPath,StringFlashRB;
 
     @Nullable
     @Override
@@ -47,10 +44,23 @@ public class Flasher extends Fragment
         this.mShell = ((Activity) getActivity()).getShellSession();
         View view = inflater.inflate(R.layout.fragment_flasher, container, false);
         mFlashBoot=(RadioButton)view.findViewById(R.id.fragment_flasher_radio_boot);
+        mFlashRecovery=(RadioButton)view.findViewById(R.id.fragment_flasher_radio_recovery);
+
 
         mFlashBoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mBootPath="/sdcard/flashed";
+                StringFlashRB="Boot";
+                showFileChooser();
+            }
+        });
+
+        mFlashRecovery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBootPath="/sdcard/flashed_recovery";
+                StringFlashRB="Recovery";
                 showFileChooser();
             }
         });
@@ -100,12 +110,12 @@ public class Flasher extends Fragment
                     //File file = new File(path);
                     // Initiate the upload
                     new AlertDialog.Builder(getContext())
-                            .setTitle("Flash Boot")
-                            .setMessage("Are you sure you want to Flash this ?")
+                            .setTitle("Flash "+StringFlashRB)
+                            .setMessage("Are you sure you want to Flash this "+StringFlashRB+" ?"+"\n"+path)
                             .setPositiveButton("Flash", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     /*use sdcard/flash until this feature is ready*/
-                                    mBootPath= Shell.SU.run("dd if="+path+" of=/sdcard/flashed");
+                                    Shell.SU.run("dd if="+path+" of="+mBootPath);
 
                                 }
                             }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
