@@ -1,5 +1,6 @@
 package com.delos.github.arubadel.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,9 +26,11 @@ import com.google.firebase.database.FirebaseDatabase;
 public class FirebaseChat extends Fragment {
     private FirebaseListAdapter<ChatMessage> adapter;
     private ListView listOfMessages;
+    private InputMethodManager imm;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_firebase_chat, container, false);
         listOfMessages = (ListView)rootView.findViewById(R.id.list_of_messages);
+        imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         FloatingActionButton sendButton =
                 (FloatingActionButton)rootView.findViewById(R.id.fab);
@@ -50,8 +54,12 @@ public class FirebaseChat extends Fragment {
 
                 /* Clear the input */
                 input.setText("");
+                /*hide text*/
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             }
+
         });
+
         displayChatMessages();
         return rootView;
 

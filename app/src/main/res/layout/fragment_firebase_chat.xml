@@ -45,5 +45,7 @@
         android:dividerHeight="16dp"
         android:divider="@android:color/transparent"
         android:id="@+id/list_of_messages"
+        android:transcriptMode="alwaysScroll"
+        android:stackFromBottom="true"
         android:layout_marginBottom="16dp"/>
 </RelativeLayout>
