@@ -1,6 +1,6 @@
 package com.delos.github.arubadel.fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
@@ -20,10 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class FirebaseChat extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_firebase_chat, container, false);
-        FloatingActionButton fab =
+        FloatingActionButton sendButton =
                 (FloatingActionButton)rootView.findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText input = (EditText)rootView.findViewById(R.id.input);

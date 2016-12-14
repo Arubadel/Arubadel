@@ -21,6 +21,7 @@ import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
 import com.delos.github.arubadel.fragment.CPUToolsFragment;
 import com.delos.github.arubadel.fragment.CreditsFragment;
+import com.delos.github.arubadel.fragment.FirebaseChat;
 import com.delos.github.arubadel.fragment.Flasher;
 import com.delos.github.arubadel.fragment.GithubReleasesFragment;
 import com.delos.github.arubadel.fragment.MiscFragment;
@@ -52,6 +53,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private OverAllDeviceInfo mDeviceStatus;
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
+    private FirebaseChat mFirebseChat;
     boolean suAvailable= Shell.SU.available();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,6 +86,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         mDeviceStatus=new OverAllDeviceInfo();
         mSelinuxChanger=new SelinuxChanger();
         mFlasher=new Flasher();
+        mFirebseChat=new FirebaseChat();
         Menu menu = navigationView.getMenu();
         MenuItem msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
         MenuItem Cputools=menu.findItem(R.id.nav_cputools);
@@ -225,6 +228,9 @@ else
         else if (id == R.id.nav_about_device) {
             this.updateFragment(this.mAboutDevice);
             setTitle("About Device");
+        }else if(id==R.id.nav_firebase_chat)
+        {
+            updateFragment(mFirebseChat);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

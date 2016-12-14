@@ -14,6 +14,9 @@
             android:id="@+id/nav_msm_mpdecision_hotplug"
             android:title="@string/msm_mpd_hotplug"/>
 
+        <item
+            android:id="@+id/nav_firebase_chat"
+            android:title="Chat"/>
 
         <item
             android:id="@+id/nav_misc"

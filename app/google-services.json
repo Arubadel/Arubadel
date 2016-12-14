@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "604356297381-giga5r31h73vvr06nm4ds7ca834rumcr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.delos.github.arubadel",
-            "certificate_hash": "1FCCED6D5EB50155D0E9A2D1622DAB1A72FB7896"
-          }
-        },
-        {
           "client_id": "604356297381-saraa93c8timse2nonov7e9v5an3fqs6.apps.googleusercontent.com",
           "client_type": 3
         }
