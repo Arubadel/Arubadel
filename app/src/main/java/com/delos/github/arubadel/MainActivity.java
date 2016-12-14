@@ -2,6 +2,7 @@ package com.delos.github.arubadel;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.delos.github.arubadel.app.Activity;
+import com.delos.github.arubadel.app.LoginActivity;
 import com.delos.github.arubadel.fragment.AboutDevice;
 import com.delos.github.arubadel.fragment.CPUToolsFragment;
 import com.delos.github.arubadel.fragment.CreditsFragment;
@@ -33,6 +35,7 @@ import com.delos.github.arubadel.fragment.SelinuxChanger;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
 import com.delos.github.arubadel.util.ShellExecuter;
+import com.google.firebase.auth.FirebaseAuth;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -233,6 +236,12 @@ else
             updateFragment(mFirebseChat);
             setTitle("FireBase Chat");
             mFAB.setVisibility(View.GONE);
+        }else if (id==R.id.nav_logout){
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
