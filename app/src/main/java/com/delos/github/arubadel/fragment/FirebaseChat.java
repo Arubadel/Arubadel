@@ -40,6 +40,7 @@ public class FirebaseChat extends Fragment {
                   of ChatMessage to the Firebase database */
                 FirebaseDatabase.getInstance()
                         .getReference()
+                        .child("Chats")
                         .push()
                         .setValue(new ChatMessage(input.getText().toString(),
                                 FirebaseAuth.getInstance()
@@ -56,7 +57,7 @@ public class FirebaseChat extends Fragment {
 
     }
     private void displayChatMessages(){
-        adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,R.layout.fragment_firebase_chat_textview, FirebaseDatabase.getInstance().getReference()) {
+        adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,R.layout.fragment_firebase_chat_textview, FirebaseDatabase.getInstance().getReference().child("Chats")) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml
