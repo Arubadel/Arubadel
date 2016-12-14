@@ -232,6 +232,7 @@ else
         {
             updateFragment(mFirebseChat);
             setTitle("FireBase Chat");
+            mFAB.setVisibility(View.GONE);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
