@@ -45,7 +45,7 @@ public class FirebaseChat extends Fragment {
                         .setValue(new ChatMessage(input.getText().toString(),
                                 FirebaseAuth.getInstance()
                                         .getCurrentUser()
-                                        .getDisplayName())
+                                        .getEmail())
                         );
 
                 /* Clear the input */
