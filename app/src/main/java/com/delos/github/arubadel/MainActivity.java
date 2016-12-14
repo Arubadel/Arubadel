@@ -231,6 +231,7 @@ else
         }else if(id==R.id.nav_firebase_chat)
         {
             updateFragment(mFirebseChat);
+            setTitle("FireBase Chat");
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
