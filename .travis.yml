@@ -10,7 +10,9 @@ android:
   - android-25
 jdk:
 - oraclejdk8
-script: "./gradlew build"
+script: 
+- ./gradlew build
+- find -type f -name "*.apk"
 deploy:
   provider: releases
   api_key:
