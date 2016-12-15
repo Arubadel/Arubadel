@@ -1,16 +1,20 @@
+sudo: false
 language: android
-
 android:
   components:
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - platform-tools
-    - tools
-    - build-tools-25.0.0
-    - android-25
-
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - platform-tools
+  - tools
+  - build-tools-25.0.0
+  - android-25
 jdk:
-  - oraclejdk8
-
-script:
-  ./gradlew build
+- oraclejdk8
+script: "./gradlew build"
+deploy:
+  provider: releases
+  api_key:
+    secure: vJhnmTZ8PKD+wY4MLPDo2KmhjSEpAkgA1K3vaVT0Tqot6ysUo6hSSQmB0LEUecX5lZmI0UfX+fSGUIM9KYFixqLF+voH0xOdYRIauKhPdMc4t/arEMSFRa0JxEkQBTCJvqCXZ37ebnbDUIXEkINz4iRBfsEi/D8Cqf3TYtILkBJn1HNQbT8LwTnsmGPhyCNNW7xJht/vPJGM0F5vPBMzgs3/RWzYz5XbMRBaLFS4I/gqqrNrTybvFMxSdWL+uqwJ/h0b78OwqAoimE65donvXfhzFzm7cSzJII9kma2fViVq9SRo5DUZU43/At71gtK44U0eL6ZdslWBTWOeLQ5y/D/B7FsxyJxIMP1AVQ+wgZmu3DqT33tfbqD5N++TsoKHjuGVrII21xu0J5MdNfnGIov3Mp5822OKWUhCjnotBXyRnlf55ggTb0VWh+TvhsifrafCB5aPmncn/9DVQIhe1D6HzVQVNfu6y8Y/5zuzMmiWumiUCKe1o+lO9VIydTUDHPp73yThyoihPbMPoX5FTUvtI9OUVbjVkmw+0O9psBkPPe7PUL8bUZiqqLDdFZzZFHgcLCeR5VhmxVo4OuAUr2HFEJLcV6LzzT03oLnXJhxY1+ubWoYtXu+YnYdMZ90O2iFZarmLGWv16nYY7p3M+AIBX2/00gp8QLh02K5U5Jk=
+  file: app/build/outputs/apk/app-debug.apk
+  on:
+    repo: Arubadel/Arubadel
