@@ -3,7 +3,9 @@ package com.delos.github.arubadel;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -57,12 +59,20 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
     private FirebaseChat mFirebseChat;
+    private FirebaseAuth mFBAuth;
+    private String email;
+
+    /*Navigation drawer*/
+    private NavigationView navigationView;
+    private View navHeaderView;
+
     boolean suAvailable= Shell.SU.available();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        mFBAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,9 +82,10 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        navHeaderView= navigationView.inflateHeaderView(R.layout.nav_header_main);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         this.mFAB = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         this.mFragmentCPUTools = new CPUToolsFragment();
         this.mFragmentCredits = new CreditsFragment();
@@ -150,8 +161,10 @@ else
                     }
                 }
         );
-
-
+        if (!sp.contains("user_nick_name")) {
+            email=mFBAuth.getCurrentUser().getEmail();
+            sp.edit().putString("user_nick_name", email).commit();
+        }
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -18,7 +19,6 @@ import android.widget.Toast;
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ChatMessage;
 import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,12 +31,12 @@ public class FirebaseChat extends Fragment {
     private ListView listOfMessages;
     private InputMethodManager imm;
     private DatabaseReference getChats = FirebaseDatabase.getInstance().getReference().child("Chats");
-    private String input;
+    private String input,Name;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_firebase_chat, container, false);
         listOfMessages = (ListView)rootView.findViewById(R.id.list_of_messages);
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-
+        Name= PreferenceManager.getDefaultSharedPreferences(getContext()).getString("user_nick_name", "null");
         FloatingActionButton sendButton =
                 (FloatingActionButton)rootView.findViewById(R.id.fab);
         if (getChats == null) {
@@ -61,11 +61,7 @@ public class FirebaseChat extends Fragment {
                             .getReference()
                             .child("Chats")
                             .push()
-                            .setValue(new ChatMessage(input,
-                                    FirebaseAuth.getInstance()
-                                            .getCurrentUser()
-                                            .getEmail())
-                            );
+                            .setValue(new ChatMessage(input,Name));
 
                 /* Clear the input */
                     message.setText("");
