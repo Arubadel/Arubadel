@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ChatMessage;
@@ -29,7 +31,7 @@ public class FirebaseChat extends Fragment {
     private ListView listOfMessages;
     private InputMethodManager imm;
     private DatabaseReference getChats = FirebaseDatabase.getInstance().getReference().child("Chats");
-
+    private String input;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_firebase_chat, container, false);
         listOfMessages = (ListView)rootView.findViewById(R.id.list_of_messages);
@@ -47,24 +49,29 @@ public class FirebaseChat extends Fragment {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText input = (EditText)rootView.findViewById(R.id.input);
-
+                EditText message = (EditText) rootView.findViewById(R.id.input);
+                input = message.getText().toString();
                 /* Read the input field and push a new instance
                   of ChatMessage to the Firebase database */
-                FirebaseDatabase.getInstance()
-                        .getReference()
-                        .child("Chats")
-                        .push()
-                        .setValue(new ChatMessage(input.getText().toString(),
-                                FirebaseAuth.getInstance()
-                                        .getCurrentUser()
-                                        .getEmail())
-                        );
+                if (TextUtils.isEmpty(input)) {
+                    Toast.makeText(getContext().getApplicationContext(), "Enter message", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    FirebaseDatabase.getInstance()
+                            .getReference()
+                            .child("Chats")
+                            .push()
+                            .setValue(new ChatMessage(input,
+                                    FirebaseAuth.getInstance()
+                                            .getCurrentUser()
+                                            .getEmail())
+                            );
 
                 /* Clear the input */
-                input.setText("");
+                    message.setText("");
                 /*hide text*/
-                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                }
             }
 
         });
