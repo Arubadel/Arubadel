@@ -32,7 +32,8 @@ public class FirebaseChat extends Fragment {
     private ListView listOfMessages;
     private InputMethodManager imm;
     private DatabaseReference getChats = FirebaseDatabase.getInstance().getReference().child("Chats");
-    private String input,Name,ClickedMessage;
+    private String input,Name,SelectedMessage;
+    private ChatMessage ClickedMessage;
     private TextView messageText,messageUser,messageTime;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_firebase_chat, container, false);
@@ -81,7 +82,7 @@ public class FirebaseChat extends Fragment {
     private void displayChatMessages(){
         adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,R.layout.fragment_firebase_chat_textview, FirebaseDatabase.getInstance().getReference().child("Chats")) {
             @Override
-            protected void populateView(View v, final ChatMessage model, int position) {
+            protected void populateView(final View v, final ChatMessage model, int position) {
                 // Get references to the views of message.xml
 
                 messageText = (TextView)v.findViewById(R.id.message_text);
@@ -94,22 +95,22 @@ public class FirebaseChat extends Fragment {
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
                         model.getMessageTime()));
-                listOfMessages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(getContext(), "Copied to clipboard", Toast.LENGTH_LONG).show();
-                        ClickedMessage =model.getMessageText().toString();
-                        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Message", ClickedMessage);
-                        clipboard.setPrimaryClip(clip);
 
-                    }
-                });
             }
         };
 
     listOfMessages.setAdapter(adapter);
-
+        listOfMessages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ClickedMessage = (ChatMessage)adapterView.getItemAtPosition(i);
+                SelectedMessage = ClickedMessage.getMessageText();
+                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                android.content.ClipData clip = android.content.ClipData.newPlainText("Message", SelectedMessage);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getContext(), "Copied to clipboard", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }
