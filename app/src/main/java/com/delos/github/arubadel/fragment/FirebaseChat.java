@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,7 +32,8 @@ public class FirebaseChat extends Fragment {
     private ListView listOfMessages;
     private InputMethodManager imm;
     private DatabaseReference getChats = FirebaseDatabase.getInstance().getReference().child("Chats");
-    private String input,Name;
+    private String input,Name,ClickedMessage;
+    private TextView messageText,messageUser,messageTime;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_firebase_chat, container, false);
         listOfMessages = (ListView)rootView.findViewById(R.id.list_of_messages);
@@ -79,24 +81,35 @@ public class FirebaseChat extends Fragment {
     private void displayChatMessages(){
         adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,R.layout.fragment_firebase_chat_textview, FirebaseDatabase.getInstance().getReference().child("Chats")) {
             @Override
-            protected void populateView(View v, ChatMessage model, int position) {
+            protected void populateView(View v, final ChatMessage model, int position) {
                 // Get references to the views of message.xml
 
-                TextView messageText = (TextView)v.findViewById(R.id.message_text);
-                TextView messageUser = (TextView)v.findViewById(R.id.message_user);
-                TextView messageTime = (TextView)v.findViewById(R.id.message_time);
+                messageText = (TextView)v.findViewById(R.id.message_text);
+                messageUser = (TextView)v.findViewById(R.id.message_user);
+                messageTime = (TextView)v.findViewById(R.id.message_time);
 
                 // Set their text
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getMessageUser());
-
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
                         model.getMessageTime()));
+                listOfMessages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(getContext(), "Copied to clipboard", Toast.LENGTH_LONG).show();
+                        ClickedMessage =model.getMessageText().toString();
+                        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Message", ClickedMessage);
+                        clipboard.setPrimaryClip(clip);
+
+                    }
+                });
             }
         };
 
     listOfMessages.setAdapter(adapter);
+
     }
 
 }
