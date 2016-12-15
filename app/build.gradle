@@ -61,6 +61,7 @@ dependencies {
     compile 'com.google.firebase:firebase-core:9.8.0'
     compile 'com.google.firebase:firebase-messaging:9.8.0'
     compile 'com.firebaseui:firebase-ui-database:0.6.0'
+    compile 'com.backendless:backendless:3.0.11'
     testCompile 'junit:junit:4.12'
 }
 

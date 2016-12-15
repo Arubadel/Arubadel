@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.async.callback.BackendlessCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.delos.github.arubadel.MainActivity;
 import com.delos.github.arubadel.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,10 +38,12 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout btn_login_singup_linear;
     private TextInputLayout TextInputLayoutPass;
     private ImageView TeamWinLoginLogo,XdaLoginLogo;
+    /*Backend less user */
+    private BackendlessUser mBackendlessUser = new BackendlessUser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Backendless.initApp( this, "1FCF27BB-4307-6EEB-FF51-A6D6A83F1100", "FD1E2430-8650-03F1-FF07-CA84C667AC00", "v1" );
         /*Get Firebase auth instance*/
             auth = FirebaseAuth.getInstance();
         /*Check if user has already login */
@@ -43,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }
+
         // set the view now
         setContentView(R.layout.activity_login);
 
@@ -111,8 +120,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String email = inputEmail.getText().toString().trim();
-                String password = inputPassword.getText().toString().trim();
+                final String email = inputEmail.getText().toString().trim();
+                final String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -145,13 +154,23 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    finish();
+                                    mBackendlessUser.setEmail(email);
+                                    mBackendlessUser.setPassword(password);
+                                    Backendless.UserService.register( mBackendlessUser, new BackendlessCallback<BackendlessUser>()
+                                            {
+                                                @Override
+                                                public void handleResponse( BackendlessUser backendlessUser )
+                                                {
+                                                    Log.i( "Registration", backendlessUser.getEmail() + " successfully registered" );
+                                                }
+                                            });
+                                            finish();
                                 }
                             }
                         });
-
             }
         });
+
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,10 +194,11 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
         btnLogin2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = inputEmail.getText().toString();
+                final String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
@@ -212,10 +232,24 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
+                                    Backendless.UserService.login( email, password, new AsyncCallback<BackendlessUser>()
+                                    {
+                                        public void handleResponse( BackendlessUser user )
+                                        {
+                                            Log.i( "Login: ", " successfully Login" );
+
+                                        }
+
+                                                public void handleFault( BackendlessFault fault )
+                                        {
+                                        // login failed, to get the error code call fault.getCode()
+                                        }
+                                    });
                                     finish();
                                 }
                             }
                         });
+
             }
         });
     }
@@ -250,8 +284,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }, 2000);
     }
-
-
 
 }
 
