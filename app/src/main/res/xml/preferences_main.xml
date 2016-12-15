@@ -14,7 +14,7 @@
 
     <EditTextPreference
         android:key="user_nick_name"
-        android:title="Nick Name"
-        android:summary="Change nick name" />
+        android:title="@string/nick_name"
+        android:summary="@string/nick_name_in_chat" />
 
 </PreferenceScreen>

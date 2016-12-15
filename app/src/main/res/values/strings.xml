@@ -131,4 +131,6 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="login_image">Login Image</string>
+    <string name="nick_name_in_chat">Update nick name in chat</string>
+    <string name="nick_name">Nick Name</string>
 </resources>
