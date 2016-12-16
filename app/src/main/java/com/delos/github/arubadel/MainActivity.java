@@ -111,6 +111,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         MenuItem bSelinuxChanger=menu.findItem(R.id.nav_selinux_changer);
         MenuItem bOverAllDeviceStatus=menu.findItem(R.id.nav_over_all_device_info);
         MenuItem bFlasher=menu.findItem(R.id.nav_flasher);
+        MenuItem mAppUpdates=menu.findItem(R.id.nav_app_updates);
+
 if(suAvailable)
 {
     Cputools.setVisible(true);
@@ -152,6 +154,10 @@ else
     mFAB.setVisibility(View.GONE);
 
 }
+
+        /*Hide app updates fragment*/
+        mAppUpdates.setVisible(false);
+
         // register click listener for fab
         this.mFAB.setOnClickListener(
                 new View.OnClickListener()
@@ -178,7 +184,7 @@ else
                 .setTitleOnUpdateNotAvailable("Update not available")
                 .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
                 .setButtonUpdate("Update now?")
-                .setButtonDismiss("Maybe later")
+                /*.setButtonDismiss("Maybe later")*/
                 .setButtonDoNotShowAgain("Huh, not interested")
                 .start();
         new AppUpdater(this)
@@ -190,7 +196,7 @@ else
                 .setTitleOnUpdateNotAvailable("Update not available")
                 .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
                 .setButtonUpdate("Update now?")
-                .setButtonDismiss("Maybe later")
+                /*.setButtonDismiss("Maybe later")*/
                 .setButtonDoNotShowAgain("Huh, not interested")
                 .start();
 
