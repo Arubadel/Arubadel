@@ -3,7 +3,6 @@ package com.delos.github.arubadel;
 
 import android.Manifest;
 import android.app.DownloadManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -18,7 +17,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -43,13 +41,13 @@ import com.delos.github.arubadel.fragment.SelinuxChanger;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
 import com.delos.github.arubadel.util.ShellExecuter;
+import com.eminayar.panter.PanterDialog;
+import com.eminayar.panter.enums.Animation;
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.io.File;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -194,29 +192,31 @@ else
                     public void onSuccess(final Update update, Boolean isUpdateAvailable) {
                         Log.d("AppUpdater", update.getLatestVersion() + ", " + update.getUrlToDownload() + ", " + Boolean.toString(isUpdateAvailable));
                         if(isUpdateAvailable==true){
-                            new AlertDialog.Builder(MainActivity.this)
-                                    .setTitle("Update Found ")
-                                    .setMessage("Do you want to update now ?")
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
+
+                            new PanterDialog(MainActivity.this)
+                                    .setTitle("Update Found")
+                                    .setHeaderBackground(R.color.colorPrimaryDark)
+                                    .setMessage("Changelog :- \n\n"+update.getReleaseNotes())
+                                    .setPositive("Download",new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
                                             Uri uri = Uri.parse(String.valueOf(update.getUrlToDownload()));
                                             DownloadManager.Request request = new DownloadManager.Request(uri);
-                                            File fileName = new File("");
-                                            fileName.getName();
-                                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+fileName+".apk");
+                                            String  fileName = uri.getLastPathSegment();
+                                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,fileName);
 
                                             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                             Long reference = downloadManager.enqueue(request);
+                                            finish();
+
 
                                         }
                                     })
-                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // do nothing
-                                        }
-                                    })
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setNegative("DISMISS")
+                                    .isCancelable(false)
+                                    .withAnimation(Animation.SIDE)
                                     .show();
+
 
                         }
                     }

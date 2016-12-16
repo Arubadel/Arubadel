@@ -63,6 +63,7 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:0.6.0'
     compile 'com.backendless:backendless:3.0.11'
     compile 'com.github.javiersantos:AppUpdater:2.4'
+    compile 'com.github.kngfrhzs:panter-dialog:b12c021695'
     testCompile 'junit:junit:4.12'
 }
 
