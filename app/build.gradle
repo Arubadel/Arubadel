@@ -1,6 +1,9 @@
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url  "http://dl.bintray.com/lukaville/maven"
+        }
     }
 
     dependencies {
@@ -64,6 +67,7 @@ dependencies {
     compile 'com.backendless:backendless:3.0.11'
     compile 'com.github.javiersantos:AppUpdater:2.4'
     compile 'com.github.kngfrhzs:panter-dialog:b12c021695'
+    compile 'com.nononsenseapps:filepicker:3.1.0'
     testCompile 'junit:junit:4.12'
 }
 

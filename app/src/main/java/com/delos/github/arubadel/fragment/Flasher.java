@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -12,12 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.util.FileUtil;
 import com.delos.github.arubadel.util.ShellUtils;
+import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import java.net.URISyntaxException;
 
@@ -76,19 +77,15 @@ public class Flasher extends Fragment
     }
 
     private void showFileChooser() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("application/x-raw-disk-image");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        Intent i = new Intent(getContext(), FilePickerActivity.class);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
+        i.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
+        i.addCategory(".img");
+        i.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
 
-        try {
-            startActivityForResult(
-                    Intent.createChooser(intent, "Select a File to Flash"),
-                    FILE_SELECT_CODE);
-        } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
-            Toast.makeText(getContext(), "Please install a File Manager.",
-                    Toast.LENGTH_SHORT).show();
-        }
+        startActivityForResult(i, FILE_SELECT_CODE);
+
     }
 
     @Override
