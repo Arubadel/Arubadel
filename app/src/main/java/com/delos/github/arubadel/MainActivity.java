@@ -170,11 +170,9 @@ else
         }
         /*Updater*/
         new AppUpdater(this)
-                .setDisplay(Display.SNACKBAR)
                 .setDisplay(Display.DIALOG)
-                .setDisplay(Display.NOTIFICATION)
                 .setUpdateFrom(UpdateFrom.XML)
-                .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
+                .setUpdateXML("https://raw.githubusercontent.com/Arubadel/Arubadel/master/Updater.xml")
                 .setTitleOnUpdateAvailable("Update available")
                 .setContentOnUpdateAvailable("Check out the latest version available of my app!")
                 .setTitleOnUpdateNotAvailable("Update not available")
@@ -183,6 +181,19 @@ else
                 .setButtonDismiss("Maybe later")
                 .setButtonDoNotShowAgain("Huh, not interested")
                 .start();
+        new AppUpdater(this)
+                .setDisplay(Display.NOTIFICATION)
+                .setUpdateFrom(UpdateFrom.XML)
+                .setUpdateXML("https://raw.githubusercontent.com/Arubadel/Arubadel/master/Updater.xml")
+                .setTitleOnUpdateAvailable("Update available")
+                .setContentOnUpdateAvailable("Check out the latest version available of my app!")
+                .setTitleOnUpdateNotAvailable("Update not available")
+                .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
+                .setButtonUpdate("Update now?")
+                .setButtonDismiss("Maybe later")
+                .setButtonDoNotShowAgain("Huh, not interested")
+                .start();
+
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 
     }
