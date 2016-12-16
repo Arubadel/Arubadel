@@ -194,7 +194,7 @@ else
                     public void onSuccess(final Update update, Boolean isUpdateAvailable) {
                         Log.d("AppUpdater", update.getLatestVersion() + ", " + update.getUrlToDownload() + ", " + Boolean.toString(isUpdateAvailable));
                         if(isUpdateAvailable==true){
-                            new AlertDialog.Builder(getApplicationContext())
+                            new AlertDialog.Builder(MainActivity.this)
                                     .setTitle("Update Found ")
                                     .setMessage("Do you want to update now ?")
                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -203,7 +203,7 @@ else
                                             DownloadManager.Request request = new DownloadManager.Request(uri);
                                             File fileName = new File("");
                                             fileName.getName();
-                                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+fileName);
+                                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+fileName+".apk");
 
                                             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                             Long reference = downloadManager.enqueue(request);
