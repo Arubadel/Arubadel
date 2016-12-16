@@ -37,6 +37,9 @@ import com.delos.github.arubadel.fragment.SelinuxChanger;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
 import com.delos.github.arubadel.util.ShellExecuter;
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.enums.Display;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.google.firebase.auth.FirebaseAuth;
 
 import eu.chainfire.libsuperuser.Shell;
@@ -165,7 +168,22 @@ else
             email=mFBAuth.getCurrentUser().getEmail();
             sp.edit().putString("user_nick_name", email).commit();
         }
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+        /*Updater*/
+        new AppUpdater(this)
+                .setDisplay(Display.SNACKBAR)
+                .setDisplay(Display.DIALOG)
+                .setDisplay(Display.NOTIFICATION)
+                .setUpdateFrom(UpdateFrom.XML)
+                .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
+                .setTitleOnUpdateAvailable("Update available")
+                .setContentOnUpdateAvailable("Check out the latest version available of my app!")
+                .setTitleOnUpdateNotAvailable("Update not available")
+                .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
+                .setButtonUpdate("Update now?")
+                .setButtonDismiss("Maybe later")
+                .setButtonDoNotShowAgain("Huh, not interested")
+                .start();
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 
     }
 

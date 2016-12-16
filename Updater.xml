@@ -1,0 +1,9 @@
+<AppUpdater>
+    <update>
+        <latestVersion>0.2</latestVersion>
+        <url>https://github.com/Arubadel/Arubadel/releases</url>
+        <releaseNotes>
+            - Test Updater
+        </releaseNotes>
+    </update>
+</AppUpdater>
