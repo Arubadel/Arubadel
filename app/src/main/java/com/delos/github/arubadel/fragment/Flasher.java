@@ -16,11 +16,12 @@ import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.util.FileUtil;
 import com.delos.github.arubadel.util.ShellUtils;
+import com.eminayar.panter.PanterDialog;
+import com.eminayar.panter.enums.Animation;
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import java.net.URISyntaxException;
 
-import cn.refactor.lib.colordialog.ColorDialog;
 import eu.chainfire.libsuperuser.Shell;
 
 import static android.app.Activity.RESULT_OK;
@@ -35,7 +36,7 @@ public class Flasher extends Fragment
     private RadioButton mFlashBoot,mFlashRecovery;
     private static final int FILE_SELECT_CODE = 0;
     private String path,mBootPath,mRecoveryPath,StringFlashRB;
-    private ColorDialog mRBDialog;
+    private PanterDialog dialog;
 
     @Nullable
     @Override
@@ -103,28 +104,21 @@ public class Flasher extends Fragment
                         e.printStackTrace();
                     }
                     Log.d("TAG", "File Path: " + path);
-                    mRBDialog= new ColorDialog(getContext());
-                    mRBDialog.setColor(R.color.colorPrimaryDark);
-                    mRBDialog.setTitle("Flash "+StringFlashRB);
-                    mRBDialog.setCanceledOnTouchOutside(false);
-                    mRBDialog.setContentText("Are you sure you want to Flash this "+StringFlashRB+"\n"+path);
-                    /*mRBDialog.setContentImage(getResources().getDrawable(R.mipmap.sample_img));*/
-                    mRBDialog.setPositiveListener("Cancel", new ColorDialog.OnPositiveListener() {
-                        @Override
-                        public void onClick(ColorDialog dialog) {
-
-                            dialog.dismiss();
-
-                        }
-                    })
-                            .setNegativeListener("Flash", new ColorDialog.OnNegativeListener() {
+                    dialog = new PanterDialog(getContext());
+                    dialog.setHeaderBackground(R.color.colorPrimaryDark)
+                            .setMessage("Are you sure you want to Flash this "+StringFlashRB+" ?"+"\n"+path)
+                            .setPositive("Flash", new View.OnClickListener() {
                                 @Override
-                                public void onClick(ColorDialog dialog) {
-                                    /*use sdcard/flash until this feature is ready*/
+                                public void onClick(View view) {
+                                /*use sdcard/flash until this feature is ready*/
                                     Shell.SU.run("dd if="+path+" of="+mBootPath);
                                     dialog.dismiss();
+
                                 }
-                            }).show();
+                            })
+                            .setNegative("Cancel")
+                            .withAnimation(Animation.POP)
+                            .show();
 
                 }
                 break;

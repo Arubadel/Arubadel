@@ -76,6 +76,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private NavigationView navigationView;
     private View navHeaderView;
 
+    /*Dialog*/
+    private PanterDialog UpdateDialog;
     boolean suAvailable= Shell.SU.available();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -193,8 +195,7 @@ else
                         Log.d("AppUpdater", update.getLatestVersion() + ", " + update.getUrlToDownload() + ", " + Boolean.toString(isUpdateAvailable));
                         if(isUpdateAvailable==true){
 
-                            new PanterDialog(MainActivity.this)
-                                    .setTitle("Update Found")
+                            UpdateDialog.setTitle("Update Found")
                                     .setHeaderBackground(R.color.colorPrimaryDark)
                                     .setMessage("Changelog :- \n\n"+update.getReleaseNotes())
                                     .setPositive("Download",new View.OnClickListener() {
@@ -207,8 +208,7 @@ else
 
                                             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                             Long reference = downloadManager.enqueue(request);
-                                            finish();
-
+                                            UpdateDialog.dismiss();
 
                                         }
                                     })
