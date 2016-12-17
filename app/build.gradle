@@ -74,6 +74,7 @@ dependencies {
     compile 'com.github.hani-momanii:SuperNova-Emoji:1.0'
     compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.3'
     compile 'com.google.android.gms:play-services-places:9.8.0'
+    compile 'com.github.florent37:MaterialTextField:1.0.6'
     testCompile 'junit:junit:4.12'
 }
 

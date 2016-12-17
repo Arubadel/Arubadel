@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -24,6 +23,7 @@ import com.backendless.async.callback.BackendlessCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.delos.github.arubadel.MainActivity;
 import com.delos.github.arubadel.R;
+import com.github.florent37.materialtextfield.MaterialTextField;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset, btnLogin2,btnSignUp,btnSignIn,btnCreateAccount;
     private LinearLayout btn_login_singup_linear;
-    private TextInputLayout TextInputLayoutPass;
+    private MaterialTextField TextInputLayoutPass,TextInputLayoutEmail;
     private ImageView TeamWinLoginLogo,XdaLoginLogo;
     /*Backend less user */
     private BackendlessUser mBackendlessUser = new BackendlessUser();
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         btnReset = (Button) findViewById(R.id.btn_reset_password);
         btnLogin2=(Button)findViewById(R.id.btn_login_2);
         btn_login_singup_linear=(LinearLayout)findViewById(R.id.btn_login_singup_linear);
-        TextInputLayoutPass=(TextInputLayout)findViewById(R.id.text_input_layout_password);
+        TextInputLayoutPass=(MaterialTextField)findViewById(R.id.text_input_layout_password);
         btn_login_singup_linear.setVisibility(View.VISIBLE);
         XdaLoginLogo=(ImageView)findViewById(R.id.xda_login_logo);
         TeamWinLoginLogo=(ImageView)findViewById(R.id.teamwin_login_logo);
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnCreateAccount = (Button) findViewById(R.id.create_account_button);
-
+        TextInputLayoutEmail=(MaterialTextField)findViewById(R.id.text_input_layout_email);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 btn_login_singup_linear.setVisibility(View.GONE);
                 inputEmail.setVisibility(View.VISIBLE);
                 TextInputLayoutPass.setVisibility(View.VISIBLE);
+                TextInputLayoutEmail.setVisibility(View.VISIBLE);
                 inputPassword.setVisibility(View.VISIBLE);
                 btnSignIn.setVisibility(View.VISIBLE);
                 TeamWinLoginLogo.setVisibility(View.VISIBLE);
@@ -186,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                 btnLogin2.setVisibility(View.VISIBLE);
                 inputEmail.setVisibility(View.VISIBLE);
                 TextInputLayoutPass.setVisibility(View.VISIBLE);
+                TextInputLayoutEmail.setVisibility(View.VISIBLE);
                 inputPassword.setVisibility(View.VISIBLE);
                 btnReset.setVisibility(View.VISIBLE);
                 TeamWinLoginLogo.setVisibility(View.VISIBLE);
@@ -270,6 +272,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin2.setVisibility(View.GONE);
         inputEmail.setVisibility(View.GONE);
         TextInputLayoutPass.setVisibility(View.GONE);
+        TextInputLayoutEmail.setVisibility(View.GONE);
         btnSignUp.setVisibility(View.GONE);
         btnReset.setVisibility(View.GONE);
         btnCreateAccount.setVisibility(View.GONE);
