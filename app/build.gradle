@@ -69,6 +69,11 @@ dependencies {
     compile 'com.github.kngfrhzs:panter-dialog:b12c021695'
     compile 'com.nononsenseapps:filepicker:3.1.0'
     compile 'com.github.Nightonke:JellyToggleButton:16582040d2'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.hani-momanii:SuperNova-Emoji:1.0'
+    compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.3'
+    compile 'com.google.android.gms:play-services-places:9.8.0'
     testCompile 'junit:junit:4.12'
 }
 
