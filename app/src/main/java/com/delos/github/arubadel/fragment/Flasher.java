@@ -1,13 +1,11 @@
 package com.delos.github.arubadel.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +20,7 @@ import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import java.net.URISyntaxException;
 
+import cn.refactor.lib.colordialog.ColorDialog;
 import eu.chainfire.libsuperuser.Shell;
 
 import static android.app.Activity.RESULT_OK;
@@ -36,6 +35,7 @@ public class Flasher extends Fragment
     private RadioButton mFlashBoot,mFlashRecovery;
     private static final int FILE_SELECT_CODE = 0;
     private String path,mBootPath,mRecoveryPath,StringFlashRB;
+    private ColorDialog mRBDialog;
 
     @Nullable
     @Override
@@ -103,25 +103,28 @@ public class Flasher extends Fragment
                         e.printStackTrace();
                     }
                     Log.d("TAG", "File Path: " + path);
-                    // Get the file instance
-                    //File file = new File(path);
-                    // Initiate the upload
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Flash "+StringFlashRB)
-                            .setMessage("Are you sure you want to Flash this "+StringFlashRB+" ?"+"\n"+path)
-                            .setPositiveButton("Flash", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    /*use sdcard/flash until this feature is ready*/
-                                    Shell.SU.run("dd if="+path+" of="+mBootPath);
-
-                                }
-                            }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    mRBDialog= new ColorDialog(getContext());
+                    mRBDialog.setColor(R.color.colorPrimaryDark);
+                    mRBDialog.setTitle("Flash "+StringFlashRB);
+                    mRBDialog.setCanceledOnTouchOutside(false);
+                    mRBDialog.setContentText("Are you sure you want to Flash this "+StringFlashRB+"\n"+path);
+                    /*mRBDialog.setContentImage(getResources().getDrawable(R.mipmap.sample_img));*/
+                    mRBDialog.setPositiveListener("Cancel", new ColorDialog.OnPositiveListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                        public void onClick(ColorDialog dialog) {
+
+                            dialog.dismiss();
 
                         }
-                    }).show();
-
+                    })
+                            .setNegativeListener("Flash", new ColorDialog.OnNegativeListener() {
+                                @Override
+                                public void onClick(ColorDialog dialog) {
+                                    /*use sdcard/flash until this feature is ready*/
+                                    Shell.SU.run("dd if="+path+" of="+mBootPath);
+                                    dialog.dismiss();
+                                }
+                            }).show();
 
                 }
                 break;
