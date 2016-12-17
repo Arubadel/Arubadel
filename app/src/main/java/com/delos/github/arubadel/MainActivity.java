@@ -309,8 +309,8 @@ else
             setTitle("About Device");
         }else if(id==R.id.nav_firebase_chat)
         {
-
-            startActivity(new Intent(MainActivity.this, FirebaseChat.class));
+            this.updateFragment(this.mFirebseChat);
+            setTitle("Chat");
             mFAB.setVisibility(View.GONE);
         }else if (id==R.id.nav_logout){
             FirebaseAuth.getInstance().signOut();

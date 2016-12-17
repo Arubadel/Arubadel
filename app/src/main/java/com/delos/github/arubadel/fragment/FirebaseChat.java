@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.delos.github.arubadel.R;
@@ -51,7 +52,9 @@ import java.util.Date;
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
 
-public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, ClickListenerChatFirebase {
+import static android.app.Activity.RESULT_OK;
+
+public class FirebaseChat extends Fragment implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, ClickListenerChatFirebase {
 
     private static final int IMAGE_GALLERY_REQUEST = 1;
     private static final int IMAGE_CAMERA_REQUEST = 2;
@@ -80,27 +83,39 @@ public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.O
 
     //File
     private File filePathImageCamera;
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
+        View view = inflater.inflate(R.layout.fragment_firebase_chat, container, false);
+        contentRoot = view.findViewById(R.id.contentRoot);
+        edMessage = (EmojiconEditText)view.findViewById(R.id.editTextMessage);
+        btSendMessage = (ImageView)view.findViewById(R.id.buttonMessage);
+        btEmoji = (ImageView)view.findViewById(R.id.buttonEmoji);
+        rvListMessage = (RecyclerView)view.findViewById(R.id.messageRecyclerView);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_firebase_chat);
-
-        if (!Util.verificaConexao(this)){
-            Util.initToast(this,"Você não tem conexão com internet");
-            finish();
+        if (!Util.verificaConexao(getActivity())){
+            Util.initToast(getActivity(),"No internet connection");
         }else{
             bindViews();
             verificaUsuarioLogado();
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, this)
+            mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                    .enableAutoManage(getActivity(), this)
                     .addApi(Auth.GOOGLE_SIGN_IN_API)
                     .build();
         }
+
+
+        return view;
     }
 
+    private void bindViews(){
+        btSendMessage.setOnClickListener(this);
+        emojIcon = new EmojIconActions(getActivity(),contentRoot, btEmoji, edMessage);
+        emojIcon.ShowEmojicon();
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mLinearLayoutManager.setStackFromEnd(true);
+    }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         StorageReference storageRef = storage.getReferenceFromUrl(Util.URL_STORAGE_REFERENCE).child(Util.FOLDER_STORAGE_IMG);
 
@@ -124,7 +139,7 @@ public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.O
             }
         }else if (requestCode == PLACE_PICKER_REQUEST){
             if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(this, data);
+                Place place = PlacePicker.getPlace(getContext(), data);
                 if (place!=null){
                     LatLng latLng = place.getLatLng();
                     MapModel mapModel = new MapModel(latLng.latitude+"",latLng.longitude+"");
@@ -138,37 +153,11 @@ public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_chat, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.sendPhoto:
-                photoCameraIntent();
-                break;
-            case R.id.sendPhotoGallery:
-                photoGalleryIntent();
-                break;
-            case R.id.sendLocation:
-                locationPlacesIntent();
-                break;
-            case R.id.sign_out:
-                signOut();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
-        Util.initToast(this,"Google Play Services error.");
+        Util.initToast(getActivity(),"Google Play Services error.");
     }
 
 
@@ -183,7 +172,7 @@ public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     public void clickImageChat(View view, int position,String nameUser,String urlPhotoUser,String urlPhotoClick) {
-        Intent intent = new Intent(this,FullScreenImageActivity.class);
+        Intent intent = new Intent(getActivity(),FullScreenImageActivity.class);
         intent.putExtra("nameUser",nameUser);
         intent.putExtra("urlPhotoUser",urlPhotoUser);
         intent.putExtra("urlPhotoClick",urlPhotoClick);
@@ -260,7 +249,7 @@ public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.O
     private void locationPlacesIntent(){
         try {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+            startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
@@ -326,8 +315,7 @@ public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.O
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser == null){
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
+            startActivity(new Intent(getActivity(), LoginActivity.class));
         }else{
             userModel = new UserModel(mFirebaseUser.getDisplayName(),mFirebaseUser.getEmail(), mFirebaseUser.getUid() );
             lerMessagensFirebase();
@@ -337,18 +325,6 @@ public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.O
     /**
      * Vincular views com Java API
      */
-    private void bindViews(){
-        contentRoot = findViewById(R.id.contentRoot);
-        edMessage = (EmojiconEditText)findViewById(R.id.editTextMessage);
-        btSendMessage = (ImageView)findViewById(R.id.buttonMessage);
-        btSendMessage.setOnClickListener(this);
-        btEmoji = (ImageView)findViewById(R.id.buttonEmoji);
-        emojIcon = new EmojIconActions(FirebaseChat.this,contentRoot, btEmoji, edMessage);
-        emojIcon.ShowEmojicon();
-        rvListMessage = (RecyclerView)findViewById(R.id.messageRecyclerView);
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        mLinearLayoutManager.setStackFromEnd(true);
-    }
 
     /**
      * Sign Out no login
@@ -356,8 +332,7 @@ public class FirebaseChat extends AppCompatActivity implements GoogleApiClient.O
     private void signOut(){
         mFirebaseAuth.signOut();
         Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 
 }
