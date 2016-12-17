@@ -194,7 +194,7 @@ else
                     public void onSuccess(final Update update, Boolean isUpdateAvailable) {
                         Log.d("AppUpdater", update.getLatestVersion() + ", " + update.getUrlToDownload() + ", " + Boolean.toString(isUpdateAvailable));
                         if(isUpdateAvailable==true){
-
+                            UpdateDialog= new PanterDialog(MainActivity.this);
                             UpdateDialog.setTitle("Update Found")
                                     .setHeaderBackground(R.color.colorPrimaryDark)
                                     .setMessage("Changelog :- \n\n"+update.getReleaseNotes())
