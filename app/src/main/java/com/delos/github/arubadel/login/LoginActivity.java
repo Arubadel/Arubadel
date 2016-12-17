@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
+import com.delos.github.arubadel.MainActivity;
 import com.delos.github.arubadel.R;
 
 public class LoginActivity extends Activity
@@ -51,7 +52,7 @@ public class LoginActivity extends Activity
               {
                 super.handleResponse( currentUser );
                 Backendless.UserService.setCurrentUser( currentUser );
-                startActivity( new Intent( getBaseContext(), LoginSuccessActivity.class ) );
+                startActivity( new Intent( getBaseContext(), MainActivity.class ) );
                 finish();
               }
             } );
@@ -120,7 +121,7 @@ public class LoginActivity extends Activity
       public void handleResponse( BackendlessUser backendlessUser )
       {
         super.handleResponse( backendlessUser );
-        startActivity( new Intent( LoginActivity.this, LoginSuccessActivity.class ) );
+        startActivity( new Intent( LoginActivity.this, MainActivity.class ) );
         finish();
       }
     }, rememberLogin );
