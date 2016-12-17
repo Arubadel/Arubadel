@@ -3,7 +3,6 @@ package com.delos.github.arubadel;
 
 import android.Manifest;
 import android.app.DownloadManager;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,11 +24,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.delos.github.arubadel.app.Activity;
-import com.delos.github.arubadel.app.LoginActivity;
 import com.delos.github.arubadel.fragment.AboutDevice;
 import com.delos.github.arubadel.fragment.CPUToolsFragment;
 import com.delos.github.arubadel.fragment.CreditsFragment;
-import com.delos.github.arubadel.fragment.FirebaseChat;
 import com.delos.github.arubadel.fragment.Flasher;
 import com.delos.github.arubadel.fragment.GithubReleasesFragment;
 import com.delos.github.arubadel.fragment.MiscFragment;
@@ -47,7 +44,6 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
-import com.google.firebase.auth.FirebaseAuth;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -68,8 +64,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private OverAllDeviceInfo mDeviceStatus;
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
-    private FirebaseChat mFirebseChat;
-    private FirebaseAuth mFBAuth;
     private String email;
 
     /*Navigation drawer*/
@@ -82,7 +76,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     {
         super.onCreate(savedInstanceState);
 
-        mFBAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -111,7 +104,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         mDeviceStatus=new OverAllDeviceInfo();
         mSelinuxChanger=new SelinuxChanger();
         mFlasher=new Flasher();
-        mFirebseChat=new FirebaseChat();
         Menu menu = navigationView.getMenu();
         MenuItem msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
         MenuItem Cputools=menu.findItem(R.id.nav_cputools);
@@ -178,10 +170,7 @@ else
                     }
                 }
         );
-        if (!sp.contains("user_nick_name")) {
-            email=mFBAuth.getCurrentUser().getEmail();
-            sp.edit().putString("user_nick_name", email).commit();
-        }
+
         /*Updater*/
 
         AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
@@ -307,17 +296,6 @@ else
         else if (id == R.id.nav_about_device) {
             this.updateFragment(this.mAboutDevice);
             setTitle("About Device");
-        }else if(id==R.id.nav_firebase_chat)
-        {
-            this.updateFragment(this.mFirebseChat);
-            setTitle("Chat");
-            mFAB.setVisibility(View.GONE);
-        }else if (id==R.id.nav_logout){
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
