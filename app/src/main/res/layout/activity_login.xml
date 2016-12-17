@@ -55,8 +55,8 @@
                 android:hint="@string/hint_email"
                 android:visibility="gone"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black" />
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <com.github.florent37.materialtextfield.MaterialTextField
@@ -73,8 +73,8 @@
                 android:layout_marginBottom="10sp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black" />
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <!-- Login Button -->

@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView TeamWinLoginLogo,XdaLoginLogo;
     /*Backend less user */
     private BackendlessUser mBackendlessUser = new BackendlessUser();
+    boolean SignUp=false,SignIn=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,54 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final String email = inputEmail.getText().toString().trim();
-                final String password = inputPassword.getText().toString().trim();
-
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                progressBar.setVisibility(View.VISIBLE);
-                //create user
-                auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(LoginActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    mBackendlessUser.setEmail(email);
-                                    mBackendlessUser.setPassword(password);
-                                    Backendless.UserService.register( mBackendlessUser, new BackendlessCallback<BackendlessUser>()
-                                            {
-                                                @Override
-                                                public void handleResponse( BackendlessUser backendlessUser )
-                                                {
-                                                    Log.i( "Registration", backendlessUser.getEmail() + " successfully registered" );
-                                                }
-                                            });
-                                            finish();
-                                }
-                            }
-                        });
+                SignUp();
             }
         });
 
@@ -200,60 +154,114 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String email = inputEmail.getText().toString();
-                final String password = inputPassword.getText().toString();
-
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                progressBar.setVisibility(View.VISIBLE);
-
-                //authenticate user
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                progressBar.setVisibility(View.GONE);
-                                if (!task.isSuccessful()) {
-                                    // there was an error
-                                    if (password.length() < 6) {
-                                        inputPassword.setError(getString(R.string.minimum_password));
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
-                                    }
-                                } else {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    Backendless.UserService.login( email, password, new AsyncCallback<BackendlessUser>()
-                                    {
-                                        public void handleResponse( BackendlessUser user )
-                                        {
-                                            Log.i( "Login: ", " successfully Login" );
-
-                                        }
-
-                                                public void handleFault( BackendlessFault fault )
-                                        {
-                                        // login failed, to get the error code call fault.getCode()
-                                        }
-                                    });
-                                    finish();
-                                }
-                            }
-                        });
+                SignIn=true;
+                SignIn();
 
             }
         });
+
+    }
+    public void SignIn(){
+        progressBar.setVisibility(View.VISIBLE);
+        final String email = inputEmail.getText().toString();
+        final String password = inputPassword.getText().toString();
+
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        progressBar.setVisibility(View.GONE);
+                        if (!task.isSuccessful()) {
+                            // there was an error
+                            if (password.length() < 6) {
+                                inputPassword.setError(getString(R.string.minimum_password));
+                            } else {
+                                Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            Backendless.UserService.login( email, password, new AsyncCallback<BackendlessUser>()
+                            {
+                                public void handleResponse( BackendlessUser user )
+                                {
+                                    Log.i( "Login: ", " successfully Login" );
+
+                                }
+
+                                public void handleFault( BackendlessFault fault )
+                                {
+                                    // login failed, to get the error code call fault.getCode()
+                                }
+                            });
+                            finish();
+                        }
+                    }
+                });
+
+    }
+
+    public void SignUp(){
+        final String email = inputEmail.getText().toString().trim();
+        final String password = inputPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (password.length() < 6) {
+            Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        //create user
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Toast.makeText(LoginActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, "Authentication failed." + task.getException(),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            mBackendlessUser.setEmail(email);
+                            mBackendlessUser.setPassword(password);
+                            Backendless.UserService.register( mBackendlessUser, new BackendlessCallback<BackendlessUser>()
+                            {
+                                @Override
+                                public void handleResponse( BackendlessUser backendlessUser )
+                                {
+                                    Log.i( "Registration", backendlessUser.getEmail() + " successfully registered" );
+                                }
+                            });
+                            finish();
+                        }
+                    }
+                });
     }
 
 
