@@ -3,6 +3,7 @@ package com.delos.github.arubadel;
 
 import android.Manifest;
 import android.app.DownloadManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -17,11 +18,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.delos.github.arubadel.app.Activity;
@@ -35,7 +38,6 @@ import com.delos.github.arubadel.fragment.GithubReleasesFragment;
 import com.delos.github.arubadel.fragment.MiscFragment;
 import com.delos.github.arubadel.fragment.MsmMpdecisionHotplug;
 import com.delos.github.arubadel.fragment.OverAllDeviceInfo;
-import com.delos.github.arubadel.fragment.PowerOptionsDialogFragment;
 import com.delos.github.arubadel.fragment.PreferencesFragment;
 import com.delos.github.arubadel.fragment.SelinuxChanger;
 import com.delos.github.arubadel.util.CPUTools;
@@ -175,8 +177,34 @@ else
                     @Override
                     public void onClick(View v)
                     {
-                        PowerOptionsDialogFragment fragment = new PowerOptionsDialogFragment();
-                        fragment.show(getSupportFragmentManager(), "power_dialog_fragment");
+                        AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
+                        builderSingle.setIcon(R.mipmap.ic_launcher);
+                        builderSingle.setTitle("Reboot Menu:-");
+
+                        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
+                        arrayAdapter.add("Reboot");
+                        arrayAdapter.add("Power Off");
+                        arrayAdapter.add("Soft Reboot");
+                        arrayAdapter.add("Reboot Recovery");
+
+                        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String strName = arrayAdapter.getItem(which);
+                                if(strName.equals("Reboot")){Shell.SU.run("reboot");}
+                                if(strName.equals("Power Off")){Shell.SU.run("reboot -p");}
+                                if(strName.equals("Soft Reboot")){Shell.SU.run("killall system_server");}
+                                if(strName.equals("Reboot Recovery")){Shell.SU.run("reboot recovery");}
+                            }
+                        });
+                        builderSingle.show();
                     }
                 }
         );
