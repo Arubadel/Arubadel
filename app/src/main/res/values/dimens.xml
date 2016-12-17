@@ -7,7 +7,16 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="logo_w_h">100dp</dimen>
-    <dimen name="size_avatar_toolbar">40dp</dimen>
-    <dimen name="spacing_double">16dp</dimen>
-    <dimen name="elevation_header">4dp</dimen>
+    <dimen name="dp4">4dp</dimen>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="dp48">48dp</dimen>
+    <dimen name="text_micro">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">18sp</dimen>
+    <dimen name="text_large">22sp</dimen>
+    <dimen name="dp96">96dp</dimen>
+    <dimen name="dp144">144dp</dimen>
+    <dimen name="dp192">192dp</dimen>
 </resources>

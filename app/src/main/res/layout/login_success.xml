@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="@dimen/dp16"
+              android:paddingRight="@dimen/dp16"
+              android:id="@+id/linearLayout">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp48"
+            android:text="@string/app_name"
+            android:textSize="@dimen/text_large"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dp4"/>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_success_message"
+                android:gravity="center"
+                android:textSize="@dimen/text_medium"
+                android:layout_marginTop="@dimen/dp4"
+                android:layout_marginBottom="@dimen/dp16"/>
+        <Button
+                android:layout_width="@dimen/dp144"
+                android:layout_height="@dimen/dp48"
+                android:text="@string/logout_text"
+                android:id="@+id/logoutButton"
+                android:layout_marginTop="@dimen/dp16"
+                android:textSize="@dimen/text_medium"/>
+    </LinearLayout>
+
+</LinearLayout>

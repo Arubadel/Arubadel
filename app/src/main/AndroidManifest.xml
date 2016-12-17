@@ -29,14 +29,7 @@
             android:name="com.delos.github.arubadel.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-
-            <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.delos.github.arubadel.activity.VFlasherActivity"
             android:label="@string/vflasher">
@@ -72,6 +65,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".login.LoginActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".login.PasswordRecoveryRequestedActivity" />
+        <activity android:name=".login.RegisterActivity" />
+        <activity android:name=".login.RegistrationSuccessActivity" />
+        <activity android:name=".login.RestorePasswordActivity" />
+
+        <activity android:name=".LoginSuccessActivity" />
 
         <receiver android:name="com.delos.github.arubadel.receiver.BootReceiver">
             <intent-filter>

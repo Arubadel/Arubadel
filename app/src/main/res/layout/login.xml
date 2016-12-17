@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp16"
+    android:paddingRight="@dimen/dp16">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/dp48"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dp4"
+            android:text="@string/app_name"
+            android:textSize="@dimen/text_large" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp4"
+            android:text="@string/login_text"
+            android:textSize="@dimen/text_large" />
+    </LinearLayout>
+                                    
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp4"
+        android:layout_marginTop="@dimen/dp4">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp4"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginRight="@dimen/dp4"
+                android:gravity="center_vertical|right"
+                android:text="@string/login_prompt"
+                android:textSize="@dimen/text_medium"/>
+
+            <EditText
+                android:id="@+id/identityField"
+                android:layout_width="@dimen/dp144"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginLeft="@dimen/dp4"
+                android:layout_marginRight="@dimen/dp4"
+                android:gravity="center_vertical"
+                android:inputType="text"
+                android:textSize="@dimen/text_medium"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginLeft="@dimen/dp4"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp4"
+            android:layout_marginTop="@dimen/dp4"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginRight="@dimen/dp4"
+                android:gravity="center_vertical|right"
+                android:text="@string/password_prompt"
+                android:textSize="@dimen/text_medium"/>
+
+            <EditText
+                android:id="@+id/passwordField"
+                android:layout_width="@dimen/dp144"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginLeft="@dimen/dp4"
+                android:layout_marginRight="@dimen/dp4"
+                android:gravity="center_vertical"
+                android:inputType="textPassword"
+                android:singleLine="false"
+                android:textSize="@dimen/text_medium"/>
+
+            <TextView
+                android:id="@+id/restoreLink"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp48"
+                android:layout_marginLeft="@dimen/dp4"
+                android:clickable="true"
+                android:gravity="bottom|right"
+                android:text="@string/restore_link"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="@dimen/text_medium"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp4"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/rememberLoginBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remember_login_text"/>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp48"
+        android:layout_marginBottom="@dimen/dp4"
+        android:layout_marginTop="@dimen/dp16"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/registerLink"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp48"
+            android:layout_marginRight="@dimen/dp4"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:linksClickable="false"
+            android:singleLine="false"
+            android:text="@string/register_text"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/text_medium"/>
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="@dimen/dp144"
+            android:layout_height="@dimen/dp48"
+            android:layout_marginLeft="@dimen/dp4"
+            android:text="@string/login_text"
+            android:textSize="@dimen/text_medium"/>
+    </LinearLayout>
+                                    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="@dimen/dp4"
+        android:gravity="center"
+        android:orientation="vertical">
+                                    
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right" />
+</LinearLayout>

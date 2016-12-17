@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp16"
+            android:paddingRight="@dimen/dp16">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp48"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/dp4">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textSize="@dimen/text_large"
+                    android:layout_marginRight="@dimen/dp4"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_large"
+                    android:layout_marginLeft="@dimen/dp4"
+                    android:text="@string/registration_page_name"/>
+
+        </LinearLayout>
+
+        <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp4"
+                android:layout_marginBottom="@dimen/dp4">
+                                        
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dp48"
+                    android:gravity="center_horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp48"
+                        android:text="@string/email_field_prompt"
+                        android:paddingRight="@dimen/dp4"
+                        android:textSize="@dimen/text_medium"
+                        android:gravity="center_vertical|right"
+                        android:layout_marginRight="@dimen/dp4" />
+                                            
+                <EditText
+                                                
+                        android:layout_width="@dimen/dp144"
+                        android:layout_height="@dimen/dp48"
+                        android:id="@+id/emailField"
+                        android:textSize="@dimen/text_medium"
+                        android:layout_marginLeft="@dimen/dp4"
+                        android:gravity="center_vertical"
+                                            
+                        android:inputType="text" />
+                                                
+            </TableRow>
+                                        
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dp48"
+                    android:gravity="center_horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp48"
+                        android:text="@string/name_field_prompt"
+                        android:paddingRight="@dimen/dp4"
+                        android:textSize="@dimen/text_medium"
+                        android:gravity="center_vertical|right"
+                        android:layout_marginRight="@dimen/dp4" />
+                                            
+                <EditText
+                                                
+                        android:layout_width="@dimen/dp144"
+                        android:layout_height="@dimen/dp48"
+                        android:id="@+id/nameField"
+                        android:textSize="@dimen/text_medium"
+                        android:layout_marginLeft="@dimen/dp4"
+                        android:gravity="center_vertical"
+                                            
+                        android:inputType="text" />
+                                                
+            </TableRow>
+                                        
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dp48"
+                    android:gravity="center_horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp48"
+                        android:text="@string/password_field_prompt"
+                        android:paddingRight="@dimen/dp4"
+                        android:textSize="@dimen/text_medium"
+                        android:gravity="center_vertical|right"
+                        android:layout_marginRight="@dimen/dp4" />
+                                            
+                <EditText
+                                                
+                        android:layout_width="@dimen/dp144"
+                        android:layout_height="@dimen/dp48"
+                        android:id="@+id/passwordField"
+                        android:textSize="@dimen/text_medium"
+                        android:layout_marginLeft="@dimen/dp4"
+                        android:gravity="center_vertical"
+                                            
+                        android:password="true"
+                                            
+                        android:inputType="text" />
+                                                
+            </TableRow>
+                                        
+        </TableLayout>
+
+        <Button
+                android:layout_width="@dimen/dp144"
+                android:layout_height="@dimen/dp48"
+                android:text="@string/register_text"
+                android:id="@+id/registerButton"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp4"
+                android:textSize="@dimen/text_medium"
+                android:height="@dimen/dp40"/>
+    </LinearLayout>
+</ScrollView>

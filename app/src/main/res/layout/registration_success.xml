@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="@dimen/dp16"
+              android:paddingRight="@dimen/dp16">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/dp48"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dp4">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="@dimen/text_large"
+                android:layout_marginRight="@dimen/dp4"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/registration_page_name"
+                android:textSize="@dimen/text_large"
+                android:layout_marginLeft="@dimen/dp4"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:onClick="onLoginButtonClicked"
+            android:layout_marginTop="@dimen/dp4">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp4"
+                android:gravity="center">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_dialog_alert"
+                    android:layout_marginRight="@dimen/dp4"
+                    android:contentDescription="@string/warning_icon_description"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/messageView"
+                    android:textSize="@dimen/text_medium"
+                    android:layout_marginLeft="@dimen/dp4"
+                                        
+                    android:text="@string/default_registered_text" />
+                                            
+        </LinearLayout>
+
+        <Button
+                android:layout_width="@dimen/dp144"
+                android:layout_height="@dimen/dp48"
+                android:text="@string/login_text"
+                android:id="@id/loginButton"
+                android:height="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp4"/>
+    </LinearLayout>
+</LinearLayout>
