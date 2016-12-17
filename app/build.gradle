@@ -68,6 +68,7 @@ dependencies {
     compile 'com.github.javiersantos:AppUpdater:2.4'
     compile 'com.github.kngfrhzs:panter-dialog:b12c021695'
     compile 'com.nononsenseapps:filepicker:3.1.0'
+    compile 'com.github.Nightonke:JellyToggleButton:16582040d2'
     testCompile 'junit:junit:4.12'
 }
 
