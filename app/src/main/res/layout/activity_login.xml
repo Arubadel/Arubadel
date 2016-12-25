@@ -40,13 +40,11 @@
             android:contentDescription="@string/login_image"
             android:src="@drawable/ic_xda_developers" />
 
-        <com.github.florent37.materialtextfield.MaterialTextField
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:id="@+id/text_input_layout_email"
-            app:mtf_image="@drawable/ic_email"
+            android:visibility="gone"
             android:layout_height="wrap_content">
-
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -57,15 +55,13 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/black" />
-        </com.github.florent37.materialtextfield.MaterialTextField>
+        </android.support.design.widget.TextInputLayout>
 
-        <com.github.florent37.materialtextfield.MaterialTextField
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:id="@+id/text_input_layout_password"
             android:visibility="gone"
-            app:mtf_image="@drawable/ic_secure"
             android:layout_height="wrap_content">
-
             <EditText
                 android:id="@+id/password"
                 android:layout_width="fill_parent"
@@ -75,7 +71,7 @@
                 android:inputType="textPassword"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/black" />
-        </com.github.florent37.materialtextfield.MaterialTextField>
+        </android.support.design.widget.TextInputLayout>
 
         <!-- Login Button -->
 
