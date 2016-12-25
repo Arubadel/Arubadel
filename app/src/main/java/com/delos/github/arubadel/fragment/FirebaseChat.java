@@ -53,6 +53,7 @@ import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
 
 import static android.app.Activity.RESULT_OK;
+import static com.delos.github.arubadel.util.Config.UserName;
 
 public class FirebaseChat extends Fragment implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, ClickListenerChatFirebase {
 
@@ -317,7 +318,7 @@ public class FirebaseChat extends Fragment implements GoogleApiClient.OnConnecti
         if (mFirebaseUser == null){
             startActivity(new Intent(getActivity(), LoginActivity.class));
         }else{
-            userModel = new UserModel(mFirebaseUser.getDisplayName(),mFirebaseUser.getEmail(), mFirebaseUser.getUid() );
+            userModel = new UserModel(UserName(),mFirebaseUser.getEmail(), mFirebaseUser.getUid() );
             lerMessagensFirebase();
         }
     }

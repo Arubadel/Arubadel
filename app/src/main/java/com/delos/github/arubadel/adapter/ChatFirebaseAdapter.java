@@ -77,7 +77,7 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
             }else{
                 return LEFT_MSG_IMG;
             }
-        }else if (UserName().equals(UserName())){
+        }else if (model.getUserModel().getName().equals(UserName())){
             return RIGHT_MSG;
         }else{
             return LEFT_MSG;
