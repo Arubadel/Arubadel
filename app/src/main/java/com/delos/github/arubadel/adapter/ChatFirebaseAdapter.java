@@ -89,6 +89,7 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
         viewHolder.setIvUser(model.getUserModel().getPhoto_profile());
         viewHolder.setTxtMessage(model.getMessage());
         viewHolder.setTvTimestamp(model.getTimeStamp());
+        viewHolder.setLeftUserName(model.getUserModel().getName());
         viewHolder.tvIsLocation(View.GONE);
         if (model.getFile() != null){
             viewHolder.tvIsLocation(View.GONE);
@@ -101,7 +102,7 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
 
     public class MyChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tvTimestamp,tvLocation;
+        TextView tvTimestamp,tvLocation,LeftUserName;
         EmojiconTextView txtMessage;
         ImageView ivUser,ivChatPhoto;
 
@@ -112,6 +113,7 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
             tvLocation = (TextView)itemView.findViewById(R.id.tvLocation);
             ivChatPhoto = (ImageView)itemView.findViewById(R.id.img_chat);
             ivUser = (ImageView)itemView.findViewById(R.id.ivUserChat);
+            LeftUserName = (TextView) itemView.findViewById(R.id.item_message_left);
         }
 
         @Override
@@ -135,6 +137,10 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
             Glide.with(ivUser.getContext()).load(urlPhotoUser).centerCrop().transform(new CircleTransform(ivUser.getContext())).override(40,40).into(ivUser);
         }
 
+        public void setLeftUserName(String Name){
+            if (LeftUserName == null)return;
+            LeftUserName.setText(Name);
+        }
         public void setTvTimestamp(String timestamp){
             if (tvTimestamp == null)return;
             tvTimestamp.setText(converteTimestamp(timestamp));

@@ -43,7 +43,7 @@
 
     <TextView
         android:text="22/06/2016"
-        android:id="@+id/timestamp"
+        android:id="@+id/item_message_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -51,5 +51,17 @@
         android:paddingTop="6dp"
         android:textSize="10sp"
         android:layout_below="@+id/contentMessageChat"
+        android:layout_toEndOf="@+id/ivUserChat" />
+
+    <TextView
+        android:text="22/06/2016"
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="6dp"
+        android:textSize="10sp"
+        android:layout_below="@+id/item_message_left"
         android:layout_toEndOf="@+id/ivUserChat" />
 </RelativeLayout>
