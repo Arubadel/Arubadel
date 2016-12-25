@@ -2,6 +2,7 @@ package com.delos.github.arubadel.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 
 import hani.momanii.supernova_emoji_library.Helper.EmojiconTextView;
+
+import static com.delos.github.arubadel.util.Config.UserName;
 
 /**
  * Created by Alessandro Barreto on 23/06/2016.
@@ -37,6 +40,8 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
         super(ChatModel.class, R.layout.item_message_left, MyChatViewHolder.class, ref);
         this.nameUser = nameUser;
         this.mClickListenerChatFirebase = mClickListenerChatFirebase;
+        Log.i("Fuck", UserName());
+
     }
 
     @Override
@@ -72,7 +77,7 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
             }else{
                 return LEFT_MSG_IMG;
             }
-        }else if (model.getUserModel().getName().equals(nameUser)){
+        }else if (UserName().equals(UserName())){
             return RIGHT_MSG;
         }else{
             return LEFT_MSG;

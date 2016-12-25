@@ -23,10 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import static com.delos.github.arubadel.util.Config.auth;
+import static com.delos.github.arubadel.util.Config.getInstance;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword;
-    private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset, btnLogin2,btnSignUp,btnSignIn,btnCreateAccount;
     private LinearLayout btn_login_singup_linear;
@@ -36,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /*Get Firebase auth instance*/
-            auth = FirebaseAuth.getInstance();
+        getInstance();
         /*Check if user has already login */
             if (auth.getCurrentUser() != null) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
