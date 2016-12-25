@@ -98,10 +98,15 @@ public class FirebaseChat extends Fragment implements GoogleApiClient.OnConnecti
         }else{
             bindViews();
             verificaUsuarioLogado();
-            mGoogleApiClient = new GoogleApiClient.Builder(getContext())
-                    .enableAutoManage(getActivity(), this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API)
-                    .build();
+            try {
+                mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                        .enableAutoManage(getActivity(), this)
+                        .addApi(Auth.GOOGLE_SIGN_IN_API)
+                        .build();
+
+            }catch (IllegalStateException IL){
+                IL.printStackTrace();
+            }
         }
 
 
