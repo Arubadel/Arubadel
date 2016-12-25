@@ -29,7 +29,7 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
     private static final int LEFT_MSG = 1;
     private static final int RIGHT_MSG_IMG = 2;
     private static final int LEFT_MSG_IMG = 3;
-
+    private static String TAG="ArubadelChatAdaper";
     private ClickListenerChatFirebase mClickListenerChatFirebase;
 
     private String nameUser;
@@ -40,7 +40,7 @@ public class ChatFirebaseAdapter extends FirebaseRecyclerAdapter<ChatModel,ChatF
         super(ChatModel.class, R.layout.item_message_left, MyChatViewHolder.class, ref);
         this.nameUser = nameUser;
         this.mClickListenerChatFirebase = mClickListenerChatFirebase;
-        Log.i("Fuck", UserName());
+        Log.i(TAG, UserName());
 
     }
 
