@@ -10,15 +10,13 @@ android:
   - android-25
 jdk:
 - oraclejdk8
-script: 
-- ./gradlew build
+script:
+- "./gradlew build"
 - find -type f -name "*.apk"
 deploy:
-  skip_cleanup: true
   provider: releases
   api_key:
-    secure: vJhnmTZ8PKD+wY4MLPDo2KmhjSEpAkgA1K3vaVT0Tqot6ysUo6hSSQmB0LEUecX5lZmI0UfX+fSGUIM9KYFixqLF+voH0xOdYRIauKhPdMc4t/arEMSFRa0JxEkQBTCJvqCXZ37ebnbDUIXEkINz4iRBfsEi/D8Cqf3TYtILkBJn1HNQbT8LwTnsmGPhyCNNW7xJht/vPJGM0F5vPBMzgs3/RWzYz5XbMRBaLFS4I/gqqrNrTybvFMxSdWL+uqwJ/h0b78OwqAoimE65donvXfhzFzm7cSzJII9kma2fViVq9SRo5DUZU43/At71gtK44U0eL6ZdslWBTWOeLQ5y/D/B7FsxyJxIMP1AVQ+wgZmu3DqT33tfbqD5N++TsoKHjuGVrII21xu0J5MdNfnGIov3Mp5822OKWUhCjnotBXyRnlf55ggTb0VWh+TvhsifrafCB5aPmncn/9DVQIhe1D6HzVQVNfu6y8Y/5zuzMmiWumiUCKe1o+lO9VIydTUDHPp73yThyoihPbMPoX5FTUvtI9OUVbjVkmw+0O9psBkPPe7PUL8bUZiqqLDdFZzZFHgcLCeR5VhmxVo4OuAUr2HFEJLcV6LzzT03oLnXJhxY1+ubWoYtXu+YnYdMZ90O2iFZarmLGWv16nYY7p3M+AIBX2/00gp8QLh02K5U5Jk=
-  file: ./app/build/outputs/apk/app-debug.apk
+    secure: TCBv19wKZuBFqEiQapdCJfmLkF5gzTeLEwEUZB5vpZnTxtlpwn3OGt7+RXJMp7efkQTHpb5JUoNO07jwOFU7BzEZbH1/873zZXA6gmxrF4lsRAmNMLDCyOm0Iq8gUqWoSeDV0kyMzQFG8f5h7DX4IcVpD9pqUhBtzTRe7I15TJvV6BtE79eNzIrmniCU4H+gOezXtn6ghOxy6cHbh3cmlig0IbkVlYOpWJdTr9z6939B2cgrT5dVvZncRS4zJvkXaRlk6aVZvwpvAux/N2u9Squp/BmKR2IhmbOEiMa6MJKB7+K23VIDa75RKNUOrplrtWCxdqUkwAeK8sTeUC2m8KS9JC11MXqcVeNWNhnNc62Oi5cjBV5XtTYkgYgUYftAh8832YyPQKyGES6sbKf2RNDvjJYXHaIYRBor1bCFU81PjzfVMWas8PTpZO5Y5UKVza7bbQg2rtbOuKRTKdl/ESDMtMfCy25ARO1Mjvxw3o2AN7U1qxtiUSu7PRO56gpgBzQ509MM2uoTBS3aGbbEHdiKJV3Ek/bW7yoGLhy++19UxMO/2xKLJa0l9ow7eaNjeTW5bWtD0kSSI4bcEFaQJ2S6gU/NyK1iaOpFIUIpAvpp5mMhK4/cYDA6Zy25FSd5cSKlX5KopKwTtVU0iqjN4RCm1V+D4ONLU8h55X3rnvM=
+  file: "./app/build/outputs/apk/app-debug.apk"
   on:
     repo: Arubadel/Arubadel
-
