@@ -11,9 +11,6 @@ import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellExecuter;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import eu.chainfire.libsuperuser.Shell;
 
 /**
  * Created by: sumit
@@ -78,16 +75,27 @@ public class TcpCongestionControlAdapter extends BaseAdapter
 
         mList.add(new TcpItem(tcp1,  tcp_change+tcp1));
         mList.add(new TcpItem(tcp2,  tcp_change+tcp2));
+        if(tcp3==null){}else
         mList.add(new TcpItem(tcp3,  tcp_change+tcp3));
+        if(tcp4==null){}else
         mList.add(new TcpItem(tcp4,  tcp_change+tcp4));
+        if(tcp5==null){}else
         mList.add(new TcpItem(tcp5,  tcp_change+tcp5));
+        if(tcp6==null){}else
         mList.add(new TcpItem(tcp6,  tcp_change+tcp6));
+        if(tcp7==null){}else
         mList.add(new TcpItem(tcp7,  tcp_change+tcp7));
+        if(tcp8==null){}else
         mList.add(new TcpItem(tcp8,  tcp_change+tcp8));
+        if(tcp9==null){}else
         mList.add(new TcpItem(tcp9,  tcp_change+tcp9));
+        if(tcp10==null){}else
         mList.add(new TcpItem(tcp10,  tcp_change+tcp10));
+        if(tcp11==null){}else
         mList.add(new TcpItem(tcp11,  tcp_change+tcp11));
+        if(tcp12==null){}else
         mList.add(new TcpItem(tcp12,  tcp_change + tcp12));
+        if(tcp13==null){}else
         mList.add(new TcpItem(tcp13,  tcp_change + tcp13));
 
 
