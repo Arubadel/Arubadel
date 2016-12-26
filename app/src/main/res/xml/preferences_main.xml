@@ -12,9 +12,9 @@
         android:title="@string/preferences_device_code_name_title"
         android:summary="@string/preferences_device_code_name_summary" />
 
-    <EditTextPreference
+  <!--  <EditTextPreference
         android:key="user_nick_name"
         android:title="@string/nick_name"
-        android:summary="@string/nick_name_in_chat" />
+        android:summary="@string/nick_name_in_chat" />-->
 
 </PreferenceScreen>
