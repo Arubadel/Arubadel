@@ -11,9 +11,6 @@ import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellExecuter;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import eu.chainfire.libsuperuser.Shell;
 
 /**
  * Created by: sumit
@@ -41,14 +38,20 @@ public class GpuAdapter extends BaseAdapter
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         gpufreq1=parts[0];
-        gpufreq2=parts[1];
-        gpufreq3=parts[2];
-        gpufreq4=parts[3];
+        try {
+            gpufreq2=parts[1];
+            gpufreq3=parts[2];
+            gpufreq4=parts[3];
+
+        }catch (ArrayIndexOutOfBoundsException AIo){}
 
 
         mList.add(new GpuItem(gpufreq1+" hz", "echo " + gpufreq1 + " > "  + gpu_scaling_path));
+        if(gpufreq2==null){}else
         mList.add(new GpuItem(gpufreq2+" hz", "echo " + gpufreq2 + " > "  + gpu_scaling_path));
+        if(gpufreq3==null){}else
         mList.add(new GpuItem(gpufreq3+" hz", "echo " + gpufreq3 + " > "  + gpu_scaling_path));
+        if(gpufreq4==null){}else
         mList.add(new GpuItem(gpufreq4+" hz", "echo " + gpufreq4 + " > "  + gpu_scaling_path));
 
     }
