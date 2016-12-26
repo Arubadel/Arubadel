@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.app.Activity;
+import com.delos.github.arubadel.util.CPUInfo;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
 import com.delos.github.arubadel.util.ShellExecuter;
@@ -20,7 +21,7 @@ import com.delos.github.arubadel.util.ShellUtils;
 import com.genonbeta.core.util.NetworkUtils;
 
 import java.util.List;
-import com.delos.github.arubadel.util.CPUInfo;
+
 import eu.chainfire.libsuperuser.Shell;
 
 /**
@@ -30,7 +31,7 @@ import eu.chainfire.libsuperuser.Shell;
 public class MiscFragment extends Fragment
 {
     private ShellUtils mShell;
-    private TextView mInfoText;
+    private TextView mInfoText,mFastChargetText;
     private SwitchCompat mADBSwitcher;
     private SwitchCompat mFastChargeSwitcher;
     private SwitchCompat mMPDecision;
@@ -60,7 +61,9 @@ public class MiscFragment extends Fragment
         mDeepSleep=(SwitchCompat)view.findViewById(R.id.fragment_misc_deep_sleep);
         mGpuFreq=(Button)view.findViewById(R.id.gpu_freq_control);
         mFsyncButton=(SwitchCompat)view.findViewById(R.id.fragment_cputools_dyn_fsync_switch);
+        mFastChargetText=(TextView)view.findViewById(R.id.fragment_misc_fastcharge_text);
         mFastChargeSwitcher.setVisibility(View.GONE);
+        mFastChargetText.setVisibility(View.GONE);
         mGpuFreq.setVisibility(View.GONE);
         this.mDeepSleep.setOnClickListener(
                 new View.OnClickListener()
@@ -131,6 +134,7 @@ if(ShellExecuter.hasGpu()) {
 
             if (ShellExecuter.hasFastCharge()) {
                 mFastChargeSwitcher.setVisibility(View.VISIBLE);
+                mFastChargetText.setVisibility(View.VISIBLE);
                 mFastChargeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
