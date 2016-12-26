@@ -10,14 +10,6 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-    <ImageView
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:id="@+id/ivUserChat"
-        android:layout_alignBottom="@+id/contentMessageChat" />
-
     <me.himanshusoni.chatmessageview.ChatMessageView
         android:layout_toLeftOf="@+id/ivUserChat"
         android:layout_toStartOf="@+id/ivUserChat"
