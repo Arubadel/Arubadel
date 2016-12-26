@@ -66,7 +66,6 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:0.6.0'
     compile 'com.github.javiersantos:AppUpdater:2.4'
     compile 'com.github.kngfrhzs:panter-dialog:b12c021695'
-    compile 'com.nononsenseapps:filepicker:3.1.0'
     compile 'com.github.Nightonke:JellyToggleButton:16582040d2'
     compile 'com.android.support:recyclerview-v7:25.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -75,6 +74,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-places:9.8.0'
     compile 'com.github.florent37:MaterialTextField:1.0.6'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':materialfilepicker')
 }
 
 
