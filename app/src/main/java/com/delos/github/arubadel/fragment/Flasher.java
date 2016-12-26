@@ -105,6 +105,7 @@ public class Flasher extends Fragment
                     }
                     Log.d("TAG", "File Path: " + path);
                     dialog = new PanterDialog(getContext());
+                    dialog.setTitle("Flash "+StringFlashRB );
                     dialog.setHeaderBackground(R.color.colorPrimaryDark)
                             .setMessage("Are you sure you want to Flash this "+StringFlashRB+" ?"+"\n"+path)
                             .setPositive("Flash", new View.OnClickListener() {
