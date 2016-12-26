@@ -11,9 +11,6 @@ import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellExecuter;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import eu.chainfire.libsuperuser.Shell;
 
 /**
  * Created by: sumit
@@ -78,22 +75,57 @@ public class GovernorAdapter extends BaseAdapter
 
         }
 
+        /*use null for now to hide useless spaces */
+        if(gov1==null){}
+        else
         mList.add(new GovernorItem(gov1, "echo " + gov1 + " > "  + Scaling_gov_path));
+        if(gov2==null){}
+        else
         mList.add(new GovernorItem(gov2, "echo " + gov2 + " > "  + Scaling_gov_path));
+        if(gov3==null){}
+        else
         mList.add(new GovernorItem(gov3, "echo " + gov3 + " > "  + Scaling_gov_path));
+        if(gov4==null){}
+        else
         mList.add(new GovernorItem(gov4, "echo " + gov4 + " > "  + Scaling_gov_path));
+        if(gov5==null){}
+        else
         mList.add(new GovernorItem(gov5, "echo " + gov5 + " > "  + Scaling_gov_path));
+        if(gov6==null){}
+        else
         mList.add(new GovernorItem(gov6, "echo " + gov6 + " > "  + Scaling_gov_path));
+        if(gov7==null){}
+        else
         mList.add(new GovernorItem(gov7, "echo " + gov7 + " > "  + Scaling_gov_path));
+        if(gov8==null){}
+        else
         mList.add(new GovernorItem(gov8, "echo " + gov8 + " > "  + Scaling_gov_path));
+        if(gov9==null){}
+        else
         mList.add(new GovernorItem(gov9, "echo " + gov9 + " > "  + Scaling_gov_path));
+        if(gov10==null){}
+        else
         mList.add(new GovernorItem(gov10, "echo " + gov10 + " > "  + Scaling_gov_path));
+        if(gov11==null){}
+        else
         mList.add(new GovernorItem(gov11, "echo " + gov11 + " > "  + Scaling_gov_path));
+        if(gov12==null){}
+        else
         mList.add(new GovernorItem(gov12, "echo " + gov12 + " > "  + Scaling_gov_path));
+        if(gov13==null){}
+        else
         mList.add(new GovernorItem(gov13, "echo " + gov13 + " > "  + Scaling_gov_path));
+        if(gov14==null){}
+        else
         mList.add(new GovernorItem(gov14, "echo " + gov14 + " > "  + Scaling_gov_path));
+        if(gov15==null){}
+        else
         mList.add(new GovernorItem(gov15, "echo " + gov15 + " > "  + Scaling_gov_path));
+        if(gov16==null){}
+        else
         mList.add(new GovernorItem(gov16, "echo " + gov16 + " > "  + Scaling_gov_path));
+        if(gov17==null){}
+        else
         mList.add(new GovernorItem(gov17, "echo " + gov17 + " > "  + Scaling_gov_path));
 
     }
