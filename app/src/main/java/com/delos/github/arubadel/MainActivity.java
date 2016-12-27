@@ -73,7 +73,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private FirebaseChat mFirebseChat;
     private FirebaseAuth mFBAuth;
     private String email;
-
+    private MenuItem msm_hotplug,Cputools,Misc,bSelinuxChanger,bOverAllDeviceStatus,bFlasher,mAppUpdates,mFirebaseChatApi22;
     /*Navigation drawer*/
     private NavigationView navigationView;
     private View navHeaderView;
@@ -117,13 +117,14 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         mFlasher=new Flasher();
         mFirebseChat=new FirebaseChat();
         Menu menu = navigationView.getMenu();
-        MenuItem msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
-        MenuItem Cputools=menu.findItem(R.id.nav_cputools);
-        MenuItem Misc=menu.findItem(R.id.nav_misc);
-        MenuItem bSelinuxChanger=menu.findItem(R.id.nav_selinux_changer);
-        MenuItem bOverAllDeviceStatus=menu.findItem(R.id.nav_over_all_device_info);
-        MenuItem bFlasher=menu.findItem(R.id.nav_flasher);
-        MenuItem mAppUpdates=menu.findItem(R.id.nav_app_updates);
+        msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
+        Cputools=menu.findItem(R.id.nav_cputools);
+        Misc=menu.findItem(R.id.nav_misc);
+        bSelinuxChanger=menu.findItem(R.id.nav_selinux_changer);
+        bOverAllDeviceStatus=menu.findItem(R.id.nav_over_all_device_info);
+        bFlasher=menu.findItem(R.id.nav_flasher);
+        mAppUpdates=menu.findItem(R.id.nav_app_updates);
+        mFirebaseChatApi22=menu.findItem(R.id.nav_firebase_chat);
 
 if(suAvailable)
 {
@@ -169,8 +170,11 @@ else
 
         /*Hide app updates fragment*/
         mAppUpdates.setVisible(false);
-
-        // register click listener for fab
+        mFirebaseChatApi22.setVisible(false);
+        if (android.os.Build.VERSION.SDK_INT >= 19) {
+            mFirebaseChatApi22.setVisible(true);
+        }
+            // register click listener for fab
         this.mFAB.setOnClickListener(
                 new View.OnClickListener()
                 {
