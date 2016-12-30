@@ -1,6 +1,7 @@
 package com.delos.github.arubadel.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,83 +20,76 @@ import java.util.ArrayList;
 
 public class GpuAdapter extends BaseAdapter
 {
-    private Context mContext;
-    private LayoutInflater mInflater;
-    private ArrayList<GpuItem> mList = new ArrayList<>();
-    private String gpu_scaling_path="/sys/class/kgsl/kgsl-3d0/max_gpuclk";
-    private String get_gpu_scaling_freq(){
-        ShellExecuter.command="cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
-        return ShellExecuter.runAsRoot();
-    }
-    private String store_gov= get_gpu_scaling_freq();
-    private String[] parts = store_gov.split("\\s+"); // escape .
-    private String gpufreq1;
-    private String gpufreq2;
-    private String gpufreq3;
-    private String gpufreq4;
-    public GpuAdapter(Context context)
-    {
-        this.mContext = context;
-        this.mInflater = LayoutInflater.from(context);
-        gpufreq1=parts[0];
-        try {
-            gpufreq2=parts[1];
-            gpufreq3=parts[2];
-            gpufreq4=parts[3];
+	private final String GPU_SCALING_PATH = "/sys/class/kgsl/kgsl-3d0/max_gpuclk";
 
-        }catch (ArrayIndexOutOfBoundsException AIo){}
+	private Context mContext;
+	private LayoutInflater mInflater;
+	private ArrayList<GpuItem> mList = new ArrayList<>();
 
+	public GpuAdapter(Context context)
+	{
+		this.mContext = context;
+		this.mInflater = LayoutInflater.from(context);
 
-        mList.add(new GpuItem(gpufreq1+" hz", "echo " + gpufreq1 + " > "  + gpu_scaling_path));
-        if(gpufreq2==null){}else
-        mList.add(new GpuItem(gpufreq2+" hz", "echo " + gpufreq2 + " > "  + gpu_scaling_path));
-        if(gpufreq3==null){}else
-        mList.add(new GpuItem(gpufreq3+" hz", "echo " + gpufreq3 + " > "  + gpu_scaling_path));
-        if(gpufreq4==null){}else
-        mList.add(new GpuItem(gpufreq4+" hz", "echo " + gpufreq4 + " > "  + gpu_scaling_path));
+		ShellExecuter.command = "cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
+		String[] availableSpeeds = ShellExecuter.runAsRoot().split("\\s+");
 
-    }
+		for (String speed : availableSpeeds)
+		{
+			String mhzSpeed = speed;
 
-    @Override
-    public int getCount()
-    {
-        return mList.size();
-    }
+			try
+			{
+				mhzSpeed = String.valueOf(Integer.valueOf(speed) / 1000000);
+			} catch (NumberFormatException e)
+			{
+				e.printStackTrace();
+			}
 
-    @Override
-    public Object getItem(int position)
-    {
-        return mList.get(position);
-    }
+			mList.add(new GpuItem(mhzSpeed + "MHz", "echo " + speed + " > " + GPU_SCALING_PATH));
+		}
+	}
 
-    @Override
-    public long getItemId(int position)
-    {
-        return position;
-    }
+	@Override
+	public int getCount()
+	{
+		return mList.size();
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        if (convertView == null)
-            convertView = mInflater.inflate(R.layout.list_governor, parent, false);
+	@Override
+	public Object getItem(int position)
+	{
+		return mList.get(position);
+	}
 
-        TextView text = (TextView) convertView.findViewById(R.id.list_governor_text);
+	@Override
+	public long getItemId(int position)
+	{
+		return position;
+	}
 
-        text.setText(((GpuItem) getItem(position)).cmdName);
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
+		if (convertView == null)
+			convertView = mInflater.inflate(R.layout.list_governor, parent, false);
 
-        return convertView;
-    }
+		TextView text = (TextView) convertView.findViewById(R.id.list_governor_text);
 
-    public class GpuItem
-    {
-        public String cmdName;
-        public String command;
+		text.setText(((GpuItem) getItem(position)).cmdName);
 
-        public GpuItem(String cmdName, String command)
-        {
-            this.cmdName = cmdName;
-            this.command = command;
-        }
-    }
+		return convertView;
+	}
+
+	public class GpuItem
+	{
+		public String cmdName;
+		public String command;
+
+		public GpuItem(String cmdName, String command)
+		{
+			this.cmdName = cmdName;
+			this.command = command;
+		}
+	}
 }

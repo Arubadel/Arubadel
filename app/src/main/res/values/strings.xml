@@ -83,7 +83,7 @@
     <string name="flashing">Flashing</string>
     <string name="flash_completed_message">Flashed. Please reboot your device</string>
     <string name="specify_partition_warning">Please specify the partition</string>
-    <string name="flash_gone_wrong_error">No result is returned. Something might be gone wrong</string>
+    <string name="flash_gone_wrong_error">No result is returned. Something might have gone wrong</string>
     <string name="flash_result">Flash result: %s</string>
     <string name="deep_sleep_info">This option will turn off 3 cores and freq will changed to lowest. This will turn off your display too </string>
     <string name="gpu_freq">Choose Gpu Freq</string>
