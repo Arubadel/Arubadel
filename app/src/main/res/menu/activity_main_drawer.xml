@@ -15,10 +15,6 @@
             android:title="@string/msm_mpd_hotplug"/>
 
         <item
-            android:id="@+id/nav_firebase_chat"
-            android:title="Chat"/>
-
-        <item
             android:id="@+id/nav_misc"
             android:title="@string/misc_stuff"/>
         <item
@@ -63,15 +59,6 @@
                 <item
                     android:id="@+id/nav_credits"
                     android:title="@string/credits"/>
-            </group>
-        </menu>
-    </item>
-    <item android:title="">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_logout"
-                    android:title="Logout"/>
             </group>
         </menu>
     </item>

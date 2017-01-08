@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellUtils;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by: veli
@@ -21,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Activity extends AppCompatActivity
 {
     private ShellUtils mShellInstance;
-    private DatabaseReference mDatabaseReference;
     public ShellUtils getShellSession()
     {
         if (this.mShellInstance == null || this.mShellInstance.getSession() == null)
@@ -55,9 +52,6 @@ public class Activity extends AppCompatActivity
                 sp.edit().putString("device_code_name", deviceCode).commit();
 
         }
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("chatmodel");
-        mDatabaseReference.keepSynced(true);
     }
 
     @Override
