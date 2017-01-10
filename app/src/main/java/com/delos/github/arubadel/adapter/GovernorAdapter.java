@@ -28,88 +28,16 @@ public class GovernorAdapter extends BaseAdapter
     }
     private String store_gov= get_gov();
     private String[] parts = store_gov.split("\\s+"); // escape .
-    private String gov1,gov2,gov3,gov4,gov5,gov6,gov7,gov8,gov9,gov10,gov11,gov12,gov13,gov14,gov15,gov16,gov17;
     public GovernorAdapter(Context context)
     {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        gov1=parts[0];
-        gov2=parts[1];
-        gov3=parts[2];
-        gov4=parts[3];
-        gov5=parts[4];
-        try
+        for (String GovernorList : parts)
         {
-            gov6 = parts[5];
-            gov7 = parts[6];
-            gov8 = parts[7];
-            gov9 = parts[8];
-            gov10 = parts[9];
-            gov11 = parts[10];
-            gov12 = parts[11];
-            gov13 = parts[12];
-            gov14 = parts[13];
-            gov15 = parts[14];
-            gov16 = parts[15];
-            gov17 = parts[16];
-        }
-        catch (Exception e)
-        {
+            String SelectedGovernor = GovernorList;
 
+            mList.add(new GovernorItem(SelectedGovernor, "echo " + SelectedGovernor + " > "  + Scaling_gov_path));
         }
-
-        /*use null for now to hide useless spaces */
-        if(gov1==null){}
-        else
-        mList.add(new GovernorItem(gov1, "echo " + gov1 + " > "  + Scaling_gov_path));
-        if(gov2==null){}
-        else
-        mList.add(new GovernorItem(gov2, "echo " + gov2 + " > "  + Scaling_gov_path));
-        if(gov3==null){}
-        else
-        mList.add(new GovernorItem(gov3, "echo " + gov3 + " > "  + Scaling_gov_path));
-        if(gov4==null){}
-        else
-        mList.add(new GovernorItem(gov4, "echo " + gov4 + " > "  + Scaling_gov_path));
-        if(gov5==null){}
-        else
-        mList.add(new GovernorItem(gov5, "echo " + gov5 + " > "  + Scaling_gov_path));
-        if(gov6==null){}
-        else
-        mList.add(new GovernorItem(gov6, "echo " + gov6 + " > "  + Scaling_gov_path));
-        if(gov7==null){}
-        else
-        mList.add(new GovernorItem(gov7, "echo " + gov7 + " > "  + Scaling_gov_path));
-        if(gov8==null){}
-        else
-        mList.add(new GovernorItem(gov8, "echo " + gov8 + " > "  + Scaling_gov_path));
-        if(gov9==null){}
-        else
-        mList.add(new GovernorItem(gov9, "echo " + gov9 + " > "  + Scaling_gov_path));
-        if(gov10==null){}
-        else
-        mList.add(new GovernorItem(gov10, "echo " + gov10 + " > "  + Scaling_gov_path));
-        if(gov11==null){}
-        else
-        mList.add(new GovernorItem(gov11, "echo " + gov11 + " > "  + Scaling_gov_path));
-        if(gov12==null){}
-        else
-        mList.add(new GovernorItem(gov12, "echo " + gov12 + " > "  + Scaling_gov_path));
-        if(gov13==null){}
-        else
-        mList.add(new GovernorItem(gov13, "echo " + gov13 + " > "  + Scaling_gov_path));
-        if(gov14==null){}
-        else
-        mList.add(new GovernorItem(gov14, "echo " + gov14 + " > "  + Scaling_gov_path));
-        if(gov15==null){}
-        else
-        mList.add(new GovernorItem(gov15, "echo " + gov15 + " > "  + Scaling_gov_path));
-        if(gov16==null){}
-        else
-        mList.add(new GovernorItem(gov16, "echo " + gov16 + " > "  + Scaling_gov_path));
-        if(gov17==null){}
-        else
-        mList.add(new GovernorItem(gov17, "echo " + gov17 + " > "  + Scaling_gov_path));
 
     }
 
