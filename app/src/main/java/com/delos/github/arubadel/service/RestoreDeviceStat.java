@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import static com.delos.github.arubadel.util.ShellExecuter.RunCommand;
 
@@ -14,7 +15,7 @@ import static com.delos.github.arubadel.util.ShellExecuter.RunCommand;
 
 public class RestoreDeviceStat extends Service {
     private SharedPreferences settings;
-    private String o,Governor,Cpu1;
+    private String o,TAG="Arubadel";
     public IBinder onBind(Intent intent) {
         return null;
     }
@@ -31,28 +32,39 @@ public class RestoreDeviceStat extends Service {
         return o;
     }
     private void Governor(){
-        Governor=getPref("Governor",null);
-        RunCommand("echo "+Governor+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        o=getPref("Governor",null);
+        RunCommand("echo "+o+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        Log.i(TAG,o);
     }
     private void Cpu1(){
         o=getPref("Cpu1",null);
         RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu1/online");
+        Log.i(TAG,o);
+
     }
     private void Cpu2(){
         o=getPref("Cpu2",null);
         RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu2/online");
+        Log.i(TAG,o);
+
     }
     private void Cpu3(){
         o=getPref("Cpu2",null);
         RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu3/online");
+        Log.i(TAG,o);
+
     }
     private void getCpuMinFreq(){
         o=getPref("Minfreq",null);
         RunCommand("echo "+o+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+        Log.i(TAG,o);
+
     }
     private void getCpuMaxFreq(){
         o=getPref("Maxfreq",null);
         RunCommand("echo "+o+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+        Log.i(TAG,o);
+
     }
     public void SaveStat(){
         Governor();
