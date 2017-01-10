@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellUtils;
 
+import static com.delos.github.arubadel.util.ShellExecuter.runAsRoot;
+
 /**
  * Created by: veli
  * Date: 10/20/16 4:05 PM
@@ -19,6 +21,9 @@ import com.delos.github.arubadel.util.ShellUtils;
 public class Activity extends AppCompatActivity
 {
     private ShellUtils mShellInstance;
+    private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
+    private String o=null;
     public ShellUtils getShellSession()
     {
         if (this.mShellInstance == null || this.mShellInstance.getSession() == null)
@@ -50,7 +55,6 @@ public class Activity extends AppCompatActivity
                 Toast.makeText(this, R.string.device_code_error, Toast.LENGTH_LONG).show();
             else
                 sp.edit().putString("device_code_name", deviceCode).commit();
-
         }
     }
 
@@ -60,6 +64,7 @@ public class Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         init();
+        SaveStat();
     }
 
     @Override
@@ -73,4 +78,45 @@ public class Activity extends AppCompatActivity
             mShellInstance = null;
         }
     }
+    public void SetPreferences(String Name,String stat){
+        settings = getSharedPreferences(Name, 0); // 0 - for private mode
+        editor = settings.edit();
+        editor.putString(Name,stat);
+        editor.commit();
+
+    }
+    public void getGovernor(){
+        o=runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        SetPreferences("Governor",o);
+    }
+    public void getCpu1(){
+        o=runAsRoot("cat /sys/devices/system/cpu/cpu1/online");
+        SetPreferences("Cpu1",o);
+    }
+    public void getCpu2(){
+        o=runAsRoot("cat /sys/devices/system/cpu/cpu2/online");
+        SetPreferences("Cpu2",o);
+    }
+    public void getCpu3(){
+        o=runAsRoot("cat /sys/devices/system/cpu/cpu3/online");
+        SetPreferences("Cpu3",o);
+    }
+    public void getCpuMinFreq(){
+        o=runAsRoot("cat /sys/devices/system/cpu/cpu1/online");
+        SetPreferences("Minfreq",o);
+    }
+    public void getCpuMaxFreq(){
+        o=runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+        SetPreferences("Maxfreq",o);
+    }
+
+    public void SaveStat(){
+        getGovernor();
+        getCpu1();
+        getCpu2();
+        getCpu3();
+        getCpuMinFreq();
+        getCpuMaxFreq();
+    }
+
 }

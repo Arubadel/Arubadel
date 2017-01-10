@@ -1,6 +1,5 @@
 package com.delos.github.arubadel.fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -42,8 +41,6 @@ public class MiscFragment extends Fragment
     private  Button mGpuFreq;
     private CPUInfo mCPUInfo = new CPUInfo();
     private SwitchCompat mFsyncButton;
-    private SharedPreferences settings;
-    private SharedPreferences.Editor editor;
 
     @Nullable
     @Override
@@ -73,10 +70,6 @@ public class MiscFragment extends Fragment
                     @Override
                     public void onClick(View v)
                     {
-                        settings = getActivity().getSharedPreferences("LoginUser", 0); // 0 - for private mode
-                        editor = settings.edit();
-                        editor.putString("CurrentGovernor","");
-                        editor.commit();
                         DeepSleepCommands();
                         getActivity().finish();
                         getActivity().moveTaskToBack(true);
