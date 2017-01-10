@@ -40,6 +40,14 @@ public class SelinuxChanger extends Fragment
         mPermissive=(Button)rootView.findViewById(R.id.Permissive_button);
         mSelinuxStatus.setText(SelinuxStatus());
 
+        if(SelinuxStatusFromKernel().equals("1")){
+            mPermissive.setEnabled(true);
+            mEnforcing.setEnabled(false);
+        }else{
+            mEnforcing.setEnabled(true);
+            mPermissive.setEnabled(false);
+        }
+
             this.mEnforcing.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
@@ -71,6 +79,10 @@ public class SelinuxChanger extends Fragment
     private String SelinuxStatus(){
         return Shell.runAsRoot("getenforce");
     }
+    private String SelinuxStatusFromKernel(){
+        return Shell.runAsRoot("cat /sys/fs/selinux/enforce");
+    }
+
     private List<String> SetEnforcing(){
         return Shell.SuperSu("su -c 'setenforce 1'");
     }
