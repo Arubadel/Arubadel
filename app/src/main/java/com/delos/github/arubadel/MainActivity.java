@@ -331,6 +331,7 @@ else
             settings = getSharedPreferences("LoginUser", 0); // 0 - for private mode
             editor = settings.edit();
             editor.putBoolean("LoginUser",false);
+            editor.commit();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
