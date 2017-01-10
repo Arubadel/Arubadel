@@ -265,7 +265,7 @@ else
             x=getPreferences(mEmail);
             y=getPreferences(mPassword);
             Log.i(TAG,"Email :- "+x + " Password :- " + y);
-            Buddy.loginUser(mEmail, mPassword, new BuddyCallback<User>(User.class) {
+            Buddy.loginUser(x, y, new BuddyCallback<User>(User.class) {
                 @Override
                 public void completed(BuddyResult<User> result) {
 

@@ -1,6 +1,7 @@
 package com.delos.github.arubadel.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter
         return ShellExecuter.runAsRoot("sysctl net.ipv4.tcp_available_congestion_control");
     }
     private String store_tcp_value= get_tcp();
-    private String[] parts = store_tcp_value.split("\\s+");
+    private String[] parts = store_tcp_value.split("net.ipv4.tcp_available_congestion_control|=|\\s+");
 
     private String tcp1,tcp2,tcp3,tcp4,tcp5,tcp6,tcp7,tcp8,tcp9,tcp10,tcp11,tcp12,tcp13;
 
@@ -36,55 +37,16 @@ public class TcpCongestionControlAdapter extends BaseAdapter
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
 
-        tcp1=parts[1];
-        tcp2=parts[2];
-        try
+        for (String GetTcp : parts)
         {
-            tcp3=parts[3];
-            tcp4=parts[4];
-            tcp5=parts[5];
-            tcp1=parts[6];
-            tcp6=parts[7];
-            tcp7=parts[8];
-            tcp8=parts[9];
-            tcp9=parts[10];
-            tcp10=parts[11];
-            tcp11=parts[12];
-            tcp12=parts[13];
-            tcp13=parts[14];
+            String GetTcpList = GetTcp;
+            if (TextUtils.isEmpty(GetTcpList)) {
+                GetTcpList=null;
+            }
 
+            if(GetTcpList==null){}else
+            mList.add(new TcpItem(GetTcpList , ""));
         }
-        catch (Exception e)
-        {
-
-        }
-
-
-        mList.add(new TcpItem(tcp1,  tcp_change+tcp1));
-        mList.add(new TcpItem(tcp2,  tcp_change+tcp2));
-        if(tcp3==null){}else
-        mList.add(new TcpItem(tcp3,  tcp_change+tcp3));
-        if(tcp4==null){}else
-        mList.add(new TcpItem(tcp4,  tcp_change+tcp4));
-        if(tcp5==null){}else
-        mList.add(new TcpItem(tcp5,  tcp_change+tcp5));
-        if(tcp6==null){}else
-        mList.add(new TcpItem(tcp6,  tcp_change+tcp6));
-        if(tcp7==null){}else
-        mList.add(new TcpItem(tcp7,  tcp_change+tcp7));
-        if(tcp8==null){}else
-        mList.add(new TcpItem(tcp8,  tcp_change+tcp8));
-        if(tcp9==null){}else
-        mList.add(new TcpItem(tcp9,  tcp_change+tcp9));
-        if(tcp10==null){}else
-        mList.add(new TcpItem(tcp10,  tcp_change+tcp10));
-        if(tcp11==null){}else
-        mList.add(new TcpItem(tcp11,  tcp_change+tcp11));
-        if(tcp12==null){}else
-        mList.add(new TcpItem(tcp12,  tcp_change + tcp12));
-        if(tcp13==null){}else
-        mList.add(new TcpItem(tcp13,  tcp_change + tcp13));
-
 
     }
 
