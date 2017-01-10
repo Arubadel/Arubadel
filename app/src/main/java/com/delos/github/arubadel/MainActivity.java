@@ -257,10 +257,12 @@ else
                     appUpdaterUtils.start();
 
         if(isNetworkAvailable(this)==true){
-            settings = getSharedPreferences("LoginUser", 0); // 0 - for private mode
-            String mEmail = settings.getString("Email",null);
-            String mPassword = settings.getString("Password",null);
-            Log.i(TAG,"Email :- "+mEmail + "Password :- " + mPassword);
+            String x,y;
+            String mPassword = "Password";
+            String mEmail ="Email";
+            x=getPreferences(mEmail);
+            y=getPreferences(mPassword);
+            Log.i(TAG,"Email :- "+x + " Password :- " + y);
             Buddy.loginUser(mEmail, mPassword, new BuddyCallback<User>(User.class) {
                 @Override
                 public void completed(BuddyResult<User> result) {
@@ -273,6 +275,14 @@ else
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 
+    }
+
+    public String getPreferences(String Name){
+        String o;
+        settings = getSharedPreferences(Name, 1); // 0 - for private mode
+        o=settings.getString(Name,null);
+
+        return o;
     }
 
     @Override
