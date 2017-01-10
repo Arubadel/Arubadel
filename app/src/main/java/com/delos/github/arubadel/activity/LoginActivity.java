@@ -30,6 +30,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.buddy.sdk.Buddy;
+import com.buddy.sdk.BuddyCallback;
+import com.buddy.sdk.BuddyResult;
+import com.buddy.sdk.models.User;
 import com.delos.github.arubadel.MainActivity;
 import com.delos.github.arubadel.R;
 
@@ -67,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
+    private String Tag="LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -341,8 +346,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 settings = getSharedPreferences("LoginUser", 0); // 0 - for private mode
                 editor = settings.edit();
                 editor.putBoolean("LoginUser", true);
+                editor.putString("Email",mEmail);
+                editor.putString("Password",mPassword);
                 editor.commit();
-                Log.i("LoginAcitivty","device registered");
+                Buddy.createUser(mEmail, mPassword, null, null, null, null, null, null, new BuddyCallback<User>(User.class) {
+                    @Override
+                    public void completed(BuddyResult<User> result) {
+                        if (result.getIsSuccess()) {
+                            Log.i(Tag, "User created: " + result.getResult().userName);
+                        }
+                    }
+                });
+
+                Log.i(Tag,"device registered "+ mEmail);
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             } else {

@@ -4,6 +4,7 @@ package com.delos.github.arubadel;
 import android.Manifest;
 import android.app.DownloadManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.delos.github.arubadel.activity.LoginActivity;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
 import com.delos.github.arubadel.fragment.CPUToolsFragment;
@@ -66,11 +68,13 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private OverAllDeviceInfo mDeviceStatus;
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
-    private String email;
+    private String email,Tag="MainActivity";
     private MenuItem msm_hotplug,Cputools,Misc,bSelinuxChanger,bOverAllDeviceStatus,bFlasher,mAppUpdates;
     /*Navigation drawer*/
     private NavigationView navigationView;
     private View navHeaderView;
+    private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
 
     /*Dialog*/
     private PanterDialog UpdateDialog;
@@ -323,7 +327,12 @@ else
         else if (id == R.id.nav_about_device) {
             this.updateFragment(this.mAboutDevice);
             setTitle("About Device");
-
+        }else if(id==R.id.nav_logout){
+            settings = getSharedPreferences("LoginUser", 0); // 0 - for private mode
+            editor = settings.edit();
+            editor.putBoolean("LoginUser",false);
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
