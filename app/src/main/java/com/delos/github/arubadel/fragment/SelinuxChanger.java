@@ -4,14 +4,12 @@ package com.delos.github.arubadel.fragment;
  * Created by sumit on 6/11/16.
  */
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
@@ -19,8 +17,6 @@ import com.delos.github.arubadel.util.ShellExecuter;
 import com.delos.github.arubadel.util.ShellUtils;
 
 import java.util.List;
-
-import eu.chainfire.libsuperuser.Shell;
 
 
 /**
@@ -73,17 +69,14 @@ public class SelinuxChanger extends Fragment
     }
 
     private String SelinuxStatus(){
-        Shell.command="getenforce";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("getenforce");
     }
     private List<String> SetEnforcing(){
-        Shell.command="su -c 'setenforce 1'";
-        return Shell.SuperSu();
+        return Shell.SuperSu("su -c 'setenforce 1'");
     }
 
     private List<String> SetPermissive() {
-        Shell.command="su -c 'setenforce 0'";
-        return Shell.SuperSu();
+        return Shell.SuperSu("su -c 'setenforce 0'");
     }
 
 }

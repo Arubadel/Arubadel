@@ -1,5 +1,6 @@
 package com.delos.github.arubadel.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -41,7 +42,8 @@ public class MiscFragment extends Fragment
     private  Button mGpuFreq;
     private CPUInfo mCPUInfo = new CPUInfo();
     private SwitchCompat mFsyncButton;
-
+    private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
 
     @Nullable
     @Override
@@ -71,13 +73,11 @@ public class MiscFragment extends Fragment
                     @Override
                     public void onClick(View v)
                     {
-                        mShell.getSession().addCommand("mount -o rw,remount,rw /system ; chmod 664 /system/bin/mpdecision ; killall mpdecision; stop mpdecision");
-                        mShell.getSession().addCommand("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled ");
-                        mShell.getSession().addCommand("echo " + mCPUInfo.speedMaxAllowed + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_max_freq");
-                        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu1/online");
-                        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu2/online");
-                        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu3/online");
-                        mShell.getSession().addCommand("input keyevent KEYCODE_POWER");
+                        settings = getActivity().getSharedPreferences("LoginUser", 0); // 0 - for private mode
+                        editor = settings.edit();
+                        editor.putString("CurrentGovernor","");
+                        editor.commit();
+                        DeepSleepCommands();
                         getActivity().finish();
                         getActivity().moveTaskToBack(true);
                     }
@@ -169,6 +169,18 @@ if(ShellExecuter.hasGpu()) {
 
 
         return view;
+    }
+    public void DeepSleepCommands()
+    {
+        mShell.getSession().addCommand("echo 'ondemand' > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        mShell.getSession().addCommand("mount -o rw,remount,rw /system ; chmod 664 /system/bin/mpdecision ; killall mpdecision; stop mpdecision");
+        mShell.getSession().addCommand("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled ");
+        mShell.getSession().addCommand("echo " + mCPUInfo.speedMaxAllowed + " > " + Config.PATH_CPUS + "/cpu0/cpufreq/scaling_max_freq");
+        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu1/online");
+        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu2/online");
+        mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu3/online");
+        mShell.getSession().addCommand("input keyevent KEYCODE_POWER");
+
     }
 
     @Override

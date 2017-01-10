@@ -30,32 +30,25 @@ public class AboutDevice extends Fragment
     TextView mApp_version;
 
     public String model (){
-        Shell.command="getprop ro.product.model";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("getprop ro.product.model");
 }
     public String platform_release (){
-        Shell.command="getprop ro.build.version.release";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("getprop ro.build.version.release");
     }
     public String ril_class (){
-        Shell.command="getprop ro.telephony.ril_class";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("getprop ro.telephony.ril_class");
     }
     public String board (){
-        Shell.command="getprop ro.product.board";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("getprop ro.product.board");
     }
     public String kernel_version (){
-        Shell.command="cat /proc/version";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("cat /proc/version");
     }
     public String build_description(){
-        Shell.command="getprop ro.build.description";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("getprop ro.build.description");
     }
     public String build_fingerprint (){
-        Shell.command="getprop ro.build.fingerprint";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("getprop ro.build.fingerprint");
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {

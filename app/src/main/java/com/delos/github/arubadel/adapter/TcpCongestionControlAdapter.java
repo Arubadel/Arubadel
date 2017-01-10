@@ -24,8 +24,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter
     private ArrayList<TcpItem> mList = new ArrayList<>();
     private String tcp_change="sysctl -w net.ipv4.tcp_congestion_control=";
     private String get_tcp(){
-        ShellExecuter.command="sysctl net.ipv4.tcp_available_congestion_control";
-        return ShellExecuter.runAsRoot();
+        return ShellExecuter.runAsRoot("sysctl net.ipv4.tcp_available_congestion_control");
     }
     private String store_tcp_value= get_tcp();
     private String[] parts = store_tcp_value.split("\\s+");

@@ -1,7 +1,6 @@
 package com.delos.github.arubadel.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +29,7 @@ public class GpuAdapter extends BaseAdapter
 	{
 		this.mContext = context;
 		this.mInflater = LayoutInflater.from(context);
-
-		ShellExecuter.command = "cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
-		String[] availableSpeeds = ShellExecuter.runAsRoot().split("\\s+");
+		String[] availableSpeeds = ShellExecuter.runAsRoot("cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies").split("\\s+");
 
 		for (String speed : availableSpeeds)
 		{

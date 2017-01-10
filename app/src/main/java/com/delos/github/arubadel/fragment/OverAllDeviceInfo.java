@@ -7,21 +7,12 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.app.Activity;
-import com.delos.github.arubadel.util.CPUTools;
-import com.delos.github.arubadel.util.Config;
 import com.delos.github.arubadel.util.ShellExecuter;
 import com.delos.github.arubadel.util.ShellUtils;
-import com.genonbeta.core.util.NetworkUtils;
-
-import java.util.List;
-import com.delos.github.arubadel.util.CPUInfo;
-import eu.chainfire.libsuperuser.Shell;
 
 /**
  * Created by Sumit on 19.10.2016.
@@ -78,17 +69,14 @@ public class OverAllDeviceInfo extends Fragment
 
     }
     public String gpuStatus(){
-        Shell.command="cat /sys/class/kgsl/kgsl-3d0/gpuclk ";
-        return Shell.runAsRoot();
+        return Shell.runAsRoot("cat /sys/class/kgsl/kgsl-3d0");
     }
     private String batterytmp(){
-        Shell.command="cat /sys/class/power_supply/battery/batt_temp";
-        return Shell.runAsRoot() ;
+        return Shell.runAsRoot("cat /sys/class/power_supply/battery/batt_temp") ;
     }
 
     private String batteryvol(){
-        Shell.command="cat /sys/class/power_supply/battery/batt_vol";
-        return Shell.runAsRoot() ;
+        return Shell.runAsRoot("cat /sys/class/power_supply/battery/batt_vol") ;
     }
 
     private void updateTextView() {

@@ -24,8 +24,7 @@ public class GovernorAdapter extends BaseAdapter
     private ArrayList<GovernorItem> mList = new ArrayList<>();
     private String Scaling_gov_path="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
     private String get_gov(){
-        ShellExecuter.command="cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
-        return ShellExecuter.runAsRoot();
+        return ShellExecuter.runAsRoot("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
     }
     private String store_gov= get_gov();
     private String[] parts = store_gov.split("\\s+"); // escape .
