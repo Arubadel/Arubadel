@@ -343,12 +343,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                settings = getSharedPreferences("LoginUser", 0); // 0 - for private mode
-                editor = settings.edit();
-                editor.putBoolean("LoginUser", true);
-                editor.putString("Email",mEmail);
-                editor.putString("Password",mPassword);
-                editor.commit();
                 Buddy.createUser(mEmail, mPassword, null, null, null, null, null, null, new BuddyCallback<User>(User.class) {
                     @Override
                     public void completed(BuddyResult<User> result) {
@@ -357,7 +351,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         }
                     }
                 });
-
+                PutStringPreferences("Email",mEmail);
+                PutStringPreferences("Password",mPassword);
+                PutBooleanPreferences("LoginUser",true);
                 Log.i(Tag,"device registered "+ mEmail);
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
@@ -371,6 +367,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+        public void PutStringPreferences(String Name,String Function){
+            settings = getSharedPreferences(Name, 1); // 1 - for public mode
+            editor = settings.edit();
+            editor.putString(Name, Function);
+            editor.commit();
+
+        }
+        public void PutBooleanPreferences(String Name,boolean Function){
+            settings = getSharedPreferences(Name, 1); // 1 - for public mode
+            editor = settings.edit();
+            editor.putBoolean(Name, Function);
+            editor.commit();
+
         }
     }
 }
