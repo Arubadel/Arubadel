@@ -29,19 +29,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter
     private String store_tcp_value= get_tcp();
     private String[] parts = store_tcp_value.split("\\s+");
 
-    private String tcp1;
-    private String tcp2;
-    private String tcp3;
-    private String tcp4;
-    private String tcp5;
-    private String tcp6;
-    private String tcp7;
-    private String tcp8;
-    private String tcp9;
-    private String tcp10;
-    private String tcp11;
-    private String tcp12;
-    private String tcp13;
+    private String tcp1,tcp2,tcp3,tcp4,tcp5,tcp6,tcp7,tcp8,tcp9,tcp10,tcp11,tcp12,tcp13;
 
     public TcpCongestionControlAdapter(Context context)
     {

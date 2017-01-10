@@ -34,6 +34,7 @@ import com.buddy.sdk.models.User;
 import com.delos.github.arubadel.activity.LoginActivity;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
+import com.delos.github.arubadel.fragment.BuddyChat;
 import com.delos.github.arubadel.fragment.CPUToolsFragment;
 import com.delos.github.arubadel.fragment.CreditsFragment;
 import com.delos.github.arubadel.fragment.Flasher;
@@ -74,7 +75,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private OverAllDeviceInfo mDeviceStatus;
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
-    private String email,Tag="MainActivity";
+    private BuddyChat mChat;
+    private String email,TAG="MainActivity";
     private MenuItem msm_hotplug,Cputools,Misc,bSelinuxChanger,bOverAllDeviceStatus,bFlasher,mAppUpdates;
     /*Navigation drawer*/
     private NavigationView navigationView;
@@ -84,7 +86,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
     /*Dialog*/
     private PanterDialog UpdateDialog;
-    private String TAG="MainActivity";
 
     boolean suAvailable= Shell.SU.available();
     @Override
@@ -117,9 +118,10 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentPreferences = new PreferencesFragment();
         this.mAboutDevice = new AboutDevice();
         this.mHotplug=new MsmMpdecisionHotplug();
-        mDeviceStatus=new OverAllDeviceInfo();
-        mSelinuxChanger=new SelinuxChanger();
-        mFlasher=new Flasher();
+        this.mDeviceStatus=new OverAllDeviceInfo();
+        this.mSelinuxChanger=new SelinuxChanger();
+        this.mFlasher=new Flasher();
+        this.mChat=new BuddyChat();
         Menu menu = navigationView.getMenu();
         msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
         Cputools=menu.findItem(R.id.nav_cputools);
@@ -367,7 +369,7 @@ else
             editor.commit();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
-        }
+        }else if(id==R.id.nav_chat){updateFragment(this.mChat);}
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 

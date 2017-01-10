@@ -62,10 +62,13 @@
             </group>
         </menu>
     </item>
-    <item android:title="">
+    <item android:title="Buddy Chat">
         <menu>
 
             <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_chat"
+                    android:title="Chat" />
                 <item
                     android:id="@+id/nav_logout"
                     android:title="Logout" />
