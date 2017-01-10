@@ -27,6 +27,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.buddy.sdk.Buddy;
+import com.buddy.sdk.BuddyCallback;
+import com.buddy.sdk.BuddyResult;
+import com.buddy.sdk.models.User;
 import com.delos.github.arubadel.activity.LoginActivity;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
@@ -50,6 +54,8 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
 
 import eu.chainfire.libsuperuser.Shell;
+
+import static com.delos.github.arubadel.util.NetworkStat.isNetworkAvailable;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -78,6 +84,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
     /*Dialog*/
     private PanterDialog UpdateDialog;
+    private String TAG="MainActivity";
+
     boolean suAvailable= Shell.SU.available();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -247,6 +255,21 @@ else
                     }
                 });
                     appUpdaterUtils.start();
+
+        if(isNetworkAvailable(this)==true){
+            settings = getSharedPreferences("LoginUser", 0); // 0 - for private mode
+            String mEmail = settings.getString("Email",null);
+            String mPassword = settings.getString("Password",null);
+            Log.i(TAG,"Email :- "+mEmail + "Password :- " + mPassword);
+            Buddy.loginUser(mEmail, mPassword, new BuddyCallback<User>(User.class) {
+                @Override
+                public void completed(BuddyResult<User> result) {
+
+                }
+            });
+        }else {
+            Log.i(TAG,"Can't Login");
+        }
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 
