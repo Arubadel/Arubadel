@@ -71,7 +71,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
-    private String Tag="LoginActivity";
+    private String Tag="LoginActivity",UserName;
+    private String[] Parts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -360,7 +361,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 PutStringPreferences("Email",mEmail);
                 PutStringPreferences("Password",mPassword);
                 PutBooleanPreferences("LoginUser",true);
-                Log.i(Tag,"device registered "+ mEmail);
+                Parts=mEmail.split("@");
+                PutStringPreferences("Name",Parts[0]);
+                Log.i(Tag,"device registered "+ mEmail+" User name : "+Parts[0]);
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             } else {

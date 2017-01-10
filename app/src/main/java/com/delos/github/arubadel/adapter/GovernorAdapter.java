@@ -28,23 +28,7 @@ public class GovernorAdapter extends BaseAdapter
     }
     private String store_gov= get_gov();
     private String[] parts = store_gov.split("\\s+"); // escape .
-    private String gov1;
-    private String gov2;
-    private String gov3;
-    private String gov4;
-    private String gov5;
-    private String gov6;
-    private String gov7;
-    private String gov8;
-    private String gov9;
-    private String gov10;
-    private String gov11;
-    private String gov12;
-    private String gov13;
-    private String gov14;
-    private String gov15;
-    private String gov16;
-    private String gov17;
+    private String gov1,gov2,gov3,gov4,gov5,gov6,gov7,gov8,gov9,gov10,gov11,gov12,gov13,gov14,gov15,gov16,gov17;
     public GovernorAdapter(Context context)
     {
         this.mContext = context;
