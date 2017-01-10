@@ -131,7 +131,7 @@ if(ShellExecuter.hasGpu()) {
                 mFastChargeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > sys/kernel/fast_charge/force_fast_charge\n");
+                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > sys/kernel/fast_charge/force_fast_charge\n");
                     }
                 });
             }
@@ -173,7 +173,6 @@ if(ShellExecuter.hasGpu()) {
         mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu2/online");
         mShell.getSession().addCommand("echo " + "0" + " > " + Config.PATH_CPUS + "/cpu3/online");
         mShell.getSession().addCommand("input keyevent KEYCODE_POWER");
-
     }
 
     @Override

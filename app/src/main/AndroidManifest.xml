@@ -66,7 +66,13 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".service.DeepReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_UNLOCKED"/>
+            </intent-filter>
+        </receiver>
 
+        <service android:name=".service.RestoreDeviceStat"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="170780f99a1c0f42ee4bce379c8a786f3e295ea7" />

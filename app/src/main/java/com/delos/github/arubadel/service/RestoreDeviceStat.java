@@ -2,24 +2,65 @@ package com.delos.github.arubadel.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+
+import static com.delos.github.arubadel.util.ShellExecuter.RunCommand;
 
 /**
  * Created by sumit on 10/1/17.
  */
 
 public class RestoreDeviceStat extends Service {
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
-
-    }
-
-    @Nullable
-    @Override
+    private SharedPreferences settings;
+    private String o,Governor,Cpu1;
     public IBinder onBind(Intent intent) {
         return null;
     }
+    @Nullable
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        SaveStat();
+        return START_STICKY;
+    }
+
+    private String getPref(String name,String getStatus){
+        settings = getSharedPreferences(name, 0); // 0 - for private mode
+        o=settings.getString(name,getStatus);
+        return o;
+    }
+    private void Governor(){
+        Governor=getPref("Governor",null);
+        RunCommand("echo "+Governor+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+    }
+    private void Cpu1(){
+        o=getPref("Cpu1",null);
+        RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu1/online");
+    }
+    private void Cpu2(){
+        o=getPref("Cpu2",null);
+        RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu2/online");
+    }
+    private void Cpu3(){
+        o=getPref("Cpu2",null);
+        RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu3/online");
+    }
+    private void getCpuMinFreq(){
+        o=getPref("Minfreq",null);
+        RunCommand("echo "+o+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+    }
+    private void getCpuMaxFreq(){
+        o=getPref("Maxfreq",null);
+        RunCommand("echo "+o+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+    }
+    public void SaveStat(){
+        Governor();
+        Cpu1();
+        Cpu2();
+        Cpu3();
+        getCpuMinFreq();
+        getCpuMaxFreq();
+    }
+
 }
