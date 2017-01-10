@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellExecuter;
-import com.delos.github.arubadel.util.ShellUtils;
 
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class SelinuxChanger extends Fragment
     private ShellExecuter Shell;
     private Button mEnforcing;
     private Button mPermissive;
-    private ShellUtils mShell;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_selinux, container, false);

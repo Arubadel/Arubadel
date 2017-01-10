@@ -378,14 +378,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
         public void PutStringPreferences(String Name,String Function){
-            settings = getSharedPreferences(Name, 1); // 1 - for public mode
+            settings = getSharedPreferences(Name, 0); // 1 - for public mode
             editor = settings.edit();
             editor.putString(Name, Function);
             editor.commit();
 
         }
         public void PutBooleanPreferences(String Name,boolean Function){
-            settings = getSharedPreferences(Name, 1); // 1 - for public mode
+            settings = getSharedPreferences(Name, 0); // 1 - for public mode
             editor = settings.edit();
             editor.putBoolean(Name, Function);
             editor.commit();

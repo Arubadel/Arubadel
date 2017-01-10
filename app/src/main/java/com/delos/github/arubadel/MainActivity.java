@@ -281,7 +281,7 @@ else
 
     public String getPreferences(String Name){
         String o;
-        settings = getSharedPreferences(Name, 1); // 0 - for private mode
+        settings = getSharedPreferences(Name, 0); // 0 - for private mode
         o=settings.getString(Name,null);
 
         return o;
