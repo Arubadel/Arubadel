@@ -165,7 +165,7 @@ else
     Misc.setVisible(false);
     msm_hotplug.setVisible(false);
     bSelinuxChanger.setVisible(false);
-    this.updateFragment(this.mAboutDevice);
+    this.updateFragment(this.mFragmentMisc);
     bOverAllDeviceStatus.setVisible(false);
     bFlasher.setVisible(false);
     Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();

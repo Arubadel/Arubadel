@@ -31,7 +31,7 @@ import eu.chainfire.libsuperuser.Shell;
 public class MiscFragment extends Fragment
 {
     private ShellUtils mShell;
-    private TextView mInfoText,mFastChargetText;
+    private TextView mInfoText,mFastChargetText,mMpdDecision_text;
     private SwitchCompat mADBSwitcher;
     private SwitchCompat mFastChargeSwitcher;
     private SwitchCompat mMPDecision;
@@ -61,6 +61,7 @@ public class MiscFragment extends Fragment
         mGpuFreq=(Button)view.findViewById(R.id.gpu_freq_control);
         mFsyncButton=(SwitchCompat)view.findViewById(R.id.fragment_cputools_dyn_fsync_switch);
         mFastChargetText=(TextView)view.findViewById(R.id.fragment_misc_fastcharge_text);
+        mMpdDecision_text=(TextView)view.findViewById(R.id.MpdDecision_text);
         mFastChargeSwitcher.setVisibility(View.GONE);
         mFastChargetText.setVisibility(View.GONE);
         mGpuFreq.setVisibility(View.GONE);
@@ -141,7 +142,7 @@ if(ShellExecuter.hasGpu()) {
         if (CPUTools.hasMPDecision())
         {
             mMPDecision.setVisibility(View.VISIBLE);
-
+            mMpdDecision_text.setVisibility(View.VISIBLE);
             mMPDecision.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

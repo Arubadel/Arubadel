@@ -72,6 +72,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/MpdDecision_text"
         android:text="@string/mpdecision_description"
         android:textSize="14sp"
         android:paddingLeft="15dp"
