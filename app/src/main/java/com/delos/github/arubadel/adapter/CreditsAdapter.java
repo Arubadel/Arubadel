@@ -26,9 +26,10 @@ public class CreditsAdapter extends GithubAdapterIDEA
     }
     private JSONObject release;
     private String Url;
+    private String contributors[] = new String[5];
     private TextView text1,text2;
     @Override
-    protected View onView(int position, View convertView, ViewGroup parent)
+    protected View onView(final int position, View convertView, ViewGroup parent)
     {
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.list_credits, parent, false);
@@ -49,10 +50,11 @@ public class CreditsAdapter extends GithubAdapterIDEA
         {
             if (release.has("login"))
                 text1.setText(release.getString("login"));
+                contributors[position] = release.getString("login"); //Using array for storing the names
                 mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Url="https://github.com/"+text1.getText().toString();
+                    Url="https://github.com/"+ contributors[position];
                     Uri uri = Uri.parse(Url);
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     getContext().startActivity(intent);
