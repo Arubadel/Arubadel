@@ -9,6 +9,7 @@
         android:id="@+id/list_credits_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:textSize="17dp"
         android:textStyle="bold" />
 
@@ -18,5 +19,12 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorInfo"
         android:textSize="13dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:text="Open in Github"
+        android:visibility="gone"
+        android:id="@+id/button_credits_open_in_github"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

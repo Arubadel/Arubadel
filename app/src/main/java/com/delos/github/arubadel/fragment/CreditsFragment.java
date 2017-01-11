@@ -22,4 +22,5 @@ public class CreditsFragment extends AbstractGithubFragment
     {
         return new CreditsAdapter(getActivity());
     }
+
 }
