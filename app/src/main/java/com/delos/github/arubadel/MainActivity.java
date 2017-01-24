@@ -3,6 +3,7 @@ package com.delos.github.arubadel;
 
 import android.Manifest;
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,7 +29,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import com.delos.github.arubadel.activity.LoginActivity;
 import com.delos.github.arubadel.activity.SendBirdOpenChannelListActivity;
-import com.delos.github.arubadel.activity.SendBirdOpenChatActivity;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
 import com.delos.github.arubadel.fragment.Chat;
@@ -86,6 +86,9 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
     /*Dialog*/
     private PanterDialog UpdateDialog;
+
+    /*enum*/
+    private enum State {DISCONNECTED, CONNECTING, CONNECTED}
 
     boolean suAvailable= Shell.SU.available();
     @Override
@@ -173,7 +176,7 @@ else
 
 }
 
-        SendBird.init("1B5E5A11-AB1E-438C-A731-4568E2725E27", getApplicationContext());
+        SendBird.init("1B5E5A11-AB1E-438C-A731-4568E2725E27", this);
 
 
         /*Hide app updates fragment*/
@@ -277,14 +280,6 @@ else
 
     }
 
-    public String getPreferences(String Name){
-        String o;
-        settings = getSharedPreferences(Name, 0); // 0 - for private mode
-        o=settings.getString(Name,null);
-
-        return o;
-    }
-
     @Override
     public void onBackPressed()
     {
@@ -366,6 +361,7 @@ else
             editor.putBoolean("LoginUser",false);
             editor.commit();
             startActivity(new Intent(this, LoginActivity.class));
+            connect();
             finish();
         }else if(id==R.id.nav_chat){startActivity(new Intent(this, SendBirdOpenChannelListActivity.class));}
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -381,4 +377,40 @@ else
         ft.replace(R.id.content_frame, fragment);
         ft.commit();
     }
+    private void connect() {
+        SendBird.connect("", new SendBird.ConnectHandler() {
+            @Override
+            public void onConnected(User user, SendBirdException e) {
+                if (e != null) {
+                    Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                final String nickname = getPreferences("Name");
+
+                SendBird.updateCurrentUserInfo(nickname, null, new SendBird.UserInfoUpdateHandler() {
+                    @Override
+                    public void onUpdated(SendBirdException e) {
+                        if (e != null) {
+                            Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                           return;
+                        }
+
+                        SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+                        editor.putString("nickname", nickname);
+                        editor.commit();
+                    }
+                });
+
+            }
+        });
+    }
+    public String getPreferences(String Name){
+        String o;
+        settings = getSharedPreferences(Name, 0); // 0 - for private mode
+        o=settings.getString(Name,null);
+
+        return o;
+    }
+
 }
