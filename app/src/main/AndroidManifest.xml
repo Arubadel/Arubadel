@@ -89,6 +89,28 @@
                 android:value="com.delos.github.arubadel.MainActivity" />
         </activity>
         <activity android:name=".activity.LoginActivity"/>
+        <activity
+            android:name=".activity.SendBirdOpenChannelListActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="SendBird"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+
+        <activity
+            android:name=".activity.SendBirdBlockedUserListActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="SendBird"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+        <activity
+            android:name=".activity.SendBirdParticipantListActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="SendBird"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+        <activity
+            android:name=".activity.SendBirdOpenChatActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="SendBird"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+
     </application>
 
 </manifest>

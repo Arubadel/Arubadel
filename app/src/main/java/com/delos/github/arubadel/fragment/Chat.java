@@ -13,7 +13,7 @@ import com.delos.github.arubadel.R;
  * Created by sumit on 10/1/17.
  */
 
-public class BuddyChat extends Fragment {
+public class Chat extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

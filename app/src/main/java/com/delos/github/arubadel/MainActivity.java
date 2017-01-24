@@ -26,15 +26,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import com.buddy.sdk.Buddy;
-import com.buddy.sdk.BuddyCallback;
-import com.buddy.sdk.BuddyResult;
-import com.buddy.sdk.models.User;
 import com.delos.github.arubadel.activity.LoginActivity;
+import com.delos.github.arubadel.activity.SendBirdOpenChannelListActivity;
+import com.delos.github.arubadel.activity.SendBirdOpenChatActivity;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
-import com.delos.github.arubadel.fragment.BuddyChat;
+import com.delos.github.arubadel.fragment.Chat;
 import com.delos.github.arubadel.fragment.CPUToolsFragment;
 import com.delos.github.arubadel.fragment.CreditsFragment;
 import com.delos.github.arubadel.fragment.Flasher;
@@ -53,6 +50,9 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
+import com.sendbird.android.SendBird;
+import com.sendbird.android.SendBirdException;
+import com.sendbird.android.User;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -75,7 +75,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private OverAllDeviceInfo mDeviceStatus;
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
-    private BuddyChat mChat;
+    private Chat mChat;
     private String email,TAG="MainActivity";
     private MenuItem msm_hotplug,Cputools,Misc,bSelinuxChanger,bOverAllDeviceStatus,bFlasher,mAppUpdates;
     /*Navigation drawer*/
@@ -121,7 +121,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mDeviceStatus=new OverAllDeviceInfo();
         this.mSelinuxChanger=new SelinuxChanger();
         this.mFlasher=new Flasher();
-        this.mChat=new BuddyChat();
+        this.mChat=new Chat();
         Menu menu = navigationView.getMenu();
         msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
         Cputools=menu.findItem(R.id.nav_cputools);
@@ -172,6 +172,9 @@ else
     mFAB.setVisibility(View.GONE);
 
 }
+
+        SendBird.init("1B5E5A11-AB1E-438C-A731-4568E2725E27", getApplicationContext());
+
 
         /*Hide app updates fragment*/
         mAppUpdates.setVisible(false);
@@ -265,12 +268,7 @@ else
             x=getPreferences(mEmail);
             y=getPreferences(mPassword);
             Log.i(TAG,"Email :- "+x + " Password :- " + y);
-            Buddy.loginUser(x, y, new BuddyCallback<User>(User.class) {
-                @Override
-                public void completed(BuddyResult<User> result) {
 
-                }
-            });
         }else {
             Log.i(TAG,"Can't Login");
         }
@@ -369,7 +367,7 @@ else
             editor.commit();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
-        }else if(id==R.id.nav_chat){updateFragment(this.mChat);}
+        }else if(id==R.id.nav_chat){startActivity(new Intent(this, SendBirdOpenChannelListActivity.class));}
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
