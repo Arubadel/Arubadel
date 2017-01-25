@@ -27,10 +27,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.buddy.sdk.Buddy;
-import com.buddy.sdk.BuddyCallback;
-import com.buddy.sdk.BuddyResult;
-import com.buddy.sdk.models.User;
 import com.delos.github.arubadel.activity.LoginActivity;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
@@ -262,12 +258,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
             x = getPreferences(mEmail);
             y = getPreferences(mPassword);
             Log.i(TAG, "Email :- " + x + " Password :- " + y);
-            Buddy.loginUser(x, y, new BuddyCallback<User>(User.class) {
-                @Override
-                public void completed(BuddyResult<User> result) {
-
-                }
-            });
         } else {
             Log.i(TAG, "Can't Login");
         }

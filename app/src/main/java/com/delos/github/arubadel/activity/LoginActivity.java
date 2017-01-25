@@ -30,10 +30,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.buddy.sdk.Buddy;
-import com.buddy.sdk.BuddyCallback;
-import com.buddy.sdk.BuddyResult;
-import com.buddy.sdk.models.User;
 import com.delos.github.arubadel.MainActivity;
 import com.delos.github.arubadel.R;
 
@@ -351,14 +347,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Buddy.createUser(mEmail, mPassword, null, null, null, null, null, null, new BuddyCallback<User>(User.class) {
-                    @Override
-                    public void completed(BuddyResult<User> result) {
-                        if (result.getIsSuccess()) {
-                            Log.i(Tag, "User created: " + result.getResult().userName);
-                        }
-                    }
-                });
+
                 PutStringPreferences("Email", mEmail);
                 PutStringPreferences("Password", mPassword);
                 PutBooleanPreferences("LoginUser", true);
