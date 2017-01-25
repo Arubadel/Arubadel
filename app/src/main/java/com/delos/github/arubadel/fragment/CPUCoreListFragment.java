@@ -12,21 +12,19 @@ import com.delos.github.arubadel.app.Activity;
  * Date: 10/21/16 12:08 PM
  */
 
-public class CPUCoreListFragment extends ListFragment
-{
+public class CPUCoreListFragment extends ListFragment {
     private CPUToolsCPUListAdapter mAdapter;
+
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mAdapter = new CPUToolsCPUListAdapter(((Activity)getActivity()).getShellSession(), getActivity());
+        mAdapter = new CPUToolsCPUListAdapter(((Activity) getActivity()).getShellSession(), getActivity());
 
         setListAdapter(mAdapter);
     }
 
-    public void update()
-    {
+    public void update() {
         this.mAdapter.notifyDataSetChanged();
     }
 }

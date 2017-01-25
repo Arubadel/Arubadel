@@ -18,8 +18,7 @@ import com.delos.github.arubadel.util.ShellUtils;
  * Created by Sumit on 19.10.2016.
  */
 
-public class OverAllDeviceInfo extends Fragment
-{
+public class OverAllDeviceInfo extends Fragment {
     private ShellUtils mShell;
     private SwitchCompat mMSM_Hotplug;
     private ShellExecuter Shell;
@@ -30,15 +29,14 @@ public class OverAllDeviceInfo extends Fragment
     @Nullable
     @Override
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mShell = ((Activity) getActivity()).getShellSession();
 
         View view = inflater.inflate(R.layout.fragment_all_device_info, container, false);
-        mGpuStatus=(TextView)view.findViewById(R.id.Gpu_status_textview);
-        mBatteryTmp=(TextView)view.findViewById(R.id.battery_tmp);
+        mGpuStatus = (TextView) view.findViewById(R.id.Gpu_status_textview);
+        mBatteryTmp = (TextView) view.findViewById(R.id.battery_tmp);
         mGpuStatus.setVisibility(View.GONE);
-        mBatteryVoltage=(TextView)view.findViewById(R.id.battery_voltage);
+        mBatteryVoltage = (TextView) view.findViewById(R.id.battery_voltage);
         Thread t = new Thread() {
 
             @Override
@@ -68,25 +66,26 @@ public class OverAllDeviceInfo extends Fragment
 
 
     }
-    public String gpuStatus(){
+
+    public String gpuStatus() {
         return Shell.runAsRoot("cat /sys/class/kgsl/kgsl-3d0");
     }
-    private String batterytmp(){
-        return Shell.runAsRoot("cat /sys/class/power_supply/battery/batt_temp") ;
+
+    private String batterytmp() {
+        return Shell.runAsRoot("cat /sys/class/power_supply/battery/batt_temp");
     }
 
-    private String batteryvol(){
-        return Shell.runAsRoot("cat /sys/class/power_supply/battery/batt_vol") ;
+    private String batteryvol() {
+        return Shell.runAsRoot("cat /sys/class/power_supply/battery/batt_vol");
     }
 
     private void updateTextView() {
-        if (Shell.hasGpu())
-        {
+        if (Shell.hasGpu()) {
             mGpuStatus.setVisibility(View.VISIBLE);
-            mGpuStatus.setText("Gpu Status :- "+gpuStatus()+" hz");
+            mGpuStatus.setText("Gpu Status :- " + gpuStatus() + " hz");
         }
-        mBatteryTmp.setText("Battery Tmp:- "+batterytmp());
-        mBatteryVoltage.setText("Battery Voltage:- "+batteryvol()+"muv");
+        mBatteryTmp.setText("Battery Tmp:- " + batterytmp());
+        mBatteryVoltage.setText("Battery Voltage:- " + batteryvol() + "muv");
     }
 
 

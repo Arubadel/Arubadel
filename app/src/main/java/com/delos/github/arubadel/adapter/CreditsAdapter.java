@@ -18,25 +18,24 @@ import org.json.JSONObject;
  * Date: 10/23/16 12:51 PM
  */
 
-public class CreditsAdapter extends GithubAdapterIDEA
-{
-    public CreditsAdapter(Context context)
-    {
-        super(context);
-    }
+public class CreditsAdapter extends GithubAdapterIDEA {
     private JSONObject release;
     private String Url;
     private String contributors[] = new String[5];
-    private TextView text1,text2;
+    private TextView text1, text2;
+
+    public CreditsAdapter(Context context) {
+        super(context);
+    }
+
     @Override
-    protected View onView(final int position, View convertView, ViewGroup parent)
-    {
+    protected View onView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.list_credits, parent, false);
 
         text1 = (TextView) convertView.findViewById(R.id.list_credits_name);
         text2 = (TextView) convertView.findViewById(R.id.list_credits_contributions);
-        final Button mButton=(Button)convertView.findViewById(R.id.button_credits_open_in_github);
+        final Button mButton = (Button) convertView.findViewById(R.id.button_credits_open_in_github);
         release = (JSONObject) getItem(position);
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -46,15 +45,14 @@ public class CreditsAdapter extends GithubAdapterIDEA
             }
         });
 
-        try
-        {
+        try {
             if (release.has("login"))
                 text1.setText(release.getString("login"));
-                contributors[position] = release.getString("login"); //Using array for storing the names
-                mButton.setOnClickListener(new View.OnClickListener() {
+            contributors[position] = release.getString("login"); //Using array for storing the names
+            mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Url="https://github.com/"+ contributors[position];
+                    Url = "https://github.com/" + contributors[position];
                     Uri uri = Uri.parse(Url);
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     getContext().startActivity(intent);
@@ -65,8 +63,7 @@ public class CreditsAdapter extends GithubAdapterIDEA
             if (release.has("contributions"))
                 text2.setText(getContext().getString(R.string.contribution_counter_info, release.getInt("contributions")));
 
-        } catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 

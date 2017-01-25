@@ -27,30 +27,28 @@ import static android.app.Activity.RESULT_OK;
  * Created by Sumit on 19.10.2016.
  */
 
-public class Flasher extends Fragment
-{
-    private ShellUtils mShell;
-    private RadioButton mFlashBoot,mFlashRecovery;
+public class Flasher extends Fragment {
     private static final int FILE_PICKER_REQUEST_CODE = 1;
-    private String path,mBRootPath,StringFlashRB;
+    private ShellUtils mShell;
+    private RadioButton mFlashBoot, mFlashRecovery;
+    private String path, mBRootPath, StringFlashRB;
     private PanterDialog dialog;
 
     @Nullable
     @Override
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mShell = ((Activity) getActivity()).getShellSession();
         View view = inflater.inflate(R.layout.fragment_flasher, container, false);
-        mFlashBoot=(RadioButton)view.findViewById(R.id.fragment_flasher_radio_boot);
-        mFlashRecovery=(RadioButton)view.findViewById(R.id.fragment_flasher_radio_recovery);
+        mFlashBoot = (RadioButton) view.findViewById(R.id.fragment_flasher_radio_boot);
+        mFlashRecovery = (RadioButton) view.findViewById(R.id.fragment_flasher_radio_recovery);
 
 
         mFlashBoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBRootPath="/sdcard/flashed";
-                StringFlashRB="Boot";
+                mBRootPath = "/sdcard/flashed";
+                StringFlashRB = "Boot";
                 showFileChooser();
             }
         });
@@ -58,8 +56,8 @@ public class Flasher extends Fragment
         mFlashRecovery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBRootPath="/sdcard/flashed_recovery";
-                StringFlashRB="Recovery";
+                mBRootPath = "/sdcard/flashed_recovery";
+                StringFlashRB = "Recovery";
                 showFileChooser();
             }
         });
@@ -90,14 +88,14 @@ public class Flasher extends Fragment
         if (requestCode == 1 && resultCode == RESULT_OK) {
             path = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
             dialog = new PanterDialog(getContext());
-            dialog.setTitle("Flash "+StringFlashRB );
+            dialog.setTitle("Flash " + StringFlashRB);
             dialog.setHeaderBackground(R.color.colorPrimaryDark)
-                    .setMessage("Are you sure you want to Flash this "+StringFlashRB+" ?"+"\n"+path)
+                    .setMessage("Are you sure you want to Flash this " + StringFlashRB + " ?" + "\n" + path)
                     .setPositive("Flash", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                                 /*use sdcard/flash until this feature is ready*/
-                            Shell.SU.run("dd if="+path+" of="+mBRootPath);
+                            Shell.SU.run("dd if=" + path + " of=" + mBRootPath);
                             dialog.dismiss();
 
                         }
@@ -107,7 +105,6 @@ public class Flasher extends Fragment
                     .show();
         }
     }
-
 
 
 }

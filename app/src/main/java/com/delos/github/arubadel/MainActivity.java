@@ -58,8 +58,8 @@ import eu.chainfire.libsuperuser.Shell;
 
 import static com.delos.github.arubadel.util.NetworkStat.isNetworkAvailable;
 
-public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener
-{
+public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener {
+    boolean suAvailable = Shell.SU.available();
     // Keep fragments in memory and load once to use less memory
     private CPUToolsFragment mFragmentCPUTools;
     private CreditsFragment mFragmentCredits;
@@ -76,21 +76,18 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
     private BuddyChat mChat;
-    private String email,TAG="MainActivity";
-    private MenuItem msm_hotplug,Cputools,Misc,bSelinuxChanger,bOverAllDeviceStatus,bFlasher,mAppUpdates;
+    private String email, TAG = "MainActivity";
+    private MenuItem msm_hotplug, Cputools, Misc, bSelinuxChanger, bOverAllDeviceStatus, bFlasher, mAppUpdates;
     /*Navigation drawer*/
     private NavigationView navigationView;
     private View navHeaderView;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
-
     /*Dialog*/
     private PanterDialog UpdateDialog;
 
-    boolean suAvailable= Shell.SU.available();
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -105,7 +102,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navHeaderView= navigationView.inflateHeaderView(R.layout.nav_header_main);
+        navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         this.mFAB = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         this.mFragmentCPUTools = new CPUToolsFragment();
@@ -117,71 +114,63 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mFragmentRelROM = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_RELEASES);
         this.mFragmentPreferences = new PreferencesFragment();
         this.mAboutDevice = new AboutDevice();
-        this.mHotplug=new MsmMpdecisionHotplug();
-        this.mDeviceStatus=new OverAllDeviceInfo();
-        this.mSelinuxChanger=new SelinuxChanger();
-        this.mFlasher=new Flasher();
-        this.mChat=new BuddyChat();
+        this.mHotplug = new MsmMpdecisionHotplug();
+        this.mDeviceStatus = new OverAllDeviceInfo();
+        this.mSelinuxChanger = new SelinuxChanger();
+        this.mFlasher = new Flasher();
+        this.mChat = new BuddyChat();
         Menu menu = navigationView.getMenu();
         msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
-        Cputools=menu.findItem(R.id.nav_cputools);
-        Misc=menu.findItem(R.id.nav_misc);
-        bSelinuxChanger=menu.findItem(R.id.nav_selinux_changer);
-        bOverAllDeviceStatus=menu.findItem(R.id.nav_over_all_device_info);
-        bFlasher=menu.findItem(R.id.nav_flasher);
-        mAppUpdates=menu.findItem(R.id.nav_app_updates);
+        Cputools = menu.findItem(R.id.nav_cputools);
+        Misc = menu.findItem(R.id.nav_misc);
+        bSelinuxChanger = menu.findItem(R.id.nav_selinux_changer);
+        bOverAllDeviceStatus = menu.findItem(R.id.nav_over_all_device_info);
+        bFlasher = menu.findItem(R.id.nav_flasher);
+        mAppUpdates = menu.findItem(R.id.nav_app_updates);
 
-if(suAvailable)
-{
-    Cputools.setVisible(true);
-    Misc.setVisible(true);
-    if(CPUTools.hasMsmMPDecisionHotplug())
+        if (suAvailable) {
+            Cputools.setVisible(true);
+            Misc.setVisible(true);
+            if (CPUTools.hasMsmMPDecisionHotplug())
 
-    {
-        msm_hotplug.setVisible(true);
-    }
-    else
-    {
-        msm_hotplug.setVisible(false);
+            {
+                msm_hotplug.setVisible(true);
+            } else {
+                msm_hotplug.setVisible(false);
 
-    }
-    this.updateFragment(this.mFragmentCPUTools);
+            }
+            this.updateFragment(this.mFragmentCPUTools);
 
-    if(ShellExecuter.hasSelinux())
-    {
-        bSelinuxChanger.setVisible(true);
-    }else{
-        bSelinuxChanger.setVisible(false);
-    }
-    bFlasher.setVisible(true);
-    bOverAllDeviceStatus.setVisible(true);
+            if (ShellExecuter.hasSelinux()) {
+                bSelinuxChanger.setVisible(true);
+            } else {
+                bSelinuxChanger.setVisible(false);
+            }
+            bFlasher.setVisible(true);
+            bOverAllDeviceStatus.setVisible(true);
 
-    mFAB.setVisibility(View.VISIBLE);
+            mFAB.setVisibility(View.VISIBLE);
 
-}
-else
-{
-    Cputools.setVisible(false);
-    Misc.setVisible(false);
-    msm_hotplug.setVisible(false);
-    bSelinuxChanger.setVisible(false);
-    this.updateFragment(this.mAboutDevice);
-    bOverAllDeviceStatus.setVisible(false);
-    bFlasher.setVisible(false);
-    Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
-    mFAB.setVisibility(View.GONE);
+        } else {
+            Cputools.setVisible(false);
+            Misc.setVisible(false);
+            msm_hotplug.setVisible(false);
+            bSelinuxChanger.setVisible(false);
+            this.updateFragment(this.mAboutDevice);
+            bOverAllDeviceStatus.setVisible(false);
+            bFlasher.setVisible(false);
+            Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
+            mFAB.setVisibility(View.GONE);
 
-}
+        }
 
         /*Hide app updates fragment*/
         mAppUpdates.setVisible(false);
-            // register click listener for fab
+        // register click listener for fab
         this.mFAB.setOnClickListener(
-                new View.OnClickListener()
-                {
+                new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
+                    public void onClick(View v) {
                         AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
                         builderSingle.setIcon(R.mipmap.ic_launcher);
                         builderSingle.setTitle("Reboot Menu:-");
@@ -203,10 +192,18 @@ else
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String strName = arrayAdapter.getItem(which);
-                                if(strName.equals("Reboot")){Shell.SU.run("reboot");}
-                                if(strName.equals("Power Off")){Shell.SU.run("reboot -p");}
-                                if(strName.equals("Soft Reboot")){Shell.SU.run("killall system_server");}
-                                if(strName.equals("Reboot Recovery")){Shell.SU.run("reboot recovery");}
+                                if (strName.equals("Reboot")) {
+                                    Shell.SU.run("reboot");
+                                }
+                                if (strName.equals("Power Off")) {
+                                    Shell.SU.run("reboot -p");
+                                }
+                                if (strName.equals("Soft Reboot")) {
+                                    Shell.SU.run("killall system_server");
+                                }
+                                if (strName.equals("Reboot Recovery")) {
+                                    Shell.SU.run("reboot recovery");
+                                }
                             }
                         });
                         builderSingle.show();
@@ -219,22 +216,22 @@ else
         AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
                 .setUpdateFrom(UpdateFrom.XML)
                 .setUpdateXML("https://raw.githubusercontent.com/Arubadel/Arubadel/master/Updater.xml")
-        .withListener(new AppUpdaterUtils.UpdateListener() {
+                .withListener(new AppUpdaterUtils.UpdateListener() {
                     @Override
                     public void onSuccess(final Update update, Boolean isUpdateAvailable) {
                         Log.d("AppUpdater", update.getLatestVersion() + ", " + update.getUrlToDownload() + ", " + Boolean.toString(isUpdateAvailable));
-                        if(isUpdateAvailable==true){
-                            UpdateDialog= new PanterDialog(MainActivity.this);
+                        if (isUpdateAvailable == true) {
+                            UpdateDialog = new PanterDialog(MainActivity.this);
                             UpdateDialog.setTitle("Update Found")
                                     .setHeaderBackground(R.color.colorPrimaryDark)
-                                    .setMessage("Changelog :- \n\n"+update.getReleaseNotes())
-                                    .setPositive("Download",new View.OnClickListener() {
+                                    .setMessage("Changelog :- \n\n" + update.getReleaseNotes())
+                                    .setPositive("Download", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             Uri uri = Uri.parse(String.valueOf(update.getUrlToDownload()));
                                             DownloadManager.Request request = new DownloadManager.Request(uri);
-                                            String  fileName = uri.getLastPathSegment();
-                                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,fileName);
+                                            String fileName = uri.getLastPathSegment();
+                                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
 
                                             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                             Long reference = downloadManager.enqueue(request);
@@ -256,59 +253,53 @@ else
                         Log.d("AppUpdater", "Something went wrong");
                     }
                 });
-                    appUpdaterUtils.start();
+        appUpdaterUtils.start();
 
-        if(isNetworkAvailable(this)==true){
-            String x,y;
+        if (isNetworkAvailable(this) == true) {
+            String x, y;
             String mPassword = "Password";
-            String mEmail ="Email";
-            x=getPreferences(mEmail);
-            y=getPreferences(mPassword);
-            Log.i(TAG,"Email :- "+x + " Password :- " + y);
+            String mEmail = "Email";
+            x = getPreferences(mEmail);
+            y = getPreferences(mPassword);
+            Log.i(TAG, "Email :- " + x + " Password :- " + y);
             Buddy.loginUser(x, y, new BuddyCallback<User>(User.class) {
                 @Override
                 public void completed(BuddyResult<User> result) {
 
                 }
             });
-        }else {
-            Log.i(TAG,"Can't Login");
+        } else {
+            Log.i(TAG, "Can't Login");
         }
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 
     }
 
-    public String getPreferences(String Name){
+    public String getPreferences(String Name) {
         String o;
         settings = getSharedPreferences(Name, 0); // 0 - for private mode
-        o=settings.getString(Name,null);
+        o = settings.getString(Name, null);
 
         return o;
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START))
-        {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else
-        {
+        } else {
             super.onBackPressed();
         }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item)
-    {
+    public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id==R.id.nav_over_all_device_info)
-        {
+        if (id == R.id.nav_over_all_device_info) {
             this.updateFragment(this.mDeviceStatus);
             setTitle("Device Status");
         }
@@ -316,68 +307,56 @@ else
         if (id == R.id.nav_cputools) {
             this.updateFragment(this.mFragmentCPUTools);
             setTitle("Cpu Tools");
-        }
-        else if (id == R.id.nav_msm_mpdecision_hotplug) {
+        } else if (id == R.id.nav_msm_mpdecision_hotplug) {
             this.updateFragment(this.mHotplug);
             setTitle("Msm Hotplug");
-        }
-        else if (id == R.id.nav_misc) {
+        } else if (id == R.id.nav_misc) {
             this.updateFragment(this.mFragmentMisc);
             setTitle("Misc Stuff");
-        }
-        else if (id == R.id.nav_selinux_changer) {
+        } else if (id == R.id.nav_selinux_changer) {
             this.updateFragment(this.mSelinuxChanger);
             setTitle("Selinux Changer");
-        }
-        else if (id == R.id.nav_flasher) {
+        } else if (id == R.id.nav_flasher) {
             this.updateFragment(this.mFlasher);
             setTitle("Flash");
-        }
-        else if (id == R.id.nav_app_updates) {
+        } else if (id == R.id.nav_app_updates) {
             this.updateFragment(this.mFragmentRelApp);
             setTitle("App Updates");
-        }
-         else if (id == R.id.nav_kernel_updates) {
+        } else if (id == R.id.nav_kernel_updates) {
             this.updateFragment(this.mFragmentRelKernel);
             setTitle("Kernels");
-        }
-        else if (id == R.id.nav_recovery) {
+        } else if (id == R.id.nav_recovery) {
             this.updateFragment(this.mFragmentRelRecovery);
             setTitle("Recoverys");
-        }
-        else if (id == R.id.nav_rom) {
+        } else if (id == R.id.nav_rom) {
             this.updateFragment(this.mFragmentRelROM);
             setTitle("Roms");
-        }
-        else if (id == R.id.nav_credits)
-        {
+        } else if (id == R.id.nav_credits) {
             this.updateFragment(this.mFragmentCredits);
             setTitle("Credits");
-        }
-        else if (id == R.id.nav_settings)
-        {
+        } else if (id == R.id.nav_settings) {
             this.updateFragment(this.mFragmentPreferences);
             setTitle("Settings");
-        }
-        else if (id == R.id.nav_about_device) {
+        } else if (id == R.id.nav_about_device) {
             this.updateFragment(this.mAboutDevice);
             setTitle("About Device");
-        }else if(id==R.id.nav_logout){
+        } else if (id == R.id.nav_logout) {
             settings = getSharedPreferences("LoginUser", 0); // 0 - for private mode
             editor = settings.edit();
-            editor.putBoolean("LoginUser",false);
+            editor.putBoolean("LoginUser", false);
             editor.commit();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
-        }else if(id==R.id.nav_chat){updateFragment(this.mChat);}
+        } else if (id == R.id.nav_chat) {
+            updateFragment(this.mChat);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
     }
 
-    protected void updateFragment(Fragment fragment)
-    {
+    protected void updateFragment(Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         ft.replace(R.id.content_frame, fragment);

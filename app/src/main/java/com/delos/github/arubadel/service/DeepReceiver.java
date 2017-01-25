@@ -10,12 +10,13 @@ import android.util.Log;
  */
 
 public class DeepReceiver extends BroadcastReceiver {
-    private String TAG="DeepSleepReceiver";
+    private String TAG = "DeepSleepReceiver";
+
     @Override
     public void onReceive(Context context, Intent intent) {
-            Intent i = new Intent(context, RestoreDeviceStat.class);
-            Log.i(TAG,"Starting Service");
-            context.startService(i);
+        Intent i = new Intent(context, RestoreDeviceStat.class);
+        Log.i(TAG, "Starting Service");
+        context.startService(i);
 
     }
 }

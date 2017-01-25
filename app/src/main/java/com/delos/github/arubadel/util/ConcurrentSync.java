@@ -5,18 +5,16 @@ package com.delos.github.arubadel.util;
  * Date: 10/21/16 12:17 AM
  */
 
-abstract public class ConcurrentSync extends Thread
-{
+abstract public class ConcurrentSync extends Thread {
     protected abstract void onRun();
+
     protected abstract boolean onCondition();
 
     @Override
-    public void run()
-    {
+    public void run() {
         super.run();
 
-        while (isInterrupted() || onCondition())
-        {
+        while (isInterrupted() || onCondition()) {
             this.onRun();
         }
     }

@@ -13,15 +13,12 @@ import eu.chainfire.libsuperuser.Shell;
  * Date: 10/20/16 3:31 PM
  */
 
-public class ShellUtils
-{
+public class ShellUtils {
     // all activities should use the same session
     private static Shell.Interactive rootSession;
 
-    public ShellUtils(final Context context)
-    {
-        if (rootSession == null)
-        {
+    public ShellUtils(final Context context) {
+        if (rootSession == null) {
             final ProgressDialog dialog = new ProgressDialog(context);
             dialog.setTitle("Please wait");
             dialog.setMessage("Requesting root privilege...");
@@ -35,13 +32,11 @@ public class ShellUtils
                     setWantSTDERR(true).
                     setWatchdogTimeout(5).
                     setMinimalLogging(true).
-                    open(new Shell.OnCommandResultListener()
-                    {
+                    open(new Shell.OnCommandResultListener() {
 
                         // Callback to report whether the shell was successfully started up
                         @Override
-                        public void onCommandResult(int commandCode, int exitCode, List<String> output)
-                        {
+                        public void onCommandResult(int commandCode, int exitCode, List<String> output) {
                             // note: this will FC if you rotate the phone while the dialog is up
                             dialog.dismiss();
 
@@ -52,21 +47,18 @@ public class ShellUtils
         }
     }
 
-    public void closeSession()
-    {
+    public void closeSession() {
         if (rootSession != null)
             rootSession.close();
 
         rootSession = null;
     }
 
-    public Shell.Interactive getSession()
-    {
+    public Shell.Interactive getSession() {
         return ShellUtils.rootSession;
     }
 
-    protected void reportError(String string, Context context)
-    {
+    protected void reportError(String string, Context context) {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
         rootSession = null;
     }

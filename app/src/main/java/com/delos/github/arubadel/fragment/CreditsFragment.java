@@ -9,17 +9,14 @@ import com.delos.github.arubadel.util.Config;
  * Date: 19.10.2016 12:43 AM
  */
 
-public class CreditsFragment extends AbstractGithubFragment
-{
+public class CreditsFragment extends AbstractGithubFragment {
     @Override
-    public String onTargetURL()
-    {
+    public String onTargetURL() {
         return Config.URL_CONTRIBUTORS;
     }
 
     @Override
-    public AbstractGithubAdapter onAdapter()
-    {
+    public AbstractGithubAdapter onAdapter() {
         return new CreditsAdapter(getActivity());
     }
 

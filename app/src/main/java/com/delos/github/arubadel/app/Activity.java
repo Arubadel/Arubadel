@@ -18,32 +18,28 @@ import static com.delos.github.arubadel.util.ShellExecuter.runAsRoot;
  * Date: 10/20/16 4:05 PM
  */
 
-public class Activity extends AppCompatActivity
-{
+public class Activity extends AppCompatActivity {
     private ShellUtils mShellInstance;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
-    private String o=null;
-    public ShellUtils getShellSession()
-    {
+    private String o = null;
+
+    public ShellUtils getShellSession() {
         if (this.mShellInstance == null || this.mShellInstance.getSession() == null)
             loadShell();
 
         return this.mShellInstance;
     }
 
-    protected void loadShell()
-    {
+    protected void loadShell() {
         this.mShellInstance = new ShellUtils(this);
     }
 
-    protected void init()
-    {
+    protected void init() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         // try to find device code name
-        if (!sp.contains("device_code_name"))
-        {
+        if (!sp.contains("device_code_name")) {
             String deviceCode = null;
 
             if (Build.MODEL.equals("GT-I8552") || Build.MODEL.equals("I8552") || Build.MODEL.equals("GT-I8550") || Build.MODEL.equals("SAMSUNG I-8552"))
@@ -59,8 +55,7 @@ public class Activity extends AppCompatActivity
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         init();
@@ -68,49 +63,54 @@ public class Activity extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
 
-        if (mShellInstance != null)
-        {
+        if (mShellInstance != null) {
             mShellInstance.closeSession();
             mShellInstance = null;
         }
     }
-    public void SetPreferences(String Name,String stat){
+
+    public void SetPreferences(String Name, String stat) {
         settings = getSharedPreferences(Name, 0); // 0 - for private mode
         editor = settings.edit();
-        editor.putString(Name,stat);
+        editor.putString(Name, stat);
         editor.commit();
 
     }
-    public void getGovernor(){
-        o=runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-        SetPreferences("Governor",o);
-    }
-    public void getCpu1(){
-        o=runAsRoot("cat /sys/devices/system/cpu/cpu1/online");
-        SetPreferences("Cpu1",o);
-    }
-    public void getCpu2(){
-        o=runAsRoot("cat /sys/devices/system/cpu/cpu2/online");
-        SetPreferences("Cpu2",o);
-    }
-    public void getCpu3(){
-        o=runAsRoot("cat /sys/devices/system/cpu/cpu3/online");
-        SetPreferences("Cpu3",o);
-    }
-    public void getCpuMinFreq(){
-        o=runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-        SetPreferences("Minfreq",o);
-    }
-    public void getCpuMaxFreq(){
-        o=runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
-        SetPreferences("Maxfreq",o);
+
+    public void getGovernor() {
+        o = runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        SetPreferences("Governor", o);
     }
 
-    public void SaveStat(){
+    public void getCpu1() {
+        o = runAsRoot("cat /sys/devices/system/cpu/cpu1/online");
+        SetPreferences("Cpu1", o);
+    }
+
+    public void getCpu2() {
+        o = runAsRoot("cat /sys/devices/system/cpu/cpu2/online");
+        SetPreferences("Cpu2", o);
+    }
+
+    public void getCpu3() {
+        o = runAsRoot("cat /sys/devices/system/cpu/cpu3/online");
+        SetPreferences("Cpu3", o);
+    }
+
+    public void getCpuMinFreq() {
+        o = runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+        SetPreferences("Minfreq", o);
+    }
+
+    public void getCpuMaxFreq() {
+        o = runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+        SetPreferences("Maxfreq", o);
+    }
+
+    public void SaveStat() {
         getGovernor();
         getCpu1();
         getCpu2();

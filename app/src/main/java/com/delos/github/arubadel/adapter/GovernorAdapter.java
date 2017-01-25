@@ -17,51 +17,46 @@ import java.util.ArrayList;
  * Date: 10/29/16 4:28 PM
  */
 
-public class GovernorAdapter extends BaseAdapter
-{
+public class GovernorAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private ArrayList<GovernorItem> mList = new ArrayList<>();
-    private String Scaling_gov_path="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-    private String get_gov(){
-        return ShellExecuter.runAsRoot("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
-    }
-    private String store_gov= get_gov();
+    private String Scaling_gov_path = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+    private String store_gov = get_gov();
     private String[] parts = store_gov.split("\\s+"); // escape .
-    public GovernorAdapter(Context context)
-    {
+
+    public GovernorAdapter(Context context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        for (String GovernorList : parts)
-        {
+        for (String GovernorList : parts) {
             String SelectedGovernor = GovernorList;
 
-            mList.add(new GovernorItem(SelectedGovernor, "echo " + SelectedGovernor + " > "  + Scaling_gov_path));
+            mList.add(new GovernorItem(SelectedGovernor, "echo " + SelectedGovernor + " > " + Scaling_gov_path));
         }
 
     }
 
+    private String get_gov() {
+        return ShellExecuter.runAsRoot("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
+    }
+
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return mList.size();
     }
 
     @Override
-    public Object getItem(int position)
-    {
+    public Object getItem(int position) {
         return mList.get(position);
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.list_governor, parent, false);
 
@@ -72,13 +67,11 @@ public class GovernorAdapter extends BaseAdapter
         return convertView;
     }
 
-    public class GovernorItem
-    {
+    public class GovernorItem {
         public String cmdName;
         public String command;
 
-        public GovernorItem(String cmdName, String command)
-        {
+        public GovernorItem(String cmdName, String command) {
             this.cmdName = cmdName;
             this.command = command;
         }

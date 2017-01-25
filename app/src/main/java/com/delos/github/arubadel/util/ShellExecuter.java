@@ -13,8 +13,7 @@ import eu.chainfire.libsuperuser.Shell;
  */
 
 public class ShellExecuter {
-    public static final  String runAsRoot(String command)
-    {
+    public static final String runAsRoot(String command) {
 
         try {
             // Executes the command.
@@ -44,26 +43,34 @@ public class ShellExecuter {
             throw new RuntimeException(e);
         }
     }
-    public static boolean hasSelinux()
-    {
+
+    public static boolean hasSelinux() {
         return new File("/sys/fs/selinux/enforce").isFile();
     }
-    public static boolean hasRoot()
-    {
+
+    public static boolean hasRoot() {
         return new File("/system/xbin/su").isFile();
     }
-    public static List<String> SuperSu(String command){
-        List<String> newShell= (Shell.SH.run(command));
+
+    public static List<String> SuperSu(String command) {
+        List<String> newShell = (Shell.SH.run(command));
         return newShell;
     }
-    public static void RunCommand(String command){
+
+    public static void RunCommand(String command) {
         try {
             Runtime.getRuntime().exec(command);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public static boolean hasGpu(){return new File("/sys/class/kgsl/kgsl-3d0/gpuclk").isFile();}
-    public static boolean hasFastCharge(){return new File("/sys/kernel/fast_charge/force_fast_charge").isFile();}
+
+    public static boolean hasGpu() {
+        return new File("/sys/class/kgsl/kgsl-3d0/gpuclk").isFile();
+    }
+
+    public static boolean hasFastCharge() {
+        return new File("/sys/kernel/fast_charge/force_fast_charge").isFile();
+    }
 
 }

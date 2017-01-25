@@ -9,14 +9,11 @@ import android.content.Intent;
  * Date: 18.10.2016 12:42 AM
  */
 
-public class BootReceiver extends BroadcastReceiver
-{
+public class BootReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
-        if (intent != null && Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction()))
-        {
+    public void onReceive(Context context, Intent intent) {
+        if (intent != null && Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             // after device boots up this statement will be triggered
         }
     }

@@ -15,10 +15,12 @@ import static com.delos.github.arubadel.util.ShellExecuter.RunCommand;
 
 public class RestoreDeviceStat extends Service {
     private SharedPreferences settings;
-    private String o,TAG="Arubadel";
+    private String o, TAG = "Arubadel";
+
     public IBinder onBind(Intent intent) {
         return null;
     }
+
     @Nullable
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -26,47 +28,54 @@ public class RestoreDeviceStat extends Service {
         return START_STICKY;
     }
 
-    private String getPref(String name,String getStatus){
+    private String getPref(String name, String getStatus) {
         settings = getSharedPreferences(name, 0); // 0 - for private mode
-        o=settings.getString(name,getStatus);
+        o = settings.getString(name, getStatus);
         return o;
     }
-    private void Governor(){
-        o=getPref("Governor",null);
-        RunCommand("echo "+o+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-        Log.i(TAG,o);
+
+    private void Governor() {
+        o = getPref("Governor", null);
+        RunCommand("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        Log.i(TAG, o);
     }
-    private void Cpu1(){
-        o=getPref("Cpu1",null);
-        RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu1/online");
-        Log.i(TAG,o);
+
+    private void Cpu1() {
+        o = getPref("Cpu1", null);
+        RunCommand("echo " + o + " > cat /sys/devices/system/cpu/cpu1/online");
+        Log.i(TAG, o);
 
     }
-    private void Cpu2(){
-        o=getPref("Cpu2",null);
-        RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu2/online");
-        Log.i(TAG,o);
+
+    private void Cpu2() {
+        o = getPref("Cpu2", null);
+        RunCommand("echo " + o + " > cat /sys/devices/system/cpu/cpu2/online");
+        Log.i(TAG, o);
 
     }
-    private void Cpu3(){
-        o=getPref("Cpu2",null);
-        RunCommand("echo "+o+ " > cat /sys/devices/system/cpu/cpu3/online");
-        Log.i(TAG,o);
+
+    private void Cpu3() {
+        o = getPref("Cpu2", null);
+        RunCommand("echo " + o + " > cat /sys/devices/system/cpu/cpu3/online");
+        Log.i(TAG, o);
 
     }
-    private void getCpuMinFreq(){
-        o=getPref("Minfreq",null);
-        RunCommand("echo "+o+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-        Log.i(TAG,o);
+
+    private void getCpuMinFreq() {
+        o = getPref("Minfreq", null);
+        RunCommand("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+        Log.i(TAG, o);
 
     }
-    private void getCpuMaxFreq(){
-        o=getPref("Maxfreq",null);
-        RunCommand("echo "+o+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
-        Log.i(TAG,o);
+
+    private void getCpuMaxFreq() {
+        o = getPref("Maxfreq", null);
+        RunCommand("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+        Log.i(TAG, o);
 
     }
-    public void SaveStat(){
+
+    public void SaveStat() {
         Governor();
         Cpu1();
         Cpu2();

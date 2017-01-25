@@ -18,59 +18,53 @@ import java.util.ArrayList;
  * Date: 10/29/16 4:28 PM
  */
 
-public class TcpCongestionControlAdapter extends BaseAdapter
-{
+public class TcpCongestionControlAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private ArrayList<TcpItem> mList = new ArrayList<>();
-    private String tcp_change="sysctl -w net.ipv4.tcp_congestion_control=";
-    private String get_tcp(){
-        return ShellExecuter.runAsRoot("sysctl net.ipv4.tcp_available_congestion_control");
-    }
-    private String store_tcp_value= get_tcp();
+    private String tcp_change = "sysctl -w net.ipv4.tcp_congestion_control=";
+    private String store_tcp_value = get_tcp();
     private String[] parts = store_tcp_value.split("net.ipv4.tcp_available_congestion_control|=|\\s+");
+    private String tcp1, tcp2, tcp3, tcp4, tcp5, tcp6, tcp7, tcp8, tcp9, tcp10, tcp11, tcp12, tcp13;
 
-    private String tcp1,tcp2,tcp3,tcp4,tcp5,tcp6,tcp7,tcp8,tcp9,tcp10,tcp11,tcp12,tcp13;
-
-    public TcpCongestionControlAdapter(Context context)
-    {
+    public TcpCongestionControlAdapter(Context context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
 
-        for (String GetTcp : parts)
-        {
+        for (String GetTcp : parts) {
             String GetTcpList = GetTcp;
             if (TextUtils.isEmpty(GetTcpList)) {
-                GetTcpList=null;
+                GetTcpList = null;
             }
 
-            if(GetTcpList==null){}else
-            mList.add(new TcpItem(GetTcpList , ""));
+            if (GetTcpList == null) {
+            } else
+                mList.add(new TcpItem(GetTcpList, ""));
         }
 
     }
 
+    private String get_tcp() {
+        return ShellExecuter.runAsRoot("sysctl net.ipv4.tcp_available_congestion_control");
+    }
+
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return mList.size();
     }
 
     @Override
-    public Object getItem(int position)
-    {
+    public Object getItem(int position) {
         return mList.get(position);
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.list_governor, parent, false);
 
@@ -81,13 +75,11 @@ public class TcpCongestionControlAdapter extends BaseAdapter
         return convertView;
     }
 
-    public class TcpItem
-    {
+    public class TcpItem {
         public String cmdName;
         public String command;
 
-        public TcpItem(String cmdName, String command)
-        {
+        public TcpItem(String cmdName, String command) {
             this.cmdName = cmdName;
             this.command = command;
         }

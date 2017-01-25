@@ -18,18 +18,17 @@ import org.json.JSONArray;
  * Date: 10/25/16 5:45 PM
  */
 
-abstract public class AbstractGithubFragment extends ListFragment
-{
-    public abstract String onTargetURL();
-    public abstract AbstractGithubAdapter onAdapter();
-
+abstract public class AbstractGithubFragment extends ListFragment {
     private AbstractGithubAdapter mAdapter;
     private String mTargetURL;
     private JSONArray mAwaitedList;
 
+    public abstract String onTargetURL();
+
+    public abstract AbstractGithubAdapter onAdapter();
+
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         this.mAdapter = this.onAdapter();
@@ -41,18 +40,15 @@ abstract public class AbstractGithubFragment extends ListFragment
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-    {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.fragment_github_releases, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        if (item.getItemId() == R.id.menuitem_github_releases_refresh)
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menuitem_github_releases_refresh) {
             this.updateCache();
             return true;
         }
@@ -60,60 +56,48 @@ abstract public class AbstractGithubFragment extends ListFragment
         return super.onOptionsItemSelected(item);
     }
 
-    public AbstractGithubAdapter getAdapter()
-    {
+    public AbstractGithubAdapter getAdapter() {
         return this.mAdapter;
     }
 
-    public JSONArray getList()
-    {
+    public JSONArray getList() {
         return this.mAwaitedList;
     }
 
-    public String getTargetURL()
-    {
+    public String getTargetURL() {
         return this.mTargetURL;
     }
 
-    public void pushInfoWithThread(final int info)
-    {
+    public void pushInfoWithThread(final int info) {
         if (!isDetached() && getActivity() != null)
             getActivity().runOnUiThread(
-                    new Runnable()
-                    {
+                    new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             pushInfo(info);
                         }
                     }
             );
     }
 
-    public void pushInfo(final int info)
-    {
+    public void pushInfo(final int info) {
         if (!isDetached() && getActivity() != null)
             getActivity().runOnUiThread(
-                    new Runnable()
-                    {
+                    new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             setEmptyText(getString(info));
                         }
                     }
             );
     }
 
-    public void update()
-    {
+    public void update() {
         if (!isDetached() && getActivity() != null)
             getActivity().runOnUiThread(
-                    new Runnable()
-                    {
+                    new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             if (mAwaitedList != null && mAwaitedList.length() > 0)
                                 mAdapter.update(mAwaitedList);
 
@@ -124,19 +108,15 @@ abstract public class AbstractGithubFragment extends ListFragment
             );
     }
 
-    public void updateCache()
-    {
+    public void updateCache() {
         pushInfo(R.string.connecting_to_github);
 
-        new Thread()
-        {
+        new Thread() {
             @Override
-            public void run()
-            {
+            public void run() {
                 super.run();
 
-                try
-                {
+                try {
                     final StringBuilder result = new StringBuilder();
 
                     HttpRequest httpRequest = HttpRequest.get(mTargetURL);
@@ -145,8 +125,7 @@ abstract public class AbstractGithubFragment extends ListFragment
                     mAwaitedList = new JSONArray(result.toString());
 
                     update();
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     pushInfoWithThread(R.string.something_went_wrong);
                     e.printStackTrace();
                 }

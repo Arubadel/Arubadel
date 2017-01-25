@@ -71,8 +71,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
-    private String Tag="LoginActivity",UserName;
+    private String Tag = "LoginActivity", UserName;
     private String[] Parts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -358,12 +359,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         }
                     }
                 });
-                PutStringPreferences("Email",mEmail);
-                PutStringPreferences("Password",mPassword);
-                PutBooleanPreferences("LoginUser",true);
-                Parts=mEmail.split("@");
-                PutStringPreferences("Name",Parts[0]);
-                Log.i(Tag,"device registered "+ mEmail+" User name : "+Parts[0]);
+                PutStringPreferences("Email", mEmail);
+                PutStringPreferences("Password", mPassword);
+                PutBooleanPreferences("LoginUser", true);
+                Parts = mEmail.split("@");
+                PutStringPreferences("Name", Parts[0]);
+                Log.i(Tag, "device registered " + mEmail + " User name : " + Parts[0]);
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             } else {
@@ -377,14 +378,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
-        public void PutStringPreferences(String Name,String Function){
+
+        public void PutStringPreferences(String Name, String Function) {
             settings = getSharedPreferences(Name, 0); // 1 - for public mode
             editor = settings.edit();
             editor.putString(Name, Function);
             editor.commit();
 
         }
-        public void PutBooleanPreferences(String Name,boolean Function){
+
+        public void PutBooleanPreferences(String Name, boolean Function) {
             settings = getSharedPreferences(Name, 0); // 1 - for public mode
             editor = settings.edit();
             editor.putBoolean(Name, Function);

@@ -5,8 +5,7 @@ package com.delos.github.arubadel.util;
  * Date: 10/21/16 12:55 AM
  */
 
-public class CPUInfo
-{
+public class CPUInfo {
     public String governor = null;
     public long speedCurrent = 0;
     public long speedMin = 0;
@@ -18,8 +17,7 @@ public class CPUInfo
     public boolean lock = false;
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Maximum speed: " + speedMax / 1000 + "MHz");

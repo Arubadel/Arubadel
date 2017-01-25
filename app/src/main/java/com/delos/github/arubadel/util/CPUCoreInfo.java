@@ -5,8 +5,7 @@ package com.delos.github.arubadel.util;
  * Date: 10/21/16 12:00 PM
  */
 
-public class CPUCoreInfo
-{
+public class CPUCoreInfo {
     public int coreId = 0;
     public boolean isOnline = false;
 }

@@ -8,25 +8,21 @@ import com.delos.github.arubadel.adapter.GithubReleasesAdapter;
  * Date: 10/25/16 10:03 PM
  */
 
-public class GithubReleasesFragment extends AbstractGithubFragment
-{
+public class GithubReleasesFragment extends AbstractGithubFragment {
     public String mTargetUrl;
 
-    public GithubReleasesFragment setTargetURL(String targetUrl)
-    {
+    public GithubReleasesFragment setTargetURL(String targetUrl) {
         this.mTargetUrl = targetUrl;
         return this;
     }
 
     @Override
-    public String onTargetURL()
-    {
+    public String onTargetURL() {
         return this.mTargetUrl;
     }
 
     @Override
-    public AbstractGithubAdapter onAdapter()
-    {
+    public AbstractGithubAdapter onAdapter() {
         return new GithubReleasesAdapter(this.getActivity());
     }
 }

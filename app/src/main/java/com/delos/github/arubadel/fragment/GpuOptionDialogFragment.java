@@ -21,26 +21,22 @@ import com.delos.github.arubadel.util.ShellUtils;
  * Date: 10/23/16 4:17 PM
  */
 
-public class GpuOptionDialogFragment extends DialogFragment
-{
+public class GpuOptionDialogFragment extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         final GpuAdapter adapter = new GpuAdapter(getActivity());
 
-        final ShellUtils shell = ((Activity)getActivity()).getShellSession();
+        final ShellUtils shell = ((Activity) getActivity()).getShellSession();
 
         dialogBuilder.setTitle(getString(R.string.gpu_freq));
         //dialogBuilder.setMessage("What would like to do?");
 
-        dialogBuilder.setAdapter(adapter, new DialogInterface.OnClickListener()
-        {
+        dialogBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
+            public void onClick(DialogInterface dialog, int which) {
                 shell.getSession().addCommand(((GpuAdapter.GpuItem) adapter.getItem(which)).command);
             }
         });

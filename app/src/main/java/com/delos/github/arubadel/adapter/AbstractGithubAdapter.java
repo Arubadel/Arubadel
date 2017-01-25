@@ -14,38 +14,39 @@ import org.json.JSONException;
  * Date: 10/25/16 5:45 PM
  */
 
-abstract public class AbstractGithubAdapter extends BaseAdapter
-{
+abstract public class AbstractGithubAdapter extends BaseAdapter {
     public Context mContext;
     public LayoutInflater mInflater;
 
-    abstract protected JSONArray onIndex();
-    abstract protected void onUpdate(JSONArray list);
-    abstract protected View onView(int position, View convertView, ViewGroup parent);
-
-    public AbstractGithubAdapter(Context context)
-    {
+    public AbstractGithubAdapter(Context context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
     }
 
-    public Context getContext() { return this.mContext; }
-    public LayoutInflater getInflater() { return this.mInflater; }
+    abstract protected JSONArray onIndex();
+
+    abstract protected void onUpdate(JSONArray list);
+
+    abstract protected View onView(int position, View convertView, ViewGroup parent);
+
+    public Context getContext() {
+        return this.mContext;
+    }
+
+    public LayoutInflater getInflater() {
+        return this.mInflater;
+    }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return this.onIndex().length();
     }
 
     @Override
-    public Object getItem(int position)
-    {
-        try
-        {
+    public Object getItem(int position) {
+        try {
             return this.onIndex().getJSONObject(position);
-        } catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -53,20 +54,17 @@ abstract public class AbstractGithubAdapter extends BaseAdapter
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
-    public void update(JSONArray newList)
-    {
+    public void update(JSONArray newList) {
         this.onUpdate(newList);
         this.notifyDataSetChanged();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         return this.onView(position, convertView, parent);
     }
 }

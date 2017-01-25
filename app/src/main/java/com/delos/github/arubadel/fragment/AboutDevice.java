@@ -15,8 +15,9 @@ import com.delos.github.arubadel.util.ShellExecuter;
  * Created by sumit on 28/10/16.
  */
 
-public class AboutDevice extends Fragment
-{
+public class AboutDevice extends Fragment {
+    String App_version = "";
+    TextView mApp_version;
     private TextView model_text;
     private TextView mplatform_release_text;
     private TextView mRil_class;
@@ -26,65 +27,65 @@ public class AboutDevice extends Fragment
     private TextView mBuild_fingerprint;
     private TextView mRoot_Status;
     private ShellExecuter Shell;
-    String App_version = "";
-    TextView mApp_version;
 
-    public String model (){
+    public String model() {
         return Shell.runAsRoot("getprop ro.product.model");
-}
-    public String platform_release (){
+    }
+
+    public String platform_release() {
         return Shell.runAsRoot("getprop ro.build.version.release");
     }
-    public String ril_class (){
+
+    public String ril_class() {
         return Shell.runAsRoot("getprop ro.telephony.ril_class");
     }
-    public String board (){
+
+    public String board() {
         return Shell.runAsRoot("getprop ro.product.board");
     }
-    public String kernel_version (){
+
+    public String kernel_version() {
         return Shell.runAsRoot("cat /proc/version");
     }
-    public String build_description(){
+
+    public String build_description() {
         return Shell.runAsRoot("getprop ro.build.description");
     }
-    public String build_fingerprint (){
+
+    public String build_fingerprint() {
         return Shell.runAsRoot("getprop ro.build.fingerprint");
     }
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_about_device, container, false);
-        model_text=(TextView)rootView.findViewById(R.id.model_text);
-        mplatform_release_text=(TextView)rootView.findViewById(R.id.platform_release_text);
-        mRil_class=(TextView)rootView.findViewById(R.id.Ril_class);
-        mBuild_fingerprint=(TextView)rootView.findViewById(R.id.build_fingerprint);
-        mBuild_description=(TextView)rootView.findViewById(R.id.build_discription_text);
-        mKernel_version=(TextView)rootView.findViewById(R.id.kernel_version_text);
-        mBoard=(TextView)rootView.findViewById(R.id.board_text);
-        mRoot_Status=(TextView)rootView.findViewById(R.id.root_status);
-         mApp_version = (TextView) rootView.findViewById(R.id.app_version);
+        model_text = (TextView) rootView.findViewById(R.id.model_text);
+        mplatform_release_text = (TextView) rootView.findViewById(R.id.platform_release_text);
+        mRil_class = (TextView) rootView.findViewById(R.id.Ril_class);
+        mBuild_fingerprint = (TextView) rootView.findViewById(R.id.build_fingerprint);
+        mBuild_description = (TextView) rootView.findViewById(R.id.build_discription_text);
+        mKernel_version = (TextView) rootView.findViewById(R.id.kernel_version_text);
+        mBoard = (TextView) rootView.findViewById(R.id.board_text);
+        mRoot_Status = (TextView) rootView.findViewById(R.id.root_status);
+        mApp_version = (TextView) rootView.findViewById(R.id.app_version);
 
 
-        try
-        {
+        try {
             App_version = getActivity().getApplicationContext().getPackageManager().getPackageInfo(getActivity().getApplicationContext().getPackageName(), 0).versionName;
-        }
-        catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        mApp_version.setText("App Version :- "+ App_version+"\n");
+        mApp_version.setText("App Version :- " + App_version + "\n");
 
-        model_text.setText("Model Number :- " + model()+"\n");
-        mplatform_release_text.setText("Device Version :- " + platform_release()+"\n");
-        mRil_class.setText("Ril Class :- " + ril_class()+"\n");
-        mBoard.setText("Device Board :- " + board()+"\n");
-        mKernel_version.setText("Kernel Version :- " + kernel_version()+"\n");
-        mBuild_description.setText("Build Description :- " + build_description()+"\n");
-        mBuild_fingerprint.setText("Build FingerPrint :- " + build_fingerprint()+"\n");
-        if(Shell.hasRoot()) {
+        model_text.setText("Model Number :- " + model() + "\n");
+        mplatform_release_text.setText("Device Version :- " + platform_release() + "\n");
+        mRil_class.setText("Ril Class :- " + ril_class() + "\n");
+        mBoard.setText("Device Board :- " + board() + "\n");
+        mKernel_version.setText("Kernel Version :- " + kernel_version() + "\n");
+        mBuild_description.setText("Build Description :- " + build_description() + "\n");
+        mBuild_fingerprint.setText("Build FingerPrint :- " + build_fingerprint() + "\n");
+        if (Shell.hasRoot()) {
             mRoot_Status.setText("Root Status :- Rooted" + "\n");
-        }
-        else {
+        } else {
             mRoot_Status.setText("Root Status :- Not Rooted :(" + "\n");
         }
         return rootView;

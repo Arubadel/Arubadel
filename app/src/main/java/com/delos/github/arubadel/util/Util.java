@@ -12,11 +12,11 @@ public class Util {
     public static final String URL_STORAGE_REFERENCE = "gs://alefirebase-b6a81.appspot.com";
     public static final String FOLDER_STORAGE_IMG = "images";
 
-    public static void initToast(Context c, String message){
-        Toast.makeText(c,message,Toast.LENGTH_SHORT).show();
+    public static void initToast(Context c, String message) {
+        Toast.makeText(c, message, Toast.LENGTH_SHORT).show();
     }
 
-    public  static boolean verificaConexao(Context context) {
+    public static boolean verificaConexao(Context context) {
         boolean conectado;
         ConnectivityManager conectivtyManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         conectado = conectivtyManager.getActiveNetworkInfo() != null
@@ -25,8 +25,8 @@ public class Util {
         return conectado;
     }
 
-    public static String local(String latitudeFinal,String longitudeFinal){
-        return "https://maps.googleapis.com/maps/api/staticmap?center="+latitudeFinal+","+longitudeFinal+"&zoom=18&size=280x280&markers=color:red|"+latitudeFinal+","+longitudeFinal;
+    public static String local(String latitudeFinal, String longitudeFinal) {
+        return "https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeFinal + "," + longitudeFinal + "&zoom=18&size=280x280&markers=color:red|" + latitudeFinal + "," + longitudeFinal;
     }
 
 }

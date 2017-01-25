@@ -20,14 +20,12 @@ import eu.chainfire.libsuperuser.Shell;
  * Date: 10/21/16 12:51 AM
  */
 
-public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
-{
+public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter {
     private ShellUtils mShell;
     private Context mContext;
     private LayoutInflater mInflater;
 
-    public CPUToolsCPUListAdapter(ShellUtils shell, Context context)
-    {
+    public CPUToolsCPUListAdapter(ShellUtils shell, Context context) {
         super();
 
         this.mShell = shell;
@@ -35,38 +33,32 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
         this.mInflater = LayoutInflater.from(context);
     }
 
-    private CompoundButton.OnCheckedChangeListener createSwitchListener(final int cpuId)
-    {
-        return new CompoundButton.OnCheckedChangeListener()
-        {
+    private CompoundButton.OnCheckedChangeListener createSwitchListener(final int cpuId) {
+        return new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                 mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n");
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n");
 
             }
         };
     }
 
     @Override
-    public Object getItem(int position)
-    {
+    public Object getItem(int position) {
         return getList().get(position);
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent)
-    {
+    public View getView(final int position, View view, ViewGroup parent) {
         if (view == null)
             view = mInflater.inflate(R.layout.list_cpu, parent, false);
 
-        final SwitchCompat switchView = (SwitchCompat)view.findViewById(R.id.list_cpu_switch);
+        final SwitchCompat switchView = (SwitchCompat) view.findViewById(R.id.list_cpu_switch);
 
         switchView.setText("Core #" + position);
 
@@ -77,27 +69,26 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter
         return view;
     }
 
-    private void updateCpuState(final SwitchCompat switchView, final int cpuId)
-    {
+    private void updateCpuState(final SwitchCompat switchView, final int cpuId) {
 
-            mShell.getSession().addCommand("cat " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener() {
-                @Override
-                public void onCommandResult(int commandCode, int exitCode, List<String> output) {
+        mShell.getSession().addCommand("cat " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n", cpuId, new Shell.OnCommandResultListener() {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output) {
 
-                    if (commandCode == cpuId) {
+                if (commandCode == cpuId) {
 
-                        if (output.size() > 0) {
-                            // catch if bash send wrong type of string
-                            try {
-                                boolean currentState = 1 == Integer.valueOf(output.get(0));
-                                switchView.setChecked(currentState);
-                            } catch (Exception e) {
-                            }
+                    if (output.size() > 0) {
+                        // catch if bash send wrong type of string
+                        try {
+                            boolean currentState = 1 == Integer.valueOf(output.get(0));
+                            switchView.setChecked(currentState);
+                        } catch (Exception e) {
                         }
                     }
-
                 }
-            });
+
+            }
+        });
 
     }
 }

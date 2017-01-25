@@ -9,24 +9,20 @@ import org.json.JSONArray;
  * Date: 10/25/16 10:18 PM
  */
 
-abstract public class GithubAdapterIDEA extends AbstractGithubAdapter
-{
+abstract public class GithubAdapterIDEA extends AbstractGithubAdapter {
     JSONArray mList = new JSONArray();
 
-    public GithubAdapterIDEA(Context context)
-    {
+    public GithubAdapterIDEA(Context context) {
         super(context);
     }
 
     @Override
-    protected JSONArray onIndex()
-    {
+    protected JSONArray onIndex() {
         return this.mList;
     }
 
     @Override
-    protected void onUpdate(JSONArray list)
-    {
+    protected void onUpdate(JSONArray list) {
         this.mList = list;
     }
 }
