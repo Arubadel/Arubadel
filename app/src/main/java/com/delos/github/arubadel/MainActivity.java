@@ -361,7 +361,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         ft.commit();
     }
     private void connect() {
-        SendBird.connect("", new SendBird.ConnectHandler() {
+
+        SendBird.connect(getPreferences("Email"),getPreferences("Password"), new SendBird.ConnectHandler() {
             @Override
             public void onConnected(User user, SendBirdException e) {
                 if (e != null) {

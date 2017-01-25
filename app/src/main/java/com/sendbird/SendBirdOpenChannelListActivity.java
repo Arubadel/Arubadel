@@ -37,7 +37,6 @@ public class SendBirdOpenChannelListActivity extends FragmentActivity {
     private SendBirdChannelListFragment mSendBirdChannelListFragment;
 
     private View mTopBarContainer;
-    private View mSettingsContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +101,6 @@ public class SendBirdOpenChannelListActivity extends FragmentActivity {
     private void initUIComponents() {
         mTopBarContainer = findViewById(R.id.top_bar_container);
 
-        mSettingsContainer = findViewById(R.id.settings_container);
-        mSettingsContainer.setVisibility(View.GONE);
 
         findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,68 +109,6 @@ public class SendBirdOpenChannelListActivity extends FragmentActivity {
             }
         });
 
-        findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mSettingsContainer.getVisibility() != View.VISIBLE) {
-                    mSettingsContainer.setVisibility(View.VISIBLE);
-                } else {
-                    mSettingsContainer.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        findViewById(R.id.btn_create).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = SendBirdOpenChannelListActivity.this.getLayoutInflater().inflate(R.layout.sendbird_view_open_create_channel, null);
-                final EditText chName = (EditText) view.findViewById(R.id.etxt_chname);
-
-                new AlertDialog.Builder(SendBirdOpenChannelListActivity.this)
-                        .setView(view)
-                        .setTitle("Create Open Channel")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                List<User> operators = new ArrayList<>();
-                                operators.add(SendBird.getCurrentUser());
-
-                                OpenChannel.createChannel(chName.getText().toString(), null, null, operators, new OpenChannel.OpenChannelCreateHandler() {
-                                    @Override
-                                    public void onResult(OpenChannel openChannel, SendBirdException e) {
-                                        if (e != null) {
-                                            Toast.makeText(SendBirdOpenChannelListActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            return;
-                                        }
-
-                                        if (!mSendBirdChannelListFragment.mChannelListQuery.hasNext()) {
-                                            mSendBirdChannelListFragment.mAdapter.add(openChannel);
-                                        }
-
-                                        Intent intent = new Intent(SendBirdOpenChannelListActivity.this, SendBirdOpenChatActivity.class);
-                                        intent.putExtra("channel_url", openChannel.getUrl());
-                                        startActivity(intent);
-                                    }
-                                });
-                            }
-                        })
-                        .setNegativeButton("Cancel", null).create().show();
-
-                mSettingsContainer.setVisibility(View.GONE);
-            }
-        });
-
-        findViewById(R.id.btn_version).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(SendBirdOpenChannelListActivity.this)
-                        .setTitle("SendBird")
-                        .setMessage("SendBird SDK " + SendBird.getSDKVersion())
-                        .setPositiveButton("OK", null).create().show();
-
-                mSettingsContainer.setVisibility(View.GONE);
-            }
-        });
 
         resizeMenubar();
     }
