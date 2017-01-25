@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -31,7 +32,6 @@ import android.widget.Toast;
 import com.delos.github.arubadel.activity.LoginActivity;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
-import com.delos.github.arubadel.fragment.BuddyChat;
 import com.delos.github.arubadel.fragment.CPUToolsFragment;
 import com.delos.github.arubadel.fragment.CreditsFragment;
 import com.delos.github.arubadel.fragment.Flasher;
@@ -76,8 +76,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private OverAllDeviceInfo mDeviceStatus;
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
-    private BuddyChat mChat;
-    private String email, TAG = "MainActivity";
+    private String  TAG = "MainActivity";
     private static final String appId = "1DEACB60-9F4A-40AE-B9C6-A7CFF1CF8BBE";
 
     private MenuItem msm_hotplug, Cputools, Misc, bSelinuxChanger, bOverAllDeviceStatus, bFlasher, mAppUpdates;
@@ -122,7 +121,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         this.mDeviceStatus = new OverAllDeviceInfo();
         this.mSelinuxChanger = new SelinuxChanger();
         this.mFlasher = new Flasher();
-        this.mChat = new BuddyChat();
         Menu menu = navigationView.getMenu();
         msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
         Cputools = menu.findItem(R.id.nav_cputools);
@@ -361,12 +359,15 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         ft.commit();
     }
     private void connect() {
+        Snackbar.make(getCurrentFocus(),"starting please wait",Snackbar.LENGTH_INDEFINITE).show();
 
         SendBird.connect(getPreferences("Email"),getPreferences("Password"), new SendBird.ConnectHandler() {
             @Override
             public void onConnected(User user, SendBirdException e) {
                 if (e != null) {
                     Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getCurrentFocus(),"Can't connect",Snackbar.LENGTH_SHORT).show();
+
                     return;
                 }
 
@@ -377,6 +378,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
                     public void onUpdated(SendBirdException e) {
                         if (e != null) {
                             Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Snackbar.make(getCurrentFocus(),"Can't connect",Snackbar.LENGTH_SHORT).show();
+
                             return;
                         }
 
@@ -384,6 +387,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
                         editor.putString("user_id", "");
                         editor.putString("nickname", nickname);
                         editor.commit();
+                        Snackbar.make(getCurrentFocus(),"Started",Snackbar.LENGTH_SHORT).show();
                         startActivity(new Intent(MainActivity.this, SendBirdOpenChannelListActivity.class));
                     }
                 });

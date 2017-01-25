@@ -584,7 +584,7 @@ public class SendBirdOpenChatActivity extends FragmentActivity {
                     public void onSent(FileMessage fileMessage, SendBirdException e) {
                         showUploadProgress(false);
                         if (e != null) {
-                            Toast.makeText(getActivity(), "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                             return;
                         }
 
