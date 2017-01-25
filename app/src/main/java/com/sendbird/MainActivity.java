@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.delos.github.arubadel.R;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import com.sendbird.android.User;
@@ -192,17 +191,6 @@ public class MainActivity extends FragmentActivity {
                     }
                 });
 
-                if (FirebaseInstanceId.getInstance().getToken() == null) return;
-
-                SendBird.registerPushTokenForCurrentUser(FirebaseInstanceId.getInstance().getToken(), true, new SendBird.RegisterPushTokenWithStatusHandler() {
-                    @Override
-                    public void onRegistered(SendBird.PushTokenRegistrationStatus pushTokenRegistrationStatus, SendBirdException e) {
-                        if (e != null) {
-                            Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                });
             }
         });
 
