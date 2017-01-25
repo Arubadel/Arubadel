@@ -30,7 +30,7 @@ public class MainActivity extends FragmentActivity {
      * Also you need to set Server API Token and Sender ID in SendBird dashboard.
      * Please carefully read "Push notifications" section in SendBird Android documentation
      */
-    private static final String appId = "A7A2672C-AD11-11E4-8DAA-0A18B21C2D82"; /* Sample SendBird Application */
+    private static final String appId = "1DEACB60-9F4A-40AE-B9C6-A7CFF1CF8BBE"; /* Sample SendBird Application */
 
     public static String sUserId;
     private String mNickname;
