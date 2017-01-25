@@ -62,7 +62,7 @@
             </group>
         </menu>
     </item>
-    <item android:title="Chat">
+    <item android:title="Buddy Chat">
         <menu>
 
             <group android:checkableBehavior="single">
