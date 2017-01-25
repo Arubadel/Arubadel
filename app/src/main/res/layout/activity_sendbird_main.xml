@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sendbird.android.sample.MainActivity"
+    >
+
+    <!-- Connection layout -->
+    <LinearLayout
+        android:id="@+id/etxt_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        >
+        <EditText
+            android:id="@+id/etxt_user_id"
+            android:layout_margin="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:hint="User ID"
+            android:singleLine="true"
+            android:gravity="center"
+            />
+        <EditText
+            android:id="@+id/etxt_nickname"
+            android:layout_margin="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:hint="Nickname"
+            android:singleLine="true"
+            android:gravity="center"
+            />
+        <Button
+            android:id="@+id/btn_connect"
+            android:layout_marginTop="20dp"
+            android:minWidth="140dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Connect"
+            android:gravity="center"
+            />
+
+        <Button
+            android:id="@+id/btn_open_channel_list"
+            android:layout_marginTop="60dp"
+            android:minWidth="180dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Open Channel"
+            />
+        <Button
+            android:id="@+id/btn_group_channel_list"
+            android:minWidth="180dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Group Channel"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

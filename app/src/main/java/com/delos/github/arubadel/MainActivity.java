@@ -348,7 +348,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         } else if (id == R.id.nav_chat) {
-            updateFragment(this.mChat);
+            startActivity(new Intent(this, com.sendbird.MainActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

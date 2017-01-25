@@ -46,11 +46,10 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:cardview-v7:25.0.0'
@@ -60,6 +59,10 @@ dependencies {
     compile 'com.github.javiersantos:AppUpdater:2.4'
     compile 'com.github.kngfrhzs:panter-dialog:b12c021695'
     compile 'com.buddy:androidsdk:3.0.0+'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
     testCompile 'junit:junit:4.12'
     compile project(path: ':materialfilepicker')
+    compile files('libs/sendbird-android-sdk-3.0.15.jar')
 }
+
+apply plugin: 'com.google.gms.google-services'
