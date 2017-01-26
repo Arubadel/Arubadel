@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -80,7 +80,7 @@
                 </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.delos.github.arubadel.MainActivity" />
+                android:value="com.delos.github.arubadel.activity.MainActivity" />
         </activity>
         <activity android:name=".activity.LoginActivity"/>
         <activity

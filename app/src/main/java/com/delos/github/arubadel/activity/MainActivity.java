@@ -1,4 +1,4 @@
-package com.delos.github.arubadel;
+package com.delos.github.arubadel.activity;
 
 
 import android.Manifest;
@@ -29,7 +29,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.delos.github.arubadel.activity.LoginActivity;
+import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.fragment.AboutDevice;
 import com.delos.github.arubadel.fragment.CPUToolsFragment;

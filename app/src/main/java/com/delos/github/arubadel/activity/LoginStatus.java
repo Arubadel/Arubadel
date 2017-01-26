@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.delos.github.arubadel.MainActivity;
-
 /**
  * Created by sumit on 10/1/17.
  */
