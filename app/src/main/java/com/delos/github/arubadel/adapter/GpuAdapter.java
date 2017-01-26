@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
-import com.delos.github.arubadel.util.ShellExecuter;
+import com.delos.github.arubadel.util.Tools;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class GpuAdapter extends BaseAdapter {
     public GpuAdapter(Context context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        String[] availableSpeeds = ShellExecuter.runAsRoot("cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies").split("\\s+");
+        String[] availableSpeeds = Tools.shell("cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies",false).split("\\s+");
 
         for (String speed : availableSpeeds) {
             String mhzSpeed = speed;

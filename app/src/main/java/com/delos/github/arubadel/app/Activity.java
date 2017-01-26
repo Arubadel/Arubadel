@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.ShellUtils;
+import com.delos.github.arubadel.util.Tools;
 
-import static com.delos.github.arubadel.util.ShellExecuter.runAsRoot;
 
 /**
  * Created by: veli
@@ -81,32 +81,32 @@ public class Activity extends AppCompatActivity {
     }
 
     public void getGovernor() {
-        o = runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",false);
         SetPreferences("Governor", o);
     }
 
     public void getCpu1() {
-        o = runAsRoot("cat /sys/devices/system/cpu/cpu1/online");
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu1/online",false);
         SetPreferences("Cpu1", o);
     }
 
     public void getCpu2() {
-        o = runAsRoot("cat /sys/devices/system/cpu/cpu2/online");
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu2/online",false);
         SetPreferences("Cpu2", o);
     }
 
     public void getCpu3() {
-        o = runAsRoot("cat /sys/devices/system/cpu/cpu3/online");
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu3/online",false);
         SetPreferences("Cpu3", o);
     }
 
     public void getCpuMinFreq() {
-        o = runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",false);
         SetPreferences("Minfreq", o);
     }
 
     public void getCpuMaxFreq() {
-        o = runAsRoot("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",false);
         SetPreferences("Maxfreq", o);
     }
 

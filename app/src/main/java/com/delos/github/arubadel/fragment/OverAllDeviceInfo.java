@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.app.Activity;
-import com.delos.github.arubadel.util.ShellExecuter;
+import com.delos.github.arubadel.util.FileUtil;
 import com.delos.github.arubadel.util.ShellUtils;
+import com.delos.github.arubadel.util.Tools;
 
 /**
  * Created by Sumit on 19.10.2016.
@@ -21,7 +22,7 @@ import com.delos.github.arubadel.util.ShellUtils;
 public class OverAllDeviceInfo extends Fragment {
     private ShellUtils mShell;
     private SwitchCompat mMSM_Hotplug;
-    private ShellExecuter Shell;
+    private FileUtil Shell;
     private TextView mGpuStatus;
     private TextView mBatteryVoltage;
     private TextView mBatteryTmp;
@@ -68,15 +69,15 @@ public class OverAllDeviceInfo extends Fragment {
     }
 
     public String gpuStatus() {
-        return Shell.runAsRoot("cat /sys/class/kgsl/kgsl-3d0");
+        return Tools.shell("cat /sys/class/kgsl/kgsl-3d0",false);
     }
 
     private String batterytmp() {
-        return Shell.runAsRoot("cat /sys/class/power_supply/battery/batt_temp");
+        return Tools.shell("cat /sys/class/power_supply/battery/batt_temp",false);
     }
 
     private String batteryvol() {
-        return Shell.runAsRoot("cat /sys/class/power_supply/battery/batt_vol");
+        return Tools.shell("cat /sys/class/power_supply/battery/batt_vol",false);
     }
 
     private void updateTextView() {

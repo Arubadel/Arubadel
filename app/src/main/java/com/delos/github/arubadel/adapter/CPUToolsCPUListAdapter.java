@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import com.delos.github.arubadel.R;
 import com.delos.github.arubadel.util.Config;
 import com.delos.github.arubadel.util.ShellUtils;
+import com.delos.github.arubadel.util.Tools;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mShell.getSession().addCommand("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n");
+                Tools.shell("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n",true);
 
             }
         };

@@ -16,7 +16,7 @@ import com.delos.github.arubadel.app.Activity;
 import com.delos.github.arubadel.util.CPUInfo;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
-import com.delos.github.arubadel.util.ShellExecuter;
+import com.delos.github.arubadel.util.FileUtil;
 import com.delos.github.arubadel.util.ShellUtils;
 import com.genonbeta.core.util.NetworkUtils;
 
@@ -95,7 +95,7 @@ public class MiscFragment extends Fragment {
                 }
         );
 
-        if (ShellExecuter.hasGpu()) {
+        if (FileUtil.hasGpu()) {
             mGpuFreq.setVisibility(View.VISIBLE);
             this.mGpuFreq.setOnClickListener(
                     new View.OnClickListener() {
@@ -118,7 +118,7 @@ public class MiscFragment extends Fragment {
                 }
             });
 
-            if (ShellExecuter.hasFastCharge()) {
+            if (FileUtil.hasFastCharge()) {
                 mFastChargeSwitcher.setVisibility(View.VISIBLE);
                 mFastChargetText.setVisibility(View.VISIBLE);
                 mFastChargeSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

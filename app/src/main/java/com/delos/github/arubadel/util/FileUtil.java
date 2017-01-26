@@ -1,34 +1,27 @@
 package com.delos.github.arubadel.util;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-
-import java.net.URISyntaxException;
+import java.io.File;
 
 /**
- * Created by sumit on 30/11/16.
+ * Created by sumit on 5/11/16.
  */
 
 public class FileUtil {
-    public static String getPath(Context context, Uri uri) throws URISyntaxException {
-        if ("content".equalsIgnoreCase(uri.getScheme())) {
-            String[] projection = {"_data"};
-            Cursor cursor = null;
 
-            try {
-                cursor = context.getContentResolver().query(uri, projection, null, null, null);
-                int column_index = cursor.getColumnIndexOrThrow("_data");
-                if (cursor.moveToFirst()) {
-                    return cursor.getString(column_index);
-                }
-            } catch (Exception e) {
-                // Eat it
-            }
-        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-
-        return null;
+    public static boolean hasSelinux() {
+        return new File("/sys/fs/selinux/enforce").isFile();
     }
+
+    public static boolean hasRoot() {
+        return new File("/system/xbin/su").isFile();
+    }
+
+    public static boolean hasGpu() {
+        return new File("/sys/class/kgsl/kgsl-3d0/gpuclk").isFile();
+    }
+
+    public static boolean hasFastCharge() {
+        return new File("/sys/kernel/fast_charge/force_fast_charge").isFile();
+    }
+
 }

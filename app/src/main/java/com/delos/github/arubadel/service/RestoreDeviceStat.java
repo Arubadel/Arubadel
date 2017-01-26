@@ -7,7 +7,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import static com.delos.github.arubadel.util.ShellExecuter.RunCommand;
+import com.delos.github.arubadel.util.Tools;
 
 /**
  * Created by sumit on 10/1/17.
@@ -36,41 +36,41 @@ public class RestoreDeviceStat extends Service {
 
     private void Governor() {
         o = getPref("Governor", null);
-        RunCommand("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",true);
         Log.i(TAG, o);
     }
 
     private void Cpu1() {
         o = getPref("Cpu1", null);
-        RunCommand("echo " + o + " > cat /sys/devices/system/cpu/cpu1/online");
+        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu1/online",true);
         Log.i(TAG, o);
 
     }
 
     private void Cpu2() {
         o = getPref("Cpu2", null);
-        RunCommand("echo " + o + " > cat /sys/devices/system/cpu/cpu2/online");
+        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu2/online",true);
         Log.i(TAG, o);
 
     }
 
     private void Cpu3() {
         o = getPref("Cpu2", null);
-        RunCommand("echo " + o + " > cat /sys/devices/system/cpu/cpu3/online");
+        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu3/online",true);
         Log.i(TAG, o);
 
     }
 
     private void getCpuMinFreq() {
         o = getPref("Minfreq", null);
-        RunCommand("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",true);
         Log.i(TAG, o);
 
     }
 
     private void getCpuMaxFreq() {
         o = getPref("Maxfreq", null);
-        RunCommand("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",true);
         Log.i(TAG, o);
 
     }

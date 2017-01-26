@@ -61,4 +61,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(path: ':materialfilepicker')
     compile files('libs/sendbird-android-sdk-3.0.15.jar')
+    compile files('libs/RootTools.jar')
+
 }

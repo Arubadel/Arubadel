@@ -13,9 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
-import com.delos.github.arubadel.util.ShellExecuter;
-
-import java.util.List;
+import com.delos.github.arubadel.util.FileUtil;
+import com.delos.github.arubadel.util.Tools;
 
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
 public class SelinuxChanger extends Fragment {
 
     private TextView mSelinuxStatus;
-    private ShellExecuter Shell;
+    private FileUtil Shell;
     private Button mEnforcing;
     private Button mPermissive;
 
@@ -74,19 +73,19 @@ public class SelinuxChanger extends Fragment {
     }
 
     private String SelinuxStatus() {
-        return Shell.runAsRoot("getenforce");
+        return Tools.shell("getenforce",false);
     }
 
     private String SelinuxStatusFromKernel() {
-        return Shell.runAsRoot("cat /sys/fs/selinux/enforce");
+        return Tools.shell("cat /sys/fs/selinux/enforce",false);
     }
 
-    private List<String> SetEnforcing() {
-        return Shell.SuperSu("su -c 'setenforce 1'");
+    private String SetEnforcing() {
+        return Tools.shell("su -c 'setenforce 1'",false);
     }
 
-    private List<String> SetPermissive() {
-        return Shell.SuperSu("su -c 'setenforce 0'");
+    private String SetPermissive() {
+        return Tools.shell("su -c 'setenforce 0'",false);
     }
 
 }

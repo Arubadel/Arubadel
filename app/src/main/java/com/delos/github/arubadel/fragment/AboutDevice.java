@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
-import com.delos.github.arubadel.util.ShellExecuter;
+import com.delos.github.arubadel.util.FileUtil;
+import com.delos.github.arubadel.util.Tools;
 
 /**
  * Created by sumit on 28/10/16.
@@ -26,34 +27,34 @@ public class AboutDevice extends Fragment {
     private TextView mBuild_description;
     private TextView mBuild_fingerprint;
     private TextView mRoot_Status;
-    private ShellExecuter Shell;
+    private FileUtil Shell;
 
     public String model() {
-        return Shell.runAsRoot("getprop ro.product.model");
+        return Tools.shell("getprop ro.product.model",false);
     }
 
     public String platform_release() {
-        return Shell.runAsRoot("getprop ro.build.version.release");
+        return Tools.shell("getprop ro.build.version.release",false);
     }
 
     public String ril_class() {
-        return Shell.runAsRoot("getprop ro.telephony.ril_class");
+        return Tools.shell("getprop ro.telephony.ril_class",false);
     }
 
     public String board() {
-        return Shell.runAsRoot("getprop ro.product.board");
+        return Tools.shell("getprop ro.product.board",false);
     }
 
     public String kernel_version() {
-        return Shell.runAsRoot("cat /proc/version");
+        return Tools.shell("cat /proc/version",false);
     }
 
     public String build_description() {
-        return Shell.runAsRoot("getprop ro.build.description");
+        return Tools.shell("getprop ro.build.description",false);
     }
 
     public String build_fingerprint() {
-        return Shell.runAsRoot("getprop ro.build.fingerprint");
+        return Tools.shell("getprop ro.build.fingerprint",false);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

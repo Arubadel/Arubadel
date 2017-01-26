@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
-import com.delos.github.arubadel.util.ShellExecuter;
+import com.delos.github.arubadel.util.Tools;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class GovernorAdapter extends BaseAdapter {
     }
 
     private String get_gov() {
-        return ShellExecuter.runAsRoot("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
+        return Tools.shell("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors",false);
     }
 
     @Override

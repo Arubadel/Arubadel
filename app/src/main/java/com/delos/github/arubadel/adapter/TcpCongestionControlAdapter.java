@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
-import com.delos.github.arubadel.util.ShellExecuter;
+import com.delos.github.arubadel.util.Tools;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter {
     }
 
     private String get_tcp() {
-        return ShellExecuter.runAsRoot("sysctl net.ipv4.tcp_available_congestion_control");
+        return Tools.shell("sysctl net.ipv4.tcp_available_congestion_control",false);
     }
 
     @Override

@@ -43,7 +43,7 @@ import com.delos.github.arubadel.fragment.PreferencesFragment;
 import com.delos.github.arubadel.fragment.SelinuxChanger;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
-import com.delos.github.arubadel.util.ShellExecuter;
+import com.delos.github.arubadel.util.FileUtil;
 import com.eminayar.panter.PanterDialog;
 import com.eminayar.panter.enums.Animation;
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
@@ -143,7 +143,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
             }
             this.updateFragment(this.mFragmentCPUTools);
 
-            if (ShellExecuter.hasSelinux()) {
+            if (FileUtil.hasSelinux()) {
                 bSelinuxChanger.setVisible(true);
             } else {
                 bSelinuxChanger.setVisible(false);
