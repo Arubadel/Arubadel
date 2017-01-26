@@ -43,7 +43,7 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA {
             try {
                 final JSONObject release = list.getJSONObject(i);
 
-                if ((release.getBoolean("prerelease") && !mShowBetaUpdates) || (release.has("tag_name") && release.getString("tag_name").startsWith("@") && !release.getString("tag_name").startsWith("@" + mDeviceCodeName + ","))) {
+                if ((release.getBoolean("prerelease") && !mShowBetaUpdates) || (release.has("tag_name") && release.getString("tag_name").startsWith("@") && !release.getString("tag_name").startsWith("@ignore,")  && !release.getString("tag_name").startsWith("@" + mDeviceCodeName + ","))) {
                 } else {
                     newList.put(release);
                 }
