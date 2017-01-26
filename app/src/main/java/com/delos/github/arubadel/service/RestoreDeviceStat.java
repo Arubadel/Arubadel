@@ -36,41 +36,41 @@ public class RestoreDeviceStat extends Service {
 
     private void Governor() {
         o = getPref("Governor", null);
-        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",true);
+        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", true);
         Log.i(TAG, o);
     }
 
     private void Cpu1() {
         o = getPref("Cpu1", null);
-        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu1/online",true);
+        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu1/online", true);
         Log.i(TAG, o);
 
     }
 
     private void Cpu2() {
         o = getPref("Cpu2", null);
-        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu2/online",true);
+        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu2/online", true);
         Log.i(TAG, o);
 
     }
 
     private void Cpu3() {
         o = getPref("Cpu2", null);
-        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu3/online",true);
+        Tools.shell("echo " + o + " > cat /sys/devices/system/cpu/cpu3/online", true);
         Log.i(TAG, o);
 
     }
 
     private void getCpuMinFreq() {
         o = getPref("Minfreq", null);
-        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",true);
+        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq", true);
         Log.i(TAG, o);
 
     }
 
     private void getCpuMaxFreq() {
         o = getPref("Maxfreq", null);
-        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",true);
+        Tools.shell("echo " + o + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq", true);
         Log.i(TAG, o);
 
     }

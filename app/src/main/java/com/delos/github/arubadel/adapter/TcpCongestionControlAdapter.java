@@ -45,7 +45,7 @@ public class TcpCongestionControlAdapter extends BaseAdapter {
     }
 
     private String get_tcp() {
-        return Tools.shell("sysctl net.ipv4.tcp_available_congestion_control",false);
+        return Tools.shell("sysctl net.ipv4.tcp_available_congestion_control", false);
     }
 
     @Override

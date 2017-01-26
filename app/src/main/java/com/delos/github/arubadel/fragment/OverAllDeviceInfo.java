@@ -69,15 +69,15 @@ public class OverAllDeviceInfo extends Fragment {
     }
 
     public String gpuStatus() {
-        return Tools.shell("cat /sys/class/kgsl/kgsl-3d0",false);
+        return Tools.shell("cat /sys/class/kgsl/kgsl-3d0", false);
     }
 
     private String batterytmp() {
-        return Tools.shell("cat /sys/class/power_supply/battery/batt_temp",false);
+        return Tools.shell("cat /sys/class/power_supply/battery/batt_temp", false);
     }
 
     private String batteryvol() {
-        return Tools.shell("cat /sys/class/power_supply/battery/batt_vol",false);
+        return Tools.shell("cat /sys/class/power_supply/battery/batt_vol", false);
     }
 
     private void updateTextView() {

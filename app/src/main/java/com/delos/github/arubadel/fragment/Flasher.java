@@ -47,7 +47,7 @@ public class Flasher extends Fragment {
         mFlashBoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBRootPath = "/sdcard/flashed";
+                mBRootPath = "/dev/block/mmcblk0p8";
                 StringFlashRB = "Boot";
                 showFileChooser();
             }
@@ -56,7 +56,7 @@ public class Flasher extends Fragment {
         mFlashRecovery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBRootPath = "/sdcard/flashed_recovery";
+                mBRootPath = "/dev/block/mmcblk0p13";
                 StringFlashRB = "Recovery";
                 showFileChooser();
             }

@@ -81,32 +81,32 @@ public class Activity extends AppCompatActivity {
     }
 
     public void getGovernor() {
-        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",false);
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", false);
         SetPreferences("Governor", o);
     }
 
     public void getCpu1() {
-        o = Tools.shell("cat /sys/devices/system/cpu/cpu1/online",false);
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu1/online", false);
         SetPreferences("Cpu1", o);
     }
 
     public void getCpu2() {
-        o = Tools.shell("cat /sys/devices/system/cpu/cpu2/online",false);
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu2/online", false);
         SetPreferences("Cpu2", o);
     }
 
     public void getCpu3() {
-        o = Tools.shell("cat /sys/devices/system/cpu/cpu3/online",false);
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu3/online", false);
         SetPreferences("Cpu3", o);
     }
 
     public void getCpuMinFreq() {
-        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",false);
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq", false);
         SetPreferences("Minfreq", o);
     }
 
     public void getCpuMaxFreq() {
-        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",false);
+        o = Tools.shell("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq", false);
         SetPreferences("Maxfreq", o);
     }
 

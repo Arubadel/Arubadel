@@ -37,7 +37,7 @@ public class GovernorAdapter extends BaseAdapter {
     }
 
     private String get_gov() {
-        return Tools.shell("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors",false);
+        return Tools.shell("cat sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors", false);
     }
 
     @Override

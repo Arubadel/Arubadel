@@ -27,7 +27,7 @@ public class GpuAdapter extends BaseAdapter {
     public GpuAdapter(Context context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        String[] availableSpeeds = Tools.shell("cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies",false).split("\\s+");
+        String[] availableSpeeds = Tools.shell("cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies", false).split("\\s+");
 
         for (String speed : availableSpeeds) {
             String mhzSpeed = speed;

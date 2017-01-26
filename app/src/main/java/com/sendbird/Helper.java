@@ -53,6 +53,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Helper {
+    public static final int MY_PERMISSION_REQUEST_STORAGE = 100;
+
     public static String generateDeviceUUID(Context context) {
         String serial = Build.SERIAL;
         String androidID = Settings.Secure.ANDROID_ID;
@@ -80,7 +82,6 @@ public class Helper {
         return sb.toString();
     }
 
-    public static final int MY_PERMISSION_REQUEST_STORAGE = 100;
     public static boolean requestReadWriteStoragePermissions(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -114,8 +115,8 @@ public class Helper {
 
     public static String getDisplayCoverImageUrl(List<User> members) {
         User me = SendBird.getCurrentUser();
-        for(User member : members) {
-            if(member.getUserId().equals(me.getUserId())) {
+        for (User member : members) {
+            if (member.getUserId().equals(me.getUserId())) {
                 continue;
             }
 
@@ -124,8 +125,9 @@ public class Helper {
 
         return "";
     }
+
     public static String getDisplayMemberNames(List<User> members, boolean condense) {
-        if(condense) {
+        if (condense) {
             if (members.size() < 2) {
                 return "No Members";
             } else if (members.size() == 2) {
@@ -152,7 +154,7 @@ public class Helper {
                 count++;
                 names.append(", " + member.getNickname());
 
-                if(count >= 10) {
+                if (count >= 10) {
                     break;
                 }
             }
@@ -163,7 +165,7 @@ public class Helper {
     public static String getDisplayTimeOrDate(Context context, long milli) {
         Date date = new Date(milli);
 
-        if(System.currentTimeMillis() - milli > 60 * 60 * 24 * 1000l) {
+        if (System.currentTimeMillis() - milli > 60 * 60 * 24 * 1000l) {
             return DateFormat.getDateFormat(context).format(date);
         } else {
             return DateFormat.getTimeFormat(context).format(date);
@@ -179,7 +181,6 @@ public class Helper {
 
         return DateFormat.getDateFormat(context).format(date) + " " + DateFormat.getTimeFormat(context).format(date);
     }
-
 
 
     public static void hideKeyboard(Activity activity) {
@@ -216,7 +217,7 @@ public class Helper {
                 if ("primary".equalsIgnoreCase(type)) {
                     Hashtable<String, Object> value = new Hashtable<String, Object>();
                     value.put("path", Environment.getExternalStorageDirectory() + "/" + split[1]);
-                    value.put("size", (int)new File((String)value.get("path")).length());
+                    value.put("size", (int) new File((String) value.get("path")).length());
                     value.put("mime", "application/octet-stream");
 
                     return value;
@@ -247,7 +248,7 @@ public class Helper {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
+                final String[] selectionArgs = new String[]{
                         split[1]
                 };
 
@@ -265,7 +266,7 @@ public class Helper {
                     File file = File.createTempFile("sendbird", ".jpg");
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 80, new BufferedOutputStream(new FileOutputStream(file)));
                     value.put("path", file.getAbsolutePath());
-                    value.put("size", (int)file.length());
+                    value.put("size", (int) file.length());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -278,7 +279,7 @@ public class Helper {
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
             Hashtable<String, Object> value = new Hashtable<String, Object>();
             value.put("path", uri.getPath());
-            value.put("size", (int)new File((String)value.get("path")).length());
+            value.put("size", (int) new File((String) value.get("path")).length());
             value.put("mime", "application/octet-stream");
 
             return value;
@@ -311,8 +312,8 @@ public class Helper {
                 int size = cursor.getInt(column_index);
 
                 Hashtable<String, Object> value = new Hashtable<String, Object>();
-                if(path == null) path = "";
-                if(mime == null) mime = "application/octet-stream";
+                if (path == null) path = "";
+                if (mime == null) mime = "application/octet-stream";
 
                 value.put("path", path);
                 value.put("mime", mime);
@@ -330,14 +331,31 @@ public class Helper {
     private static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
+
     private static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
+
     private static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
+
     public static boolean isNewGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.contentprovider".equals(uri.getAuthority());
+    }
+
+    public static void displayUrlImage(ImageView imageView, String url) {
+        displayUrlImage(imageView, url, false);
+    }
+
+    public static void displayUrlImage(ImageView imageView, String url, boolean circle) {
+        UrlDownloadAsyncTask.display(url, imageView, circle);
+    }
+
+    public static void downloadUrl(String url, String name, Context context) throws IOException {
+        File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File downloadFile = File.createTempFile("SendBird", name.substring(name.lastIndexOf(".")), downloadDir);
+        UrlDownloadAsyncTask.download(url, downloadFile, context);
     }
 
     private static class UrlDownloadAsyncTask extends AsyncTask<Void, Void, Object> {
@@ -345,6 +363,11 @@ public class Helper {
         private final UrlDownloadAsyncTaskHandler handler;
         private String url;
 
+
+        public UrlDownloadAsyncTask(String url, UrlDownloadAsyncTaskHandler handler) {
+            this.handler = handler;
+            this.url = url;
+        }
 
         public static void download(String url, final File downloadFile, final Context context) {
             UrlDownloadAsyncTask task = new UrlDownloadAsyncTask(url, new UrlDownloadAsyncTaskHandler() {
@@ -489,19 +512,6 @@ public class Helper {
             imageView.setTag(task);
         }
 
-        public UrlDownloadAsyncTask(String url, UrlDownloadAsyncTaskHandler handler) {
-            this.handler = handler;
-            this.url = url;
-        }
-
-        public interface UrlDownloadAsyncTaskHandler {
-            public void onPreExecute();
-
-            public Object doInBackground(File file);
-
-            public void onPostExecute(Object object, UrlDownloadAsyncTask task);
-        }
-
         @Override
         protected void onPreExecute() {
             if (handler != null) {
@@ -551,6 +561,14 @@ public class Helper {
             }
         }
 
+        public interface UrlDownloadAsyncTaskHandler {
+            public void onPreExecute();
+
+            public Object doInBackground(File file);
+
+            public void onPostExecute(Object object, UrlDownloadAsyncTask task);
+        }
+
         private static class LRUCache {
             private final int maxSize;
             private int totalSize;
@@ -597,19 +615,6 @@ public class Helper {
                 return value.length();
             }
         }
-    }
-    public static void displayUrlImage(ImageView imageView, String url) {
-        displayUrlImage(imageView, url, false);
-    }
-
-    public static void displayUrlImage(ImageView imageView, String url, boolean circle) {
-        UrlDownloadAsyncTask.display(url, imageView, circle);
-    }
-
-    public static void downloadUrl(String url, String name, Context context) throws IOException {
-        File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File downloadFile = File.createTempFile("SendBird", name.substring(name.lastIndexOf(".")), downloadDir);
-        UrlDownloadAsyncTask.download(url, downloadFile, context);
     }
 
     public static class RoundedDrawable extends Drawable {

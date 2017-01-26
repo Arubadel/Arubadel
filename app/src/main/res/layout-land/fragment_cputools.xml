@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="horizontal"
-              android:weightSum="1">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <fragment
         android:id="@+id/cputools_cpulist_fragment"
@@ -13,7 +13,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_weight="0.4"
-        android:tag="fragment_cputools_cpulist_fragment"/>
+        android:tag="fragment_cputools_cpulist_fragment" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -52,16 +52,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gathering_cpu_information"
-                android:textStyle="bold"
                 android:textSize="20sp"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/fragment_cputools_cpuinfo_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/gathering_cpu_information"/>
+                android:text="@string/gathering_cpu_information" />
 
         </LinearLayout>
     </LinearLayout>

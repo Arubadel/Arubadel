@@ -76,7 +76,7 @@ public class SendBirdParticipantListActivity extends FragmentActivity {
 
     private void resizeMenubar() {
         ViewGroup.LayoutParams lp = mTopBarContainer.getLayoutParams();
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             lp.height = (int) (28 * getResources().getDisplayMetrics().density);
         } else {
             lp.height = (int) (48 * getResources().getDisplayMetrics().density);
@@ -118,7 +118,8 @@ public class SendBirdParticipantListActivity extends FragmentActivity {
         private SendBirdUserAdapter mAdapter;
         private String mChannelUrl;
 
-        public SendBirdParticipantListFragment() {}
+        public SendBirdParticipantListFragment() {
+        }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -130,7 +131,7 @@ public class SendBirdParticipantListActivity extends FragmentActivity {
             OpenChannel.getChannel(mChannelUrl, new OpenChannel.OpenChannelGetHandler() {
                 @Override
                 public void onResult(final OpenChannel openChannel, SendBirdException e) {
-                    if(e != null) {
+                    if (e != null) {
                         Toast.makeText(getActivity(), "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -142,7 +143,7 @@ public class SendBirdParticipantListActivity extends FragmentActivity {
                                 Toast.makeText(getActivity(), "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                            ((TextView)getActivity().findViewById(R.id.txt_channel_name)).setText("Participants (" + openChannel.getParticipantCount() + ")");
+                            ((TextView) getActivity().findViewById(R.id.txt_channel_name)).setText("Participants (" + openChannel.getParticipantCount() + ")");
                             mUserListQuery = openChannel.createParticipantListQuery();
                             loadMoreUsers();
                         }
@@ -154,7 +155,7 @@ public class SendBirdParticipantListActivity extends FragmentActivity {
         }
 
         private void initUIComponents(View rootView) {
-            mListView = (ListView)rootView.findViewById(R.id.list);
+            mListView = (ListView) rootView.findViewById(R.id.list);
             mAdapter = new SendBirdUserAdapter(getActivity());
 
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -202,11 +203,11 @@ public class SendBirdParticipantListActivity extends FragmentActivity {
         }
 
         private void loadMoreUsers() {
-            if(mUserListQuery != null && mUserListQuery.hasNext() && !mUserListQuery.isLoading()) {
+            if (mUserListQuery != null && mUserListQuery.hasNext() && !mUserListQuery.isLoading()) {
                 mUserListQuery.next(new UserListQuery.UserListQueryResultHandler() {
                     @Override
                     public void onResult(List<User> list, SendBirdException e) {
-                        if(e != null) {
+                        if (e != null) {
                             Toast.makeText(getActivity(), "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -224,7 +225,7 @@ public class SendBirdParticipantListActivity extends FragmentActivity {
 
             public SendBirdUserAdapter(Context context) {
                 mContext = context;
-                mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 mItemList = new ArrayList<>();
             }
 
@@ -260,7 +261,7 @@ public class SendBirdParticipantListActivity extends FragmentActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 ViewHolder viewHolder;
 
-                if(convertView == null) {
+                if (convertView == null) {
                     viewHolder = new ViewHolder();
 
                     convertView = mInflater.inflate(R.layout.sendbird_view_user, parent, false);

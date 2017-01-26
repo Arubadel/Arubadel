@@ -19,35 +19,9 @@ import java.util.List;
  */
 
 public class DirectoryAdapter extends RecyclerView.Adapter<DirectoryAdapter.DirectoryViewHolder> {
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public class DirectoryViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mFileImage;
-        private TextView mFileTitle;
-        private TextView mFileSubtitle;
-
-        public DirectoryViewHolder(View itemView, final OnItemClickListener clickListener) {
-            super(itemView);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.onItemClick(v, getAdapterPosition());
-                }
-            });
-
-            mFileImage = (ImageView) itemView.findViewById(R.id.item_file_image);
-            mFileTitle = (TextView) itemView.findViewById(R.id.item_file_title);
-            mFileSubtitle = (TextView) itemView.findViewById(R.id.item_file_subtitle);
-        }
-    }
-
     private List<File> mFiles;
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
-
     public DirectoryAdapter(Context context, List<File> files) {
         mContext = context;
         mFiles = files;
@@ -59,7 +33,7 @@ public class DirectoryAdapter extends RecyclerView.Adapter<DirectoryAdapter.Dire
 
     @Override
     public DirectoryViewHolder onCreateViewHolder(ViewGroup parent,
-                                                int viewType) {
+                                                  int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_file, parent, false);
 
@@ -83,5 +57,30 @@ public class DirectoryAdapter extends RecyclerView.Adapter<DirectoryAdapter.Dire
 
     public File getModel(int index) {
         return mFiles.get(index);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public class DirectoryViewHolder extends RecyclerView.ViewHolder {
+        private ImageView mFileImage;
+        private TextView mFileTitle;
+        private TextView mFileSubtitle;
+
+        public DirectoryViewHolder(View itemView, final OnItemClickListener clickListener) {
+            super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onItemClick(v, getAdapterPosition());
+                }
+            });
+
+            mFileImage = (ImageView) itemView.findViewById(R.id.item_file_image);
+            mFileTitle = (TextView) itemView.findViewById(R.id.item_file_title);
+            mFileSubtitle = (TextView) itemView.findViewById(R.id.item_file_subtitle);
+        }
     }
 }

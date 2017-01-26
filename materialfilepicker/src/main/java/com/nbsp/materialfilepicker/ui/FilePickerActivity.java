@@ -33,9 +33,8 @@ public class FilePickerActivity extends AppCompatActivity implements DirectoryFr
     public static final String ARG_FILTER = "arg_filter";
 
     public static final String STATE_START_PATH = "state_start_path";
-    private static final String STATE_CURRENT_PATH = "state_current_path";
-
     public static final String RESULT_FILE_PATH = "result_file_path";
+    private static final String STATE_CURRENT_PATH = "state_current_path";
     private static final int HANDLE_CLICK_DELAY = 150;
 
     private Toolbar mToolbar;
@@ -104,7 +103,8 @@ public class FilePickerActivity extends AppCompatActivity implements DirectoryFr
 
             TextView textView = (TextView) f.get(mToolbar);
             textView.setEllipsize(TextUtils.TruncateAt.START);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         updateTitle();
     }

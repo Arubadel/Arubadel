@@ -73,19 +73,19 @@ public class SelinuxChanger extends Fragment {
     }
 
     private String SelinuxStatus() {
-        return Tools.shell("getenforce",false);
+        return Tools.shell("getenforce", false);
     }
 
     private String SelinuxStatusFromKernel() {
-        return Tools.shell("cat /sys/fs/selinux/enforce",false);
+        return Tools.shell("cat /sys/fs/selinux/enforce", false);
     }
 
     private String SetEnforcing() {
-        return Tools.shell("su -c 'setenforce 1'",false);
+        return Tools.shell("su -c 'setenforce 1'", false);
     }
 
     private String SetPermissive() {
-        return Tools.shell("su -c 'setenforce 0'",false);
+        return Tools.shell("su -c 'setenforce 0'", false);
     }
 
 }

@@ -30,31 +30,31 @@ public class AboutDevice extends Fragment {
     private FileUtil Shell;
 
     public String model() {
-        return Tools.shell("getprop ro.product.model",false);
+        return Tools.shell("getprop ro.product.model", false);
     }
 
     public String platform_release() {
-        return Tools.shell("getprop ro.build.version.release",false);
+        return Tools.shell("getprop ro.build.version.release", false);
     }
 
     public String ril_class() {
-        return Tools.shell("getprop ro.telephony.ril_class",false);
+        return Tools.shell("getprop ro.telephony.ril_class", false);
     }
 
     public String board() {
-        return Tools.shell("getprop ro.product.board",false);
+        return Tools.shell("getprop ro.product.board", false);
     }
 
     public String kernel_version() {
-        return Tools.shell("cat /proc/version",false);
+        return Tools.shell("cat /proc/version", false);
     }
 
     public String build_description() {
-        return Tools.shell("getprop ro.build.description",false);
+        return Tools.shell("getprop ro.build.description", false);
     }
 
     public String build_fingerprint() {
-        return Tools.shell("getprop ro.build.fingerprint",false);
+        return Tools.shell("getprop ro.build.fingerprint", false);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

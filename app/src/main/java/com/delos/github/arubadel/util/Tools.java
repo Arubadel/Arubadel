@@ -46,9 +46,9 @@ public class Tools {
 
     public static String shell(String cmd, boolean root) {
         String out = "";
-        ArrayList<String> r = system(root ? getSuBin() : "sh",cmd).getStringArrayList("out");
-        for(String l: r) {
-            out += l+"\n";
+        ArrayList<String> r = system(root ? getSuBin() : "sh", cmd).getStringArrayList("out");
+        for (String l : r) {
+            out += l + "\n";
         }
         return out;
     }
@@ -66,8 +66,8 @@ public class Tools {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             powerManager.reboot("recovery");
         } catch (Exception e) {
-            Log.e("Tools", "reboot '"+type+"' error: "+e.getMessage());
-            shell("reboot "+type, true);
+            Log.e("Tools", "reboot '" + type + "' error: " + e.getMessage());
+            shell("reboot " + type, true);
         }
     }
 
@@ -76,7 +76,7 @@ public class Tools {
     }
 
     private static String getSuBin() {
-        if (new File("/system/xbin","su").exists()) {
+        if (new File("/system/xbin", "su").exists()) {
             return "/system/xbin/su";
         }
         if (RootTools.isRootAvailable()) {
@@ -86,10 +86,10 @@ public class Tools {
     }
 
     private static Bundle system(String shell, String command) {
-            if (isUiThread()) {
-                Log.e(shell,"Application attempted to run a shell command from the main thread");
-            }
-            Log.d(shell,"START");
+        if (isUiThread()) {
+            Log.e(shell, "Application attempted to run a shell command from the main thread");
+        }
+        Log.d(shell, "START");
 
 
         ArrayList<String> res = new ArrayList<String>();
@@ -108,7 +108,7 @@ public class Tools {
 
             process.waitFor();
             if (process.exitValue() == 255) {
-                if (BuildConfig.DEBUG) Log.e(shell,"SU was probably denied! Exit value is 255");
+                if (BuildConfig.DEBUG) Log.e(shell, "SU was probably denied! Exit value is 255");
                 err.add("SU was probably denied! Exit value is 255");
             }
 
@@ -129,13 +129,13 @@ public class Tools {
                 success = false;
             }
         } catch (IOException e) {
-            if (BuildConfig.DEBUG) Log.e(shell,"IOException: "+e.getMessage());
-            err.add("IOException: "+e.getMessage());
+            if (BuildConfig.DEBUG) Log.e(shell, "IOException: " + e.getMessage());
+            err.add("IOException: " + e.getMessage());
         } catch (InterruptedException e) {
-            if (BuildConfig.DEBUG) Log.e(shell,"InterruptedException: "+e.getMessage());
-            err.add("InterruptedException: "+e.getMessage());
+            if (BuildConfig.DEBUG) Log.e(shell, "InterruptedException: " + e.getMessage());
+            err.add("InterruptedException: " + e.getMessage());
         }
-        if (BuildConfig.DEBUG) Log.d(shell,"END");
+        if (BuildConfig.DEBUG) Log.d(shell, "END");
         Bundle r = new Bundle();
         r.putBoolean("success", success);
         r.putString("cmd", command);

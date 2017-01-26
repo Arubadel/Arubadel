@@ -60,6 +60,7 @@ import eu.chainfire.libsuperuser.Shell;
 import static com.delos.github.arubadel.util.NetworkStat.isNetworkAvailable;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String appId = "1DEACB60-9F4A-40AE-B9C6-A7CFF1CF8BBE";
     boolean suAvailable = Shell.SU.available();
     // Keep fragments in memory and load once to use less memory
     private CPUToolsFragment mFragmentCPUTools;
@@ -76,9 +77,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
     private OverAllDeviceInfo mDeviceStatus;
     private SelinuxChanger mSelinuxChanger;
     private Flasher mFlasher;
-    private String  TAG = "MainActivity";
-    private static final String appId = "1DEACB60-9F4A-40AE-B9C6-A7CFF1CF8BBE";
-
+    private String TAG = "MainActivity";
     private MenuItem msm_hotplug, Cputools, Misc, bSelinuxChanger, bOverAllDeviceStatus, bFlasher, mAppUpdates;
     /*Navigation drawer*/
     private NavigationView navigationView;
@@ -358,15 +357,16 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         ft.replace(R.id.content_frame, fragment);
         ft.commit();
     }
-    private void connect() {
-        Snackbar.make(getCurrentFocus(),"starting please wait",Snackbar.LENGTH_INDEFINITE).show();
 
-        SendBird.connect(getPreferences("Email"),getPreferences("Password"), new SendBird.ConnectHandler() {
+    private void connect() {
+        Snackbar.make(getCurrentFocus(), "starting please wait", Snackbar.LENGTH_INDEFINITE).show();
+
+        SendBird.connect(getPreferences("Email"), getPreferences("Password"), new SendBird.ConnectHandler() {
             @Override
             public void onConnected(User user, SendBirdException e) {
                 if (e != null) {
                     Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Snackbar.make(getCurrentFocus(),"Can't connect",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getCurrentFocus(), "Can't connect", Snackbar.LENGTH_SHORT).show();
 
                     return;
                 }
@@ -378,7 +378,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
                     public void onUpdated(SendBirdException e) {
                         if (e != null) {
                             Toast.makeText(MainActivity.this, "" + e.getCode() + ":" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            Snackbar.make(getCurrentFocus(),"Can't connect",Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getCurrentFocus(), "Can't connect", Snackbar.LENGTH_SHORT).show();
 
                             return;
                         }
@@ -387,7 +387,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
                         editor.putString("user_id", "");
                         editor.putString("nickname", nickname);
                         editor.commit();
-                        Snackbar.make(getCurrentFocus(),"Started",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getCurrentFocus(), "Started", Snackbar.LENGTH_SHORT).show();
                         startActivity(new Intent(MainActivity.this, SendBirdOpenChannelListActivity.class));
                     }
                 });

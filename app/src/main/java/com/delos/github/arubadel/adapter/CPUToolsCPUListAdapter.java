@@ -38,7 +38,7 @@ public class CPUToolsCPUListAdapter extends AbstractCPUListAdapter {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Tools.shell("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n",true);
+                Tools.shell("echo " + ((isChecked) ? 1 : 0) + " > " + Config.PATH_CPUS + "/cpu" + cpuId + "/online\n", true);
 
             }
         };

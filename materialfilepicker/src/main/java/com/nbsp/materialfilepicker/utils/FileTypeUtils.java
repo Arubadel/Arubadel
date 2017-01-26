@@ -15,6 +15,39 @@ import java.util.Map;
  */
 
 public class FileTypeUtils {
+    private static Map<String, FileType> fileTypeExtensions = new HashMap<>();
+
+    static {
+        for (FileType fileType : FileType.values()) {
+            for (String extension : fileType.getExtensions()) {
+                fileTypeExtensions.put(extension, fileType);
+            }
+        }
+    }
+
+    public static FileType getFileType(File file) {
+        if (file.isDirectory()) {
+            return FileType.DIRECTORY;
+        }
+
+        FileType fileType = fileTypeExtensions.get(getExtension(file.getName()));
+        if (fileType != null) {
+            return fileType;
+        }
+
+        return FileType.DOCUMENT;
+    }
+
+    public static String getExtension(String fileName) {
+        String encoded;
+        try {
+            encoded = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
+        } catch (UnsupportedEncodingException e) {
+            encoded = fileName;
+        }
+        return MimeTypeMap.getFileExtensionFromUrl(encoded).toLowerCase();
+    }
+
     public enum FileType {
         DIRECTORY(R.drawable.ic_folder_gray_48dp, R.string.type_directory),
         DOCUMENT(R.drawable.ic_document_box, R.string.type_document),
@@ -51,38 +84,5 @@ public class FileTypeUtils {
         public int getDescription() {
             return description;
         }
-    }
-
-    private static Map<String, FileType> fileTypeExtensions = new HashMap<>();
-
-    static {
-        for (FileType fileType : FileType.values()) {
-            for (String extension : fileType.getExtensions()) {
-                fileTypeExtensions.put(extension, fileType);
-            }
-        }
-    }
-
-    public static FileType getFileType(File file) {
-        if (file.isDirectory()) {
-            return FileType.DIRECTORY;
-        }
-
-        FileType fileType = fileTypeExtensions.get(getExtension(file.getName()));
-        if (fileType != null) {
-            return fileType;
-        }
-
-        return FileType.DOCUMENT;
-    }
-
-    public static String getExtension(String fileName) {
-        String encoded;
-        try {
-            encoded = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
-        } catch (UnsupportedEncodingException e) {
-            encoded = fileName;
-        }
-        return MimeTypeMap.getFileExtensionFromUrl(encoded).toLowerCase();
     }
 }

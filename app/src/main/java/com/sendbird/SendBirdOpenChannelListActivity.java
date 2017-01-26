@@ -1,8 +1,6 @@
 package com.sendbird;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,9 +21,7 @@ import android.widget.Toast;
 import com.delos.github.arubadel.R;
 import com.sendbird.android.OpenChannel;
 import com.sendbird.android.OpenChannelListQuery;
-import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
-import com.sendbird.android.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

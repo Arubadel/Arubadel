@@ -4,17 +4,17 @@
 
     <CheckBoxPreference
         android:key="show_beta_updates"
-        android:title="@string/preferences_show_beta_updates_title"
-        android:summary="@string/preferences_show_beta_updates_summary"/>
+        android:summary="@string/preferences_show_beta_updates_summary"
+        android:title="@string/preferences_show_beta_updates_title" />
 
     <EditTextPreference
         android:key="device_code_name"
-        android:title="@string/preferences_device_code_name_title"
-        android:summary="@string/preferences_device_code_name_summary" />
+        android:summary="@string/preferences_device_code_name_summary"
+        android:title="@string/preferences_device_code_name_title" />
 
-  <!--  <EditTextPreference
-        android:key="user_nick_name"
-        android:title="@string/nick_name"
-        android:summary="@string/nick_name_in_chat" />-->
+    <!--  <EditTextPreference
+          android:key="user_nick_name"
+          android:title="@string/nick_name"
+          android:summary="@string/nick_name_in_chat" />-->
 
 </PreferenceScreen>

@@ -15,28 +15,31 @@ import com.nbsp.materialfilepicker.utils.FileUtils;
 import com.nbsp.materialfilepicker.widget.EmptyRecyclerView;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
 
 /**
  * Created by Dimorinny on 24.10.15.
  */
 public class DirectoryFragment extends Fragment {
-    interface FileClickListener {
-        void onFileClicked(File clickedFile);
-    }
-
     private static final String ARG_FILE_PATH = "arg_file_path";
     private static final String ARG_FILTER = "arg_filter";
-
     private View mEmptyView;
     private String mPath;
-
     private CompositeFilter mFilter;
-
     private EmptyRecyclerView mDirectoryRecyclerView;
     private DirectoryAdapter mDirectoryAdapter;
     private FileClickListener mFileClickListener;
+
+    public static DirectoryFragment getInstance(
+            String path, CompositeFilter filter) {
+        DirectoryFragment instance = new DirectoryFragment();
+
+        Bundle args = new Bundle();
+        args.putString(ARG_FILE_PATH, path);
+        args.putSerializable(ARG_FILTER, filter);
+        instance.setArguments(args);
+
+        return instance;
+    }
 
     @SuppressWarnings("deprecation")
     @Override
@@ -49,18 +52,6 @@ public class DirectoryFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mFileClickListener = null;
-    }
-
-    public static DirectoryFragment getInstance(
-            String path, CompositeFilter filter) {
-        DirectoryFragment instance = new DirectoryFragment();
-
-        Bundle args = new Bundle();
-        args.putString(ARG_FILE_PATH, path);
-        args.putSerializable(ARG_FILTER, filter);
-        instance.setArguments(args);
-
-        return instance;
     }
 
     @Nullable
@@ -104,5 +95,9 @@ public class DirectoryFragment extends Fragment {
         }
 
         mFilter = (CompositeFilter) getArguments().getSerializable(ARG_FILTER);
+    }
+
+    interface FileClickListener {
+        void onFileClicked(File clickedFile);
     }
 }

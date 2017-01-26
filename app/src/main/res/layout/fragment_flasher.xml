@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <RadioGroup android:layout_width="wrap_content"
+    <RadioGroup
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="198dp">
+        android:layout_gravity="center"
+        android:layout_marginTop="198dp"
+        android:orientation="vertical">
 
         <RadioButton
             android:id="@+id/fragment_flasher_radio_boot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Flash Boot"/>
+            android:text="Flash Boot" />
 
         <RadioButton
             android:id="@+id/fragment_flasher_radio_recovery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Flash Recovery"/>
+            android:text="Flash Recovery" />
 
     </RadioGroup>
 
