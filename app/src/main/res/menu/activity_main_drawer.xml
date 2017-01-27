@@ -57,6 +57,10 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                    android:id="@+id/nav_website"
+                    android:title="Our Website" />
+
+                <item
                     android:id="@+id/nav_credits"
                     android:title="@string/credits" />
             </group>

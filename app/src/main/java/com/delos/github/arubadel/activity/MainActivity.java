@@ -54,6 +54,7 @@ import com.sendbird.SendBirdOpenChannelListActivity;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import com.sendbird.android.User;
+import com.thefinestartist.finestwebview.FinestWebView;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -344,6 +345,9 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
             finish();
         } else if (id == R.id.nav_chat) {
             connect();
+        }else if(id==R.id.nav_website){
+            new FinestWebView.Builder(this).show("https://arubadel.000webhostapp.com/");
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
