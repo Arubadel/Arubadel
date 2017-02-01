@@ -44,40 +44,32 @@ import com.delos.github.arubadel.fragment.SelinuxChanger;
 import com.delos.github.arubadel.util.CPUTools;
 import com.delos.github.arubadel.util.Config;
 import com.delos.github.arubadel.util.FileUtil;
+import com.delos.github.arubadel.util.Tools;
 import com.eminayar.panter.PanterDialog;
 import com.eminayar.panter.enums.Animation;
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
+import com.rey.material.app.Dialog;
 import com.sendbird.SendBirdOpenChannelListActivity;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import com.sendbird.android.User;
+import com.stericson.RootTools.RootTools;
 import com.thefinestartist.finestwebview.FinestWebView;
 
-import eu.chainfire.libsuperuser.Shell;
 
 import static com.delos.github.arubadel.util.NetworkStat.isNetworkAvailable;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String appId = "1DEACB60-9F4A-40AE-B9C6-A7CFF1CF8BBE";
-    boolean suAvailable = Shell.SU.available();
     // Keep fragments in memory and load once to use less memory
-    private CPUToolsFragment mFragmentCPUTools;
-    private CreditsFragment mFragmentCredits;
-    private MiscFragment mFragmentMisc;
-    private PreferencesFragment mFragmentPreferences;
     private FloatingActionButton mFAB;
     private GithubReleasesFragment mFragmentRelKernel;
     private GithubReleasesFragment mFragmentRelApp;
     private GithubReleasesFragment mFragmentRelRecovery;
     private GithubReleasesFragment mFragmentRelROM;
-    private AboutDevice mAboutDevice;
-    private MsmMpdecisionHotplug mHotplug;
-    private OverAllDeviceInfo mDeviceStatus;
-    private SelinuxChanger mSelinuxChanger;
-    private Flasher mFlasher;
     private String TAG = "MainActivity";
     private MenuItem msm_hotplug, Cputools, Misc, bSelinuxChanger, bOverAllDeviceStatus, bFlasher, mAppUpdates;
     /*Navigation drawer*/
@@ -108,19 +100,10 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         this.mFAB = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        this.mFragmentCPUTools = new CPUToolsFragment();
-        this.mFragmentCredits = new CreditsFragment();
-        this.mFragmentMisc = new MiscFragment();
         this.mFragmentRelKernel = new GithubReleasesFragment().setTargetURL(Config.URL_KERNEL_RELEASES);
         this.mFragmentRelApp = new GithubReleasesFragment().setTargetURL(Config.URL_APP_RELEASES);
         this.mFragmentRelRecovery = new GithubReleasesFragment().setTargetURL(Config.URL_RECOVERY_RELEASES);
         this.mFragmentRelROM = new GithubReleasesFragment().setTargetURL(Config.URL_ROM_RELEASES);
-        this.mFragmentPreferences = new PreferencesFragment();
-        this.mAboutDevice = new AboutDevice();
-        this.mHotplug = new MsmMpdecisionHotplug();
-        this.mDeviceStatus = new OverAllDeviceInfo();
-        this.mSelinuxChanger = new SelinuxChanger();
-        this.mFlasher = new Flasher();
         Menu menu = navigationView.getMenu();
         msm_hotplug = menu.findItem(R.id.nav_msm_mpdecision_hotplug);
         Cputools = menu.findItem(R.id.nav_cputools);
@@ -130,7 +113,9 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         bFlasher = menu.findItem(R.id.nav_flasher);
         mAppUpdates = menu.findItem(R.id.nav_app_updates);
 
-        if (suAvailable) {
+        if (RootTools.isRootAvailable()) {
+            if (RootTools.isAccessGiven()) {
+
             Cputools.setVisible(true);
             Misc.setVisible(true);
             if (CPUTools.hasMsmMPDecisionHotplug())
@@ -141,7 +126,7 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
                 msm_hotplug.setVisible(false);
 
             }
-            this.updateFragment(this.mFragmentCPUTools);
+            this.updateFragment(new CPUToolsFragment());
 
             if (FileUtil.hasSelinux()) {
                 bSelinuxChanger.setVisible(true);
@@ -152,13 +137,24 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
             bOverAllDeviceStatus.setVisible(true);
 
             mFAB.setVisibility(View.VISIBLE);
-
+        }else{
+                Cputools.setVisible(false);
+                Misc.setVisible(false);
+                msm_hotplug.setVisible(false);
+                bSelinuxChanger.setVisible(false);
+                this.updateFragment(new AboutDevice());
+                bOverAllDeviceStatus.setVisible(false);
+                bFlasher.setVisible(false);
+                Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
+                mFAB.setVisibility(View.GONE);
+                Log.i(TAG,"Fuck you");
+            }
         } else {
             Cputools.setVisible(false);
             Misc.setVisible(false);
             msm_hotplug.setVisible(false);
             bSelinuxChanger.setVisible(false);
-            this.updateFragment(this.mAboutDevice);
+            this.updateFragment(new AboutDevice());
             bOverAllDeviceStatus.setVisible(false);
             bFlasher.setVisible(false);
             Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
@@ -195,16 +191,16 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
                             public void onClick(DialogInterface dialog, int which) {
                                 String strName = arrayAdapter.getItem(which);
                                 if (strName.equals("Reboot")) {
-                                    Shell.SU.run("reboot");
+                                    Tools.shell("reboot",true);
                                 }
                                 if (strName.equals("Power Off")) {
-                                    Shell.SU.run("reboot -p");
+                                    Tools.shell("reboot -p",true);
                                 }
                                 if (strName.equals("Soft Reboot")) {
-                                    Shell.SU.run("killall system_server");
+                                    Tools.shell("killall system_server",true);
                                 }
                                 if (strName.equals("Reboot Recovery")) {
-                                    Shell.SU.run("reboot recovery");
+                                    Tools.shell("reboot recovery",true);
                                 }
                             }
                         });
@@ -296,24 +292,24 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         int id = item.getItemId();
 
         if (id == R.id.nav_over_all_device_info) {
-            this.updateFragment(this.mDeviceStatus);
+            this.updateFragment(new OverAllDeviceInfo());
             setTitle("Device Status");
         }
 
         if (id == R.id.nav_cputools) {
-            this.updateFragment(this.mFragmentCPUTools);
+            this.updateFragment(new CPUToolsFragment());
             setTitle("Cpu Tools");
         } else if (id == R.id.nav_msm_mpdecision_hotplug) {
-            this.updateFragment(this.mHotplug);
+            this.updateFragment(new MsmMpdecisionHotplug());
             setTitle("Msm Hotplug");
         } else if (id == R.id.nav_misc) {
-            this.updateFragment(this.mFragmentMisc);
+            this.updateFragment(new MiscFragment());
             setTitle("Misc Stuff");
         } else if (id == R.id.nav_selinux_changer) {
-            this.updateFragment(this.mSelinuxChanger);
+            this.updateFragment(new SelinuxChanger());
             setTitle("Selinux Changer");
         } else if (id == R.id.nav_flasher) {
-            this.updateFragment(this.mFlasher);
+            this.updateFragment(new Flasher());
             setTitle("Flash");
         } else if (id == R.id.nav_app_updates) {
             this.updateFragment(this.mFragmentRelApp);
@@ -328,13 +324,13 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
             this.updateFragment(this.mFragmentRelROM);
             setTitle("Roms");
         } else if (id == R.id.nav_credits) {
-            this.updateFragment(this.mFragmentCredits);
+            this.updateFragment(new CreditsFragment());
             setTitle("Credits");
         } else if (id == R.id.nav_settings) {
-            this.updateFragment(this.mFragmentPreferences);
+            this.updateFragment(new PreferencesFragment());
             setTitle("Settings");
         } else if (id == R.id.nav_about_device) {
-            this.updateFragment(this.mAboutDevice);
+            this.updateFragment(new AboutDevice());
             setTitle("About Device");
         } else if (id == R.id.nav_logout) {
             settings = getSharedPreferences("LoginUser", 0); // 0 - for private mode

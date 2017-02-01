@@ -59,6 +59,7 @@ dependencies {
     compile 'com.github.javiersantos:AppUpdater:2.4'
     compile 'com.github.kngfrhzs:panter-dialog:b12c021695'
     compile 'com.thefinestartist:finestwebview:1.2.7'
+    compile 'com.github.rey5137:material:1.2.4'
 
     testCompile 'junit:junit:4.12'
     compile project(path: ':materialfilepicker')
