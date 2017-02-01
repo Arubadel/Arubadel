@@ -148,6 +148,24 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
                 Toast.makeText(getApplicationContext(), "Device is not rooted . Some options are hidden.", Toast.LENGTH_LONG).show();
                 mFAB.setVisibility(View.GONE);
                 Log.i(TAG,"Fuck you");
+                UpdateDialog = new PanterDialog(MainActivity.this);
+                UpdateDialog.setTitle("Permission not granted ")
+                        .setHeaderBackground(R.color.colorPrimaryDark)
+                        .setMessage("Please grant root permission to enable all features.")
+                        .setNegative("dismiss", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                UpdateDialog.dismiss();
+                            }
+                        })
+                        .setPositive("Grant", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                UpdateDialog.dismiss();
+                            }
+                        });
+                UpdateDialog.show();
+
             }
         } else {
             Cputools.setVisible(false);
