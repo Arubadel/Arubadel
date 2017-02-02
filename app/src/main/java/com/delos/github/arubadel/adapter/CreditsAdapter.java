@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.delos.github.arubadel.R;
+import com.thefinestartist.finestwebview.FinestWebView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,10 +54,7 @@ public class CreditsAdapter extends GithubAdapterIDEA {
                 @Override
                 public void onClick(View v) {
                     Url = "https://github.com/" + contributors[position];
-                    Uri uri = Uri.parse(Url);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    getContext().startActivity(intent);
-
+                    new FinestWebView.Builder(getContext()).show(Url);
                 }
             });
 

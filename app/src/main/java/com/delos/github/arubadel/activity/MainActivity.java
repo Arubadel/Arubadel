@@ -51,7 +51,6 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
-import com.rey.material.app.Dialog;
 import com.sendbird.SendBirdOpenChannelListActivity;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
