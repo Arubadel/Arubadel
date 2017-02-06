@@ -17,55 +17,64 @@
             android:id="@+id/app_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/model_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/platform_release_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/root_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/Ril_class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/board_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/build_discription_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/build_fingerprint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/kernel_version_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 </ScrollView>

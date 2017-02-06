@@ -1,12 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/white</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="android:textColorSecondary">@color/Color_Silver</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,7 +19,7 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
     <style name="FilePickerAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -37,4 +40,5 @@
     <style name="FullScreen.TextAppearance.Title.Inverse" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@android:color/white</item>
     </style>
+
 </resources>

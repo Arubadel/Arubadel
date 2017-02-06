@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
+        android:textColor="@color/white"
         android:text="@string/flash_partition_warning" />
 
     <RadioGroup
@@ -22,14 +23,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/recovery_partition" />
+            android:text="@string/recovery_partition"
+            android:textColor="@color/white"/>
 
         <RadioButton
             android:id="@+id/activity_vflasher_radio_kernel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/kernel_partition" />
+            android:text="@string/kernel_partition"
+            android:textColor="@color/white"/>
 
     </RadioGroup>
 
@@ -41,7 +44,8 @@
         android:padding="10dp"
         android:text="file_address"
         android:textSize="15sp"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:textColor="@color/white"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -54,6 +58,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:background="@color/button_background"
+            android:padding="5dp"
             android:text="@string/flash_partition" />
 
     </LinearLayout>

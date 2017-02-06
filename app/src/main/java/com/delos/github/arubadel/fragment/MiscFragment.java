@@ -1,5 +1,6 @@
 package com.delos.github.arubadel.fragment;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,7 +31,7 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class MiscFragment extends Fragment {
     private ShellUtils mShell;
-    private TextView mInfoText, mFastChargetText, mMpdDecision_text;
+    private TextView mInfoText, mFastChargetText, mMpdDecision_text,fsync_text,deep_sleep_text;
     private SwitchCompat mADBSwitcher;
     private SwitchCompat mFastChargeSwitcher;
     private SwitchCompat mMPDecision;
@@ -48,18 +49,49 @@ public class MiscFragment extends Fragment {
         this.mShell = ((Activity) getActivity()).getShellSession();
         View view = inflater.inflate(R.layout.fragment_misc, container, false);
 
+        //Custom font
+        final Typeface fontRegular=Typeface.createFromAsset(getContext().getAssets(), "fonts/dosisRegular.ttf");
+
         mADBSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_adb_switcher);
+        mADBSwitcher.setTypeface(fontRegular);
+
         mInfoText = (TextView) view.findViewById(R.id.fragment_misc_info_text);
+        mInfoText.setTypeface(fontRegular);
+
         mFastChargeSwitcher = (SwitchCompat) view.findViewById(R.id.fragment_misc_fastcharge_switch);
+        mFastChargeSwitcher.setTypeface(fontRegular);
+
         mMPDecision = (SwitchCompat) view.findViewById(R.id.fragment_cputools_mpdecision_switch);
+        mMPDecision.setTypeface(fontRegular);
         mMPDecision.setVisibility(View.GONE);
+
         mGovernor = (Button) view.findViewById(R.id.governor_button);
+        mGovernor.setTypeface(fontRegular);
+
         mTcp = (Button) view.findViewById(R.id.tcp_congestion_control);
+        mTcp.setTypeface(fontRegular);
+
         mDeepSleep = (SwitchCompat) view.findViewById(R.id.fragment_misc_deep_sleep);
+        mDeepSleep.setTypeface(fontRegular);
+
         mGpuFreq = (Button) view.findViewById(R.id.gpu_freq_control);
+        mGpuFreq.setTypeface(fontRegular);
+
         mFsyncButton = (SwitchCompat) view.findViewById(R.id.fragment_cputools_dyn_fsync_switch);
+        mFsyncButton.setTypeface(fontRegular);
+
         mFastChargetText = (TextView) view.findViewById(R.id.fragment_misc_fastcharge_text);
+        mFastChargetText.setTypeface(fontRegular);
+
         mMpdDecision_text = (TextView) view.findViewById(R.id.MpdDecision_text);
+        mMpdDecision_text.setTypeface(fontRegular);
+
+        fsync_text = (TextView)view.findViewById(R.id.fsync_text);
+        fsync_text.setTypeface(fontRegular);
+
+        deep_sleep_text = (TextView)view.findViewById(R.id.deep_sleep_text);
+        deep_sleep_text.setTypeface(fontRegular);
+
         mFastChargeSwitcher.setVisibility(View.GONE);
         mFastChargetText.setVisibility(View.GONE);
         mGpuFreq.setVisibility(View.GONE);

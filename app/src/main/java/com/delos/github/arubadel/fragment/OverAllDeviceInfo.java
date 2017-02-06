@@ -1,5 +1,6 @@
 package com.delos.github.arubadel.fragment;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,6 +39,13 @@ public class OverAllDeviceInfo extends Fragment {
         mBatteryTmp = (TextView) view.findViewById(R.id.battery_tmp);
         mGpuStatus.setVisibility(View.GONE);
         mBatteryVoltage = (TextView) view.findViewById(R.id.battery_voltage);
+
+        //Custom font
+        final Typeface fontRegular=Typeface.createFromAsset(getContext().getAssets(), "fonts/dosisRegular.ttf");
+        mGpuStatus.setTypeface(fontRegular);
+        mBatteryTmp.setTypeface(fontRegular);
+        mBatteryVoltage.setTypeface(fontRegular);
+
         Thread t = new Thread() {
 
             @Override

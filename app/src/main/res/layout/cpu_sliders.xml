@@ -18,7 +18,8 @@
         android:layout_marginRight="6dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="5dp"
-        card_view:cardElevation="3dp">
+        card_view:cardElevation="3dp"
+        card_view:cardBackgroundColor="@color/button_background">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -39,6 +40,7 @@
                     android:id="@+id/cpu_sliders_max_low_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:text="0MHz" />
 
                 <SeekBar
@@ -51,7 +53,8 @@
                     android:id="@+id/cpu_sliders_max_high_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0MHz" />
+                    android:text="0MHz"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 
@@ -67,7 +70,8 @@
                     android:id="@+id/cpu_sliders_min_low_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0MHz" />
+                    android:text="0MHz"
+                    android:textColor="@color/white"/>
 
                 <SeekBar
                     android:id="@+id/cpu_sliders_min_seekbar"
@@ -79,7 +83,8 @@
                     android:id="@+id/cpu_sliders_min_high_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0MHz" />
+                    android:text="0MHz"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
         </LinearLayout>

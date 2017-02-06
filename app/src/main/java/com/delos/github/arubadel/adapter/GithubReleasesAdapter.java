@@ -2,6 +2,7 @@ package com.delos.github.arubadel.adapter;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -65,6 +66,11 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA {
         TextView betaWarningText = (TextView) convertView.findViewById(R.id.list_release_beta_release_warning);
         final Button actionButton = (Button) convertView.findViewById(R.id.list_release_action_button);
 
+        //Custom Font
+        final Typeface fontRegular=Typeface.createFromAsset(getContext().getAssets(), "fonts/dosisRegular.ttf");
+
+        betaWarningText.setTypeface(fontRegular);
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,10 +100,11 @@ public class GithubReleasesAdapter extends GithubAdapterIDEA {
                 title += " " + tag;
             }
             text1.setText(title);
+            text1.setTypeface(fontRegular);
 
             if (release.has("body"))
                 text2.setText(release.getString("body"));
-
+                text2.setTypeface(fontRegular);
             if (release.has("assets")) {
                 JSONArray assets = release.getJSONArray("assets");
 

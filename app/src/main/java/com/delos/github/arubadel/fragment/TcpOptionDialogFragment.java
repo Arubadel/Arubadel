@@ -33,7 +33,6 @@ public class TcpOptionDialogFragment extends DialogFragment {
 
         dialogBuilder.setTitle(getString(R.string.choose_tcp));
         //dialogBuilder.setMessage("What would like to do?");
-
         dialogBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

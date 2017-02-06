@@ -11,6 +11,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:text="@string/download"
+        android:background="@color/button_background"
+        android:padding="5dp"
         android:visibility="gone" />
 
     <LinearLayout
@@ -45,6 +47,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="16dp"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
         </LinearLayout>

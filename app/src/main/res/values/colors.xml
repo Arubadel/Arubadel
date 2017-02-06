@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#444153</color>
+    <color name="colorPrimaryDark">#444153</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorInfo">#2b7b00</color>
     <color name="colorBetaRelease">#7b0008</color>
@@ -27,4 +27,6 @@
     <color name="dark_gray">#ffb3b3b3</color>
     <color name="very_dark_gray">#636363</color>
     <color name="background">#e9e3dd</color>
+    <color name="dark_background">#383547</color>
+    <color name="button_background">#444153</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.delos.github.arubadel.fragment;
 
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -69,6 +70,8 @@ public class AboutDevice extends Fragment {
         mRoot_Status = (TextView) rootView.findViewById(R.id.root_status);
         mApp_version = (TextView) rootView.findViewById(R.id.app_version);
 
+        //Custom font
+        final Typeface fontRegular=Typeface.createFromAsset(getContext().getAssets(), "fonts/dosisRegular.ttf");
 
         try {
             App_version = getActivity().getApplicationContext().getPackageManager().getPackageInfo(getActivity().getApplicationContext().getPackageName(), 0).versionName;
@@ -76,16 +79,33 @@ public class AboutDevice extends Fragment {
             e.printStackTrace();
         }
         mApp_version.setText("App Version :- " + App_version + "\n");
+        mApp_version.setTypeface(fontRegular);
 
         model_text.setText("Model Number :- " + model() + "\n");
+        model_text.setTypeface(fontRegular);
+
         mplatform_release_text.setText("Device Version :- " + platform_release() + "\n");
+        mplatform_release_text.setTypeface(fontRegular);
+
         mRil_class.setText("Ril Class :- " + ril_class() + "\n");
+        mRil_class.setTypeface(fontRegular);
+
         mBoard.setText("Device Board :- " + board() + "\n");
+        mBoard.setTypeface(fontRegular);
+
         mKernel_version.setText("Kernel Version :- " + kernel_version() + "\n");
+        mKernel_version.setTypeface(fontRegular);
+
         mBuild_description.setText("Build Description :- " + build_description() + "\n");
+        mBuild_description.setTypeface(fontRegular);
+
         mBuild_fingerprint.setText("Build FingerPrint :- " + build_fingerprint() + "\n");
+        mBuild_fingerprint.setTypeface(fontRegular);
+
+        mRoot_Status.setTypeface(fontRegular);
         if (Shell.hasRoot()) {
             mRoot_Status.setText("Root Status :- Rooted" + "\n");
+
         } else {
             mRoot_Status.setText("Root Status :- Not Rooted :(" + "\n");
         }

@@ -14,14 +14,18 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/Permissive_button"
         android:layout_centerInParent="true"
-        android:text="Enforcing" />
+        android:text="Enforcing"
+        android:layout_margin="5dp"
+        android:background="@color/button_background"/>
 
     <Button
         android:id="@+id/Permissive_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Permissive" />
+        android:text="Permissive"
+        android:layout_margin="5dp"
+        android:background="@color/button_background"/>
 
     <TextView
         android:id="@+id/selinux_status_textView"
@@ -30,7 +34,8 @@
         android:layout_alignEnd="@+id/Enforcing_button"
         android:layout_alignRight="@+id/Enforcing_button"
         android:layout_marginTop="69dp"
-        android:text="Getting Selinux Data" />
+        android:text="Getting Selinux Data"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/textView"
@@ -39,6 +44,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="103dp"
+        android:textColor="@color/white"
         android:text="@string/Selinux_warning" />
 
 </RelativeLayout>

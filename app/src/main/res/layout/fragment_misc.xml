@@ -18,6 +18,7 @@
             android:paddingRight="15dp"
             android:paddingTop="8dp"
             android:text="ADB Wireless"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <TextView
@@ -27,6 +28,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/no_network_available"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <View
@@ -42,6 +44,7 @@
             android:paddingRight="15dp"
             android:paddingTop="8dp"
             android:text="@string/usb_fast_charge"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <TextView
@@ -51,7 +54,8 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/usb_fast_charge_description"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/white"/>
 
         <View
             android:layout_width="match_parent"
@@ -66,6 +70,7 @@
             android:paddingRight="15dp"
             android:paddingTop="8dp"
             android:text="MPDecision"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <TextView
@@ -76,6 +81,7 @@
             android:paddingRight="15dp"
             android:text="@string/mpdecision_description"
             android:textSize="14sp"
+            android:textColor="@color/white"
             android:visibility="gone" />
 
         <android.support.v7.widget.SwitchCompat
@@ -87,13 +93,16 @@
             android:paddingRight="15dp"
             android:paddingTop="8dp"
             android:text="Dynamic Fsync"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/fsync_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:textColor="@color/white"
             android:text="@string/fsync_description"
             android:textSize="14sp" />
 
@@ -107,20 +116,29 @@
             android:paddingRight="15dp"
             android:paddingTop="8dp"
             android:text="Deep Sleep"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/deep_sleep_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/deep_sleep_info"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/governor_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/button_background"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:paddingBottom="8dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -132,6 +150,12 @@
             android:id="@+id/gpu_freq_control"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/button_background"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:paddingBottom="8dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -144,6 +168,12 @@
             android:id="@+id/tcp_congestion_control"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/button_background"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:paddingBottom="8dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
